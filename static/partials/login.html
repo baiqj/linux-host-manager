@@ -1,0 +1,15 @@
+<form class="form-signin" role="form"  ng-submit="login()" onsubmit="return false" method="get" action="/">
+
+    <h2 class="form-signin-heading text-center">用户登陆</h2>
+    
+    <input type="text"  ng-model="username" class="form-control" placeholder="用户名" required autofocus>
+    <input type="password" ng-model="password" class="form-control" placeholder="密码" required >
+
+    <div class="col-lg-6 col-sm-6" style="padding-left:0"><input type="text" class="form-control" placeholder="{{username}}" required></div>
+	<div class="col-lg-6 col-sm-6" style="padding-right:0"><input type="text" class="form-control" placeholder="验证码" required></div>
+
+    <button  type="submit" id="login" class="btn btn-lg btn-primary btn-block"  ng-disabled="processing" >登 陆</button>
+	<div class="pull-right"><a  href="#/main"> 忘记密码?</a>	</div>
+</form>
+
+
