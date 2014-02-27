@@ -1,0 +1,278 @@
+1、获取本地IP地址
+
+#ifconfig  eth0  | grep  "inet addr" | awk  '{print $2}' | awk -F:  '{print $2}'
+
+
+2、修改配置参数
+
+
+# sed  -i  's/修改前/修改后/g'      文件                          （替换指定的内容）
+
+# sed  -ire   '/匹配关键字/c替换内容'              文件          （整行替换关键字所在的行）
+
+
+
+3.显示文件指定行的内容
+
+
+sed -n '8p' test.c 
+sed -n '8,1p'  test.c
+
+sed  -n  ''$i',1p'   /etc/httpd/conf/httpd.conf      
+
+
+4.查看特定行之间的内容
+
+sed  -n  '5,9p'   /etc/httpd/conf/httpd.conf   #显示第五行到第九行之间的内容
+
+
+5.查看包含特定内容行之后的文件内容
+
+
+
+
+
+6.将命令执行结果赋值给变量
+
+
+a=`/bin/cat    /etc/issue  |  grep  CentOS  | wc  -l`
+
+
+
+7、 判断变量和整数值的大小
+
+
+if  (( i >=  3))   #此处i为变量，此处双括号内引用变量i，不用使用$.
+
+
+8、变量自增
+
+i=`expr  $i +  2`
+
+i=`expr  200 - $i`
+
+
+9、变量的重复应用
+
+`    `` `
+
+10、双引号和单引号引用的区别
+
+
+11、怎么将两个变量合并输出
+
+
+echo  "$FILE_PATH$FILE_NAME"  >>   /root/vhost_file.list  
+
+
+12.FOR循环中应用变量不用加$符号
+
+for  ((i=1;i<=ABSOLUTE_LINE;i++))
+
+
+13、查看指定目录下的特定类型文件
+
+# find  /etc/*.conf 
+
+
+14.文件行数的统计
+
+wc  -l   $name  |  awk   '{print  $1}'
+
+
+15.对多个条件进行判断
+
+if  [  $COUNT_1  -eq  $ONE ] || [ $COUNT_2  -eq  $ONE ]
+
+
+16.多个条件同时满足的行截取
+
+# rpm  -qc  nginx  | grep   "nginx.conf"
+
+/etc/nginx/conf.d/default.conf
+/etc/nginx/conf.d/example_ssl.conf
+/etc/nginx/nginx.conf
+
+
+# rpm  -qc  nginx |  grep  "nginx\.conf"文件
+
+/etc/nginx/nginx.conf
+
+以“；”为间隔符号
+
+ awk  -F";"   'print  $1' 
+
+
+以关键字结尾
+
+locate    nginx   |  grep  "nginx$"  
+
+
+将命令结果输出重定向
+
+# nginx  -V  &>  ./log   有结果
+# nginx  -V   >  ./log   没有结果
+
+
+locate 使用名称进行查找
+
+locate   filename      #默认支持匹配符，如“*”
+locate    *.conf
+
+
+
+grep   -Ev   '^#|^$'    file   不包含#或不是空号的文件内容
+
+grep   “conf$”   file        以conf结尾的的内容
+
+删除所有行的行首的空格
+
+sed   -ire  's/^[[:space:]]*//g'    文件名
+
+删除空行
+
+sed '/^ *$/d'   file
+
+
+显示结果所在的行号
+grep  -n   
+
+# grep  -n   '\-->'   server.xml     （查找不包含-- >的行） 
+# grep    '-->'   server.xml
+
+截取包含单引号的行
+
+# grep   "'"  httpd.conf
+
+截取包含单引号的行
+
+# grep  '"'   httpd.conf
+
+截取包含单引号或双引号的行
+
+# egrep   [\'\"]  httpd.conf 
+
+# grep   -E  "\.*'\.*|\.*\"\.*"  httpd.conf 
+
+
+将双引号替换成空格
+
+#sed  -i   's/"/ /g'     $RESULT_PATH/conf.list
+
+sed  -i   's/"/ /g'     $RESULT_PATH/conf.list
+
+grep  -h   关键字   -r（递归查找）*    列出当前目录下包含关键字的行
+grpe  -l   关键字   -d（不查找下级目录）*    列出当前目录下包含关键字的文件名称
+
+明确要求搜索子目录：grep -r
+或忽略子目录：grep -d skip
+
+grep -i pattern files ：不区分大小写地搜索。默认情况区分大小写，
+grep -l pattern files ：只列出匹配的文件名，
+grep -L pattern files ：列出不匹配的文件名，
+grep -w pattern files ：只匹配整个单词，而不是字符串的一部分（如匹配‘magic’，而不是‘magical’），
+grep -C number pattern files ：匹配的上下文分别显示[number]行，
+grep pattern1 | pattern2 files ：显示匹配 pattern1 或 pattern2 的行，
+grep pattern1 files | grep pattern2 ：显示既匹配 pattern1 又匹配 pattern2 的行。
+
+
+这里还有些用于搜索的特殊符号：
+< 和 > 分别标注单词的开始与结尾。
+例如：
+grep man * 会匹配 ‘Batman’、‘manic’、‘man’等，
+grep \'<man\' * 匹配‘manic’和‘man’，但不是‘Batman’，
+grep \'<man>\' 只匹配‘man’，而不是‘Batman’或‘manic’等其他的字符串。
+\'^\'：指匹配的字符串在行首，
+\'$\'：指匹配的字符串在行尾，
+
+
+解压并覆盖
+
+tar zcvf mysql.tar.gz -P /var/lib/mysql
+
+解压到当前目录
+
+tar zcvf mysql.tar.gz
+
+
+解压到指定目录
+
+tar zxvf mysql.tar.gz -C /home/
+
+
+
+Linux shell变量数学运算
+
+1)  Linux shell 中使用 let , [ ] ,(( )) 三种运算符操作 shell 变量进行简单的基本运算；
+2）Linux shell 中使用 expr 与 bc 两个程序实现高级运算；
+
+
+1.1 let 命令可以用于直接执行基本操作：
+ 当我使用 let 的时候，我们不使用 $ 符号引用变量。
+
+no1=7;
+no2=8;
+
+echo "------------ let command -------------"
+let no1++;
+let no2--;
+let no1+=3;
+let no2-=5;
+let result=no1+no2;
+
+
+
+1.2 " [ ] "运算符跟 let 命令很相似：
+"[ ]" 运算符里面可以使用 $ 符号引用变量，同时支持变量名与运算符之间不带空格。
+echo "----------------- [] operator ----------------"
+printf "no1:%d no2:%d \n" $no1 $no2;
+result1=$[ no1 + no2 ];
+printf "result1 = %d \n" $result1;
+result2=$[no1+no2 + 7];
+printf "result2 = %d \n" $result2;
+result3=$[ $no1+$no2+5 ];
+printf "result3 = %d \n" $result3;
+no2=$[ no2 + 1 ];
+printf "no1 = %d no2 = %d \n" $no1 $no2;
+
+
+1.3 " (( )) " 运算符跟 " [ ] " 运算符一样：
+同样支持使用 $ 符号引用变量进行基本运算，同时支持变量名与运算符之间不带空格。
+
+echo "----------------- (( )) operator --------------"
+printf "no1: %d no2: %d \n" $no1 $no2;
+result1=$(( no1 + no2 ));
+printf "result1 = %d \n" $result1;
+result2=$((no1+no2+3));
+printf "result2 = %d \n" $result2;
+result3=$(( $no1+$no2 + 5))
+printf "result3 = %d \n" $result3;
+
+
+1.4 "expr" 命令同样可以用于变量的基本运算：
+"expr" 命令同样支持 $ 符号引用变量进行基本运算，但是变量与运算符之间必须使用空格作为分隔符；
+在使用 "expr" 命令对变量进行运算后，整个表达式必须使用 " · expression · " 的模式赋值给变量，即包含在 " ` " 符里面，
+并且等效于 " $( expression ) " 模式。
+echo "---------------- expr command ---------------"
+printf "no1: %d no2: %d \n" $no1 $no2;
+result1=`expr 3 + 4`;
+printf "result1 = %d \n" $result1;
+result2=`expr $no1 + 4`;
+printf "result2 = %d \n" $result2;
+result3=`expr $no1 + $no2`;
+printf "result3 = %d \n" $result3;
+result4=`expr $no1+$no2`;
+printf "result4 = %d \n" $result4;
+result5=$(expr $no1 + 3);
+printf "result5 = %d \n" $result5;
+result6=$(expr $no1+4);
+printf "result6 = %d \n" $result6;
+result7=$(expr $no1+$no2);
+printf "result7 = %d \n" $result7;
+
+
+
+上面所述的四种shell中执行变量运算的方式中不支持浮点运算！
+
+
+
