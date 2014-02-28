@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.6
 #-*- coding: utf-8 -*-
-# use UTF-8 encode
+#
 # Copyright (c) 2012, VPSMate development team
 # All rights reserved.
 #
