@@ -1,0 +1,74 @@
+<div class="row">
+	<div class="col-lg-5 col-lg-offset-3">
+		<input type="text" class="form-control" ng-model="domainName" placeholder="网站域名" required><br /><br />
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-4 col-sm-4">
+ 		<table class="table">   
+      		<tbody>  
+       			<tr>  
+      		   	 <td style="text-align: center; vertical-align: middle; width:10px;"><input type="checkbox" ng-model="php"></td>  
+      		   	 <td ><img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive"></td> 
+     	    	</tr>
+        		<tr>
+        			<td >
+        				<select ng-model="php_version">
+                			<option value="0">--版本选择--</option>
+                      <option ng-repeat="version in php_versions" value="{{version}}">{{version}}</option>
+              			</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-lg-4 col-sm-4">
+ 		<table class="table">   
+      		<tbody>  
+       			<tr>  
+      		   	 <td style="text-align: center; vertical-align: middle; width:10px;"><input type="checkbox" ng-model="http"></td>  
+      		   	 <td ><img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive"></td> 
+     	    	</tr>
+        		<tr>
+        			<td >
+        				<select ng-model="http_version">
+                    <option value="0">--版本选择--</option>
+                    <option ng-repeat="version in http_versions" value="{{version}}">{{version}} </option>
+              	</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="col-lg-4 col-sm-4">
+ 		<table class="table">   
+      		<tbody>  
+       			<tr>  
+      		   	 <td style="text-align: center; vertical-align: middle; width:10px;"><input type="checkbox"  class="style2" ng-model="mysql" /></td>  
+      		   	 <td ><img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive"></td> 
+     	    	</tr>
+        		<tr>
+        			<td >
+                <select ng-model="mysql_version">
+                      <option value="0">---版本选择---</option>
+                      <option ng-repeat="version in mysql_versions" value="{{version}}">{{version}}</option>
+                </select>
+					    </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div><br/><br/>
+  <div class="row">&nbsp;&nbsp;&nbsp;&nbsp;数据库编码:&nbsp;&nbsp;&nbsp;&nbsp;
+  <label><input type="radio" ng-model="charsetOpt"  value="utf-8" />UTF-8</label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <label><input type="radio" ng-model="charsetOpt"  value="gbk2312" />GBK2312</label>
+</div>
+<br/><br/><br/>
+<div class="row">
+	<button  type="submit" id="login" class="btn btn-primary btn-lg col-lg-2 col-lg-offset-5"  ng-click="submit()">一键安装</button>
+</div>
+

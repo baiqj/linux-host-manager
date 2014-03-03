@@ -1,0 +1,65 @@
+<div class="row">
+    <table class="table table-striped">  
+      <thead>  
+        <tr>
+          <th>软件名称</th>  
+          <th>软件简介</th>
+          <th>安装进度</th>  
+        </tr>  
+      </thead> 
+      <tbody>  
+        <tr>  
+          <td style="width:10px;">MySQL</td>  
+          <td style="width:60px;text-align: left;"><h6>MySQL是世界上最流行的开源数据库。无论您是一个快速成长的Web应用企业，独立软件开发商或是大型企业，MySQL都能经济有效地帮助您交付高性能，可扩展的数据库应用。</h6></td> 
+          <td style="width:50px;">安装完成</td>
+        </tr>
+        <td style="width:10px;">MySQL</td>  
+          <td style="width:60px;">MySQL introduction</td> 
+          <td style="width:50px;">正在安装...</td>
+        </tr>
+        <tr>  
+          <td style="width:10px;">Httpd</td>  
+          <td style="width:60px;">Httpd introduction</td> 
+          <td style="width:50px;">等待安装</td>
+        </tr>
+        <tr>  
+          <td style="width:10px;">Httpd</td>  
+          <td style="width:60px;">Httpd introduction</td> 
+          <td style="width:50px;">等待安装</td>
+        </tr>
+        <tr>  
+          <td style="width:10px;">Httpd</td>  
+          <td style="width:60px;">Httpd introduction</td> 
+          <td style="width:50px;">等待安装</td>
+        </tr>
+        <tr>  
+          <td style="width:10px;">Httpd</td>  
+          <td style="width:60px;">Httpd introduction</td> 
+          <td style="width:50px;">等待安装</td>
+        </tr>
+      </tbody>  
+    </table> 
+</div>
+<div class="row">
+  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  安装完成
+</button>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">安装完成</h4>
+      </div>
+      <div class="modal-body">
+        <div ng-show="isDNS">您的域名 www.kyyj.net 还未完成DNS解析，请到域名管理中心完成 解析，然后通过浏览器访问 www.kyyj.net</div>
+        .安装完成,请访问<a href="http://www.baidu.com" target="_blank">www.baidu.com.</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="isDNS = !isDNS">Not available</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
