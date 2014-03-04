@@ -43,14 +43,15 @@ body {
 .form-signin button:hover{
 	background-color: #4D94C0;
 }
-.form-signin div a:visited{color: #FFFFFF}
-.form-signin div a:hover{color: #FFFFFF; TEXT-DECORATION:none;}
+.form-signin div a:visited{color: #000081}
+.form-signin div a:hover{color: #0000FF; TEXT-DECORATION:none;}
 
 #footer {
   height: 40px;
   margin-top: 60px;
   background-color: #FFFFFF;
 }
+
 
 .banner { position: relative; overflow: auto; }
 .banner li { list-style: none; }
@@ -94,6 +95,7 @@ transition:transform 2s,opacity 2s;
 }
 
 .ring li{opacity:1;
+
 }
 
 .ring li:nth-child(1) {
@@ -144,10 +146,3 @@ transform:rotate(300deg);
 transform:rotate(360deg);
 }
 
-.ring li label {
-  -webkit-transform:rotate(90deg);
-  -moz-transform:rotate(90deg);
-  -ms-transform:rotate(90deg);
-  -o-transform:rotate(90deg);
-  transform:rotate(90deg);
-}

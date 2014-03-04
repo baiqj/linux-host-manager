@@ -1,33 +1,4 @@
 angular.module('cloudAppDirectives', []).
-directive('noticebar', function(){
-	return {
-		restrict: 'EA',
-		transclude: true,
-		scope: {dataResource: "@dataResource"},
-		controller: ['$scope', function($scope){
-			$('#noticebar').carousel({
-        		interval: 3000
-      		});
-      		$scope.testvar = "TestVar";
-      		//dataResource = "TestResource";
-
-	}],
-		template: '<div><div id="noticebar" class="carousel slide">\
-			<div class="carousel-inner">\
-    			<div class="item active">\
-      				<a href="11111111111111111">Var is {{testvar}}</a>\
-        		</div>\
-       			<div class="item">\
-        			<a href="2222222222222">dataResource is {{dataResource}}</a>\
-        		</div>\
-        		<div class="item">\
-        			<a href="#/sites/lnmp">333333333</a>\
-        		</div>\
-  			</div>\
-		</div></div>',
-		replace: true
-	};
-}).
 directive('navbar', function(){
 	return {
 		restrict: 'A',
@@ -61,6 +32,25 @@ directive('navbar', function(){
   				<li><a href="#/sites/create">一键建站</a></li>\
   				<li><a href="#/sites/lamp">一键LAMP</a></li>\
   				<li><a href="#/sites/lnmp">一键LNMP</a></li>\
+  				<li><a href="#/sites/lnmp">一键优化</a></li>\
+			</ul>\
+		</accordion-group>\
+		<accordion-group href="#/OneKey"  heading="站点管理" is-open="false">\
+  			<ul class="nav nav-pills nav-stacked">\
+  				<li><a href="#/sites/create">一键备份</a></li>\
+  				<li><a href="#/sites/lamp">网站迁移</a></li>\
+			</ul>\
+		</accordion-group>\
+		<accordion-group href="#/OneKey"  heading="软件管理" is-open="false">\
+  			<ul class="nav nav-pills nav-stacked">\
+  				<li><a href="#/sites/create">软件仓库</a></li>\
+  				<li><a href="#/sites/lamp">软件配置</a></li>\
+			</ul>\
+		</accordion-group>\
+		<accordion-group href="#/OneKey"  heading="系统管理" is-open="false">\
+  			<ul class="nav nav-pills nav-stacked">\
+  				<li><a href="#/sites/create">系统监控</a></li>\
+  				<li><a href="#/sites/lamp">用户列表</a></li>\
 			</ul>\
 		</accordion-group>\
  	 </accordion></div>',

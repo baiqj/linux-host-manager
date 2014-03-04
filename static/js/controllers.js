@@ -11,13 +11,32 @@ cloudAppControllers.controller('loginCtrl', ['$scope',  'Request',
 	 //$scope.bookname = 'bookname-value';
   }]);
 
-cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope',
-  function($rootScope,$scope){
+cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout',
+  function($rootScope,$scope,$timeout){
 	/* custom code section */
   $rootScope.htmlTitle = "首页";
 
   // get system base information from server
-  $scope.sys_info = {os: 'RedHat', time: '12:23:56',run_time: '27:34:21',sys_Load: '56%', CPU:'core i5',Memory:'4096M',IP:'211.45.233.14'};
+  $scope.sys_info = {os: 'RedHat', currenttime: 1,run_time: 0,sys_Load: '56%', CPU:'core i5',Memory:'4096M',IP:'211.45.233.14'};
+
+  $scope.Ctrl = function(){
+    //custome code about your function
+    var myDate = new Date();
+    $scope.sys_info.currenttime=myDate.toLocaleTimeString();
+    // end your function codes
+
+    var countUp = function() {
+      // custom code about your function
+        var myDate = new Date();
+        $scope.sys_info.currenttime=myDate.toLocaleTimeString();
+      // end your function code
+        $timeout(countUp, 1000);
+    }
+
+    $timeout(countUp, 1000);
+    }
+    $scope.Ctrl();
+
   }]);
 
 cloudAppControllers.controller('OneKeyCtrl', ['$rootScope','$scope',

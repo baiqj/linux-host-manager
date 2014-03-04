@@ -58,6 +58,9 @@ run(['$rootScope', '$location', '$timeout',function($rootScope, $location,$timeo
 
   // from server get notice itmes and set variable items;
   $rootScope.items = [ {title:"second item",href:"dddd"},{title:"thire item",href:"22222"},{title:"forth item",href:"ddddd"} ];
+  $rootScope.itemIndex = $rootScope.items[0];
+  $rootScope.items.splice(0,1);
+
 
   $rootScope.$on('$locationChangeSuccess', function () {
       var currentPath = $location.path();
