@@ -8,7 +8,27 @@ cloudAppControllers.controller('loginCtrl', ['$scope',  'Request',
   function($scope, Request) {
   
 	/* code section */
-	 //$scope.bookname = 'bookname-value';
+	var password_strength = function(pwd) {
+    var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+    var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+    var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+    if (false == enoughRegex.test(pwd)) {
+      return '无安全性可言';
+    } else if (strongRegex.test(pwd)) {
+      return '高';
+    } else if (mediumRegex.test(pwd)) {
+      return '一般';
+    } else {
+      return '低';
+    }
+  };
+
+  $scope.login = function(){
+    var result = password_strength($scope.password);
+    console.log(result);
+  }
+
+
   }]);
 
 cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout',
@@ -17,7 +37,27 @@ cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout',
   $rootScope.htmlTitle = "首页";
 
   // get system base information from server
-  $scope.sys_info = {os: 'RedHat', currenttime: 1,run_time: 0,sys_Load: '56%', CPU:'core i5',Memory:'4096M',IP:'211.45.233.14'};
+  $scope.sys_info = { os_dist: 'CentOS 6.5 Final', 
+                      run_time: '0天3小时40分34秒',
+                      cpu_load: '56%',
+                      memory_usage:'43%',
+                      nic_info:[
+                                {
+                                  name:'eth0',
+                                  upload_rate:'上行120k/s', 
+                                  download_rate:'下行160k/s'
+                                },
+                                {
+                                  name:'eth1',
+                                  upload_rate:'上行110k/s', 
+                                  download_rate:'下行150k/s'
+                                }
+                              ],
+                      disk_info:[ 
+                                  { name:'disk1',avai_space:'100G'},
+                                  { name:'disk2',avai_space:'120G'}
+                                ],
+                    };
 
   $scope.Ctrl = function(){
     //custome code about your function
