@@ -5,11 +5,11 @@ SUM=`find  /  -name "phpize"  -a -type f  -a  -perm +111 | wc  -l`
 
 if  [ $SUM  -eq  0  ]
 then
-        yum clean all
+	yum clean all
 
-        yum repolist
+	yum repolist
 
-        `rpm -qa | grep "php-devel"`  ||  yum install -y php-devel
+	`rpm -qa | grep "php-devel"`  ||  yum install -y php-devel
 else
 fi
 
@@ -36,9 +36,19 @@ make   &&  make  install
 
 if  [ -f /usr/lib64/php/modules/suhosin.so ] 
 then
-        echo  'extension=suhosion.so'   >>  $CONF_PATH 
-        echo  'suhosin.executor.disable_eval = on'  >>  $CONF_PATH
+	echo  'extension=suhosion.so'   >>  $CONF_PATH 
+	echo  'suhosin.executor.disable_eval = on'  >>  $CONF_PATH
+	
+	rm  -rf  /usr/local/resault/suhosin-0.9.35
 else
-        echo 'shhosin module is not exist!!!'
+	echo 'suhosin module is not exist!!!'
 fi
+
+
+
+
+
+
+
+
 

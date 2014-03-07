@@ -18,18 +18,26 @@ if [ -f  /usr/local/backup/php.ini.old ]
 
 then
 
-sed  -i  '/^error_reporting =/d'        $CONF_PATH
-echo  "error_reporting = E_WARNING & E_ERROR"   >>      $CONF_PATH
+sed  -i  '/^error_reporting =/d'    	$CONF_PATH
+echo  "error_reporting = E_WARNING & E_ERROR"	>>  	$CONF_PATH
 
-sed  -i  '/^display_error =/d'          $CONF_PATH
-echo  "display_errors = Off"                    >>      $CONF_PATH
+sed  -i  '/^display_error =/d'		$CONF_PATH
+echo  "display_errors = Off"			>>	$CONF_PATH
 
-sed  -i  '/^log_errors =/d'             $CONF_PATH
-echo  "log_errors = On"                                 $CONF_PATH
+sed  -i  '/^log_errors =/d'		$CONF_PATH
+echo  "log_errors = On"					$CONF_PATH
 
-sed  -i '/^error_log =/d'               $CONF_PATH
+sed  -i '/^error_log =/d'		$CONF_PATH
 echo  "error_log = /var/log/php_error.log"
 
 else 
-        echo '###please run backup.sh first!!!###'
+      	echo '###please run backup.sh first!!!###'
 fi
+
+
+
+
+
+ 
+
+
