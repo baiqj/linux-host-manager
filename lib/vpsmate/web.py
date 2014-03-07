@@ -452,6 +452,7 @@ class QueryHandler(RequestHandler):
             'meminfo'      : True,
             'mounts'       : True, 
             'netifaces'    : True,
+            'rxtx'         : True,
             'nameservers'  : True,
             'distribution' : False,
             'uname'        : False, 
