@@ -212,6 +212,27 @@ class Server(object):
                 dev = os.stat(mount['path']).st_dev
                 mount['major'], mount['minor'] = os.major(dev), os.minor(dev)
         return mounts
+    
+    @classmethod
+    def rxtx(self):
+        rxtx = []
+        with open('/proc/net/dev', 'r') as f:
+            for line in f:
+                if not ':' in line: continue
+                name, data = line.split(':')
+                name = name.strip()
+                data = data.split()
+                rx = int(data[0])
+                tx = int(data[8])
+                rxtx.append(dict(
+                    name=name,
+                    rx=b2h(rx),
+                    tx=b2h(tx),
+                    timestamp=int(time.time()),
+                    rx_bytes=rx,
+                    tx_bytes=tx
+                ))
+        return rxtx
 
     @classmethod
     def netifaces(self):
@@ -513,10 +534,10 @@ class Server(object):
                 swapptns.append(fields[0].replace('/dev/', ''))
 
         for part in parts:
-            name = part['name']
-            major = part['major']
-            minor = part['minor']
-            blocks = part['blocks']
+            name 	= part['name']
+            major 	= part['major']
+            minor 	= part['minor']
+            blocks 	= part['blocks']
 
             # check if the partition is a hardware disk
             # we treat name with no digit as a hardware disk
@@ -567,8 +588,12 @@ class Server(object):
 
             for mount in mounts:
                 if mount['major'] == major and mount['minor'] == minor:
-                    partition['mount'] = mount['path']
-                    # read filesystem type from blkid
+                    partition['mount']      = mount['path']
+                    partition['used']       = mount['used']
+                    partition['used_rate']  = mount['used_rate']
+                    partition['total']      = mount['total']
+                    #print mount
+                    #read filesystem type from blkid, not the below line
                     #partition['fstype'] = mount['fstype']
                     break
             if name in swapptns:
