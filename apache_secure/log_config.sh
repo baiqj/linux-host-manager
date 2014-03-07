@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Shows the apache version information is disabled
+#The log format setting
 
 CONF_PATH=`find / -name 'httpd.conf'  -a  -type f`
 
@@ -9,17 +9,18 @@ CONF_PATH=`find / -name 'httpd.conf'  -a  -type f`
 
 ##edit the configuration file
 
+CMD_PATH=`find  / -name "rotatelogs" -a -type f -a -perm +111`
+
 if [ -f  /usr/local/backup/httpd.conf.old ]
 
 then
+	sed  -i  '/^ErrorLog /d'   $CONF_PATH
+	sed  -i  '/^CustomLog /d'   $CONF_PATH
 
-sed  -i  '/^ServerSignature /d'        $CONF_PATH
-echo  "ServerSignature On"     >>      $CONF_PATH
-
-sed  -i  '/^ServerTokens /d'        $CONF_PATH
-echo  "ServerTokens Prod"     >>      $CONF_PATH
-
+	ErrorLog "| $CMD_PATH -l logs/error-%Y-%m-%d.log 86400 480 1M"
+	CustomLog "| $CMD_PATH -l logs/access-%Y-%m-%d.log 86400 480 1M"  common
 else 
         echo '###please run backup.sh first!!!###'
 fi
+
 

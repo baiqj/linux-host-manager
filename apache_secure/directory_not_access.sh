@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Shows the apache version information is disabled
+#Limit the PHP directory can be accessed
 
 CONF_PATH=`find / -name 'httpd.conf'  -a  -type f`
 
@@ -12,14 +12,7 @@ CONF_PATH=`find / -name 'httpd.conf'  -a  -type f`
 if [ -f  /usr/local/backup/httpd.conf.old ]
 
 then
-
-sed  -i  '/^ServerSignature /d'        $CONF_PATH
-echo  "ServerSignature On"     >>      $CONF_PATH
-
-sed  -i  '/^ServerTokens /d'        $CONF_PATH
-echo  "ServerTokens Prod"     >>      $CONF_PATH
-
+	sed  -ie  '/###/{h;s/.*/cat   directory_not_access.txt/e;G}'   $CONF_PATH
 else 
         echo '###please run backup.sh first!!!###'
 fi
-

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Shows the apache version information is disabled
+#Disable Include
 
 CONF_PATH=`find / -name 'httpd.conf'  -a  -type f`
 
@@ -9,17 +9,15 @@ CONF_PATH=`find / -name 'httpd.conf'  -a  -type f`
 
 ##edit the configuration file
 
+
 if [ -f  /usr/local/backup/httpd.conf.old ]
 
 then
+        LINE_SUM=`wc  -l   $CONF_PATH`
+        LINE_NUM=`grep  -n  "^#"   /etc/httpd/conf/httpd.conf | awk  -F:  '{print  $1}'`
 
-sed  -i  '/^ServerSignature /d'        $CONF_PATH
-echo  "ServerSignature On"     >>      $CONF_PATH
-
-sed  -i  '/^ServerTokens /d'        $CONF_PATH
-echo  "ServerTokens Prod"     >>      $CONF_PATH
+         sed  -n  ''$LINE_NUM','$LINE_SUM'p'  $CONF_PATH  |  sed  -i  '/ Options /s/$/ -Includes /p'  $CONF_PATH
 
 else 
         echo '###please run backup.sh first!!!###'
 fi
-
