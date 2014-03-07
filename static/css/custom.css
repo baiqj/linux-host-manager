@@ -62,6 +62,12 @@ body {
   text-align: center;
 }
 
+.table > tbody > tr > td {
+   color: #999;
+}
+#sys_base_info > tbody > tr > td {
+  font-size: 90%;
+}
 
 .ring {position:relative;margin:0 auto;width:150px;margin-left: 220px;}
 .ring li a {position:absolute;right:0;top:0;}

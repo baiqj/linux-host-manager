@@ -31,8 +31,8 @@ cloudAppControllers.controller('loginCtrl', ['$scope',  'Request',
 
   }]);
 
-cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout',
-  function($rootScope,$scope,$timeout){
+cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout','$http','$location',
+  function($rootScope,$scope,$timeout,$http,$location){
 	/* custom code section */
   $rootScope.htmlTitle = "首页";
 
@@ -61,20 +61,22 @@ cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout',
 
   $scope.Ctrl = function(){
     //custome code about your function
-    var myDate = new Date();
-    $scope.sys_info.currenttime=myDate.toLocaleTimeString();
+    var rootUrl = location.pathname.replace(/(\s+)?\/$/, '');
+    var rurl = rootUrl + '/query/b*'
+    $http({method: 'GET', url: rurl}).
+    success(function(data, status, headers, config) {
+      console.log(data);
+      $scope.sys_info.os_dist = data['server.distribution'];
+      $scope.sys_info.run_time = data['server.uptime']['up'];
+      $scope.sys_info.cpu_load = Math.round(data['server.cpustat']['total']['used'] / data['server.cpustat']['total']['all'] * 10000) / 100 + '%';;
+      $scope.sys_info.memory_usage = data['server.meminfo']['mem_used_rate'];
+    }).
+    error(function(data, status, headers, config) {
+      console.log('failed get base system information');
+    });
     // end your function codes
+  }
 
-    var countUp = function() {
-      // custom code about your function
-        var myDate = new Date();
-        $scope.sys_info.currenttime=myDate.toLocaleTimeString();
-      // end your function code
-        $timeout(countUp, 1000);
-    }
-
-    $timeout(countUp, 1000);
-    }
     $scope.Ctrl();
 
   }]);

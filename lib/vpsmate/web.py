@@ -247,7 +247,7 @@ class ClientHandler(RequestHandler):
 
 class LoginHandler(RequestHandler):
     """Validate username and password.
-    """          
+    """
     def post(self):
         username = self.get_argument('username', '')
         password = self.get_argument('password', '')
@@ -307,11 +307,6 @@ class LoginHandler(RequestHandler):
                     self.write({'code': -1, 'msg': u'用户名或密码错误！<br>'\
                         u'连续错误 5 次后将被禁止登录，还有 %d 次机会。' % (5-loginfails)})
 
-class VerifyCodeHandler(tornado.web.RequestHandler):  
-    def get(self):
-            self.write("hello world")
-    def post(self):
-            self.write("hello post")
 
 class LogoutHandler(RequestHandler):
     """Logout
@@ -420,31 +415,32 @@ class QueryHandler(RequestHandler):
     /query/config.fstab(sda1)
     """
     def get(self, items):
-        self.authed()
+        #self.authed()
         
         items = items.split(',')
         qdict = {'server': [], 'service': [], 'config': [], 'tool': []}
         for item in items:
-            if item == '**':
+            if item == '**' or item =='*':
                 # query all items
-                qdict = {'server': '**', 'service': '**'}
+                qdict = {'server': item, 'service': item}
                 break
-            elif item == '*':
-                # query all realtime update items
-                qdict = {'server': '*', 'service': '*'}
-                break
-            elif item == 'server.**':
-                qdict['server'] = '**'
-            elif item == 'service.**':
-                qdict['service'] = '**'
+            elif item == 'b*':
+                qdict['server'] = ['distribution','uptime','loadavg','meminfo','diskinfo','cpustat','netifaces']
             else:
                 item = _u(item)
                 iteminfo = item.split('.', 1)
                 if len(iteminfo) != 2: continue
                 sec, q = iteminfo
+		# skip if invalid
                 if sec not in ('server', 'service', 'config', 'tool'): continue
+		# skip if covered
                 if qdict[sec] == '**': continue
-                qdict[sec].append(q)
+		# use wildcard or append
+		if q == '**' or q == '*':
+			qdict[sec] = q
+		else:
+                	qdict[sec].append(q)
+
 
         # item : realtime update
         server_items = {
