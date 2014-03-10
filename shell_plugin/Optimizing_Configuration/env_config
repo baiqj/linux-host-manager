@@ -2,7 +2,24 @@
 #LA/NMP环境信息检测收集
 ######################
 
-OS_version
+{
+	'SYSTEM':{
+	'OS_version':
+	'OS_bit':
+	}
+	
+	'APACHE':{
+	'Apache_Install':
+	'Apache_Install_Way':
+	'Apache_Version':
+	'Start_Path':
+	'Stop_Path':
+	'Rrestart_Path':
+	}
+	
+	
+}
+
 
 ######################
 #第一、Apache信息
