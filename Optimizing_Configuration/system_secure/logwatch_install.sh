@@ -16,7 +16,7 @@ yum  install  logwatch   -y
 
 \cp  /usr/share/logwatch/default.conf/logwatch.conf   /etc/logwatch/conf/logwatch.conf
 
-\cp  /etc/logwatch/conf/logwatch.conf    /usr/local/backup/logwatch.conf.old
+\cp  /etc/logwatch/conf/logwatch.conf 	 /usr/local/backup/logwatch.conf.old
 
 grep  -v   "#"  /usr/local/backup/logwatch.conf.old     >   /etc/logwatch/conf/logwatch.conf
 
@@ -42,3 +42,11 @@ Service = "-eximstats"
 Service = "-zz-network"
 Service = "-zz-sys"
 EOF
+
+
+
+
+
+
+
+

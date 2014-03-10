@@ -1,13 +1,11 @@
 #!/bin/sh
  
-##############################
-#脚本用途：用于对Linux系统进行安全设置
-##############################
+# desc: setup linux system security
 
 [ -d  /usr/local/backup ]  ||  mkdir  -p  /usr/local/backup
 [ -d  /usr/local/resault ] ||  mkdir  -p  /usr/local/resault
 
-#用于锁定不常用的系统账号
+#lock the password for the named account (root only)
 
 passwd -l xfs
  
@@ -54,7 +52,7 @@ passwd -l lp
 echo  "####lock the password for the named account (root only)###"
 
 
-#使用chattr对系统关键文件进行锁定，不允许修改
+#set chattr
 
 chattr +i /etc/passwd
  
@@ -70,20 +68,20 @@ echo   "###config chattr done###"
 
 
 
-#添加规则：连续3次登陆失败，则锁定账号5分钟
+#add continue input failure 3 ,passwd unlock time 5 minutes
 
 \cp   /etc/pam.d/system-auth    /usr/local/backup/system-auth.old
 
 sed -i 's#auth        required      pam_env.so#auth        required      pam_env.so\nauth       required       pam_tally.so  onerr=fail deny=3 unlock_time=300\nauth           required     /lib/security/$ISA/pam_tally.so onerr=fail deny=3 unlock_time=300#' /etc/pam.d/system-auth
 
 
-#添加规则：登陆系统5分钟内无操作，则自动登出系统
+# system timeout 5 minite auto logout
 
 \cp   /etc/profile      /usr/local/backup/profile.old
 
 echo "TMOUT=300" >>/etc/profile
 
-#添加规则：只记录系统最近10条的操作记录
+#will system save history command list to 10
 
 sed -i "s/HISTSIZE=1000/HISTSIZE=10/" /etc/profile
 
@@ -96,7 +94,7 @@ chattr +i /root/.bash_history
 source /etc/profile
 
 
-#设置内核启用syncookie功能
+# add syncookie enable /etc/sysctl.conf
 
 \cp /etc/sysctl.conf /usr/local/backup/sysctl.conf.old
 
@@ -106,14 +104,14 @@ sysctl -p
 
 
 
-#优化SSH设置，禁用DNS解析
+#ptimizer sshd_config
 \cp   /etc/ssh/sshd_config   /usr/local/backup/sshd_config.old
 
 sed -i "s/#MaxAuthTries 6/MaxAuthTries 6/" /etc/ssh/sshd_config
 sed -i "s/#UseDNS yes/UseDNS no/" /etc/ssh/sshd_config
 
 
-#限制系统重要命令的权限，使只有root能够执行
+#limit chmod important commands
 
 chmod 700 /bin/ping
 chmod 700 /usr/bin/finger
@@ -158,7 +156,7 @@ fi
 done
 rm -f list
 
-#优化内核的参数设置
+#tune kernel parametres
 
 
 cat> /etc/sysctl.conf<< EOF
@@ -220,11 +218,14 @@ EOF
 /sbin/sysctl   -p
 
 
-#禁用大量的用户登录
-
+#off the excess tty
 \cp /etc/inittab   /usr/local/backup/inittab.old
 
 sed -i '/tty[2-6]/s/^/#/' /etc/inittab
 /sbin/init q
 echo "off the excess tty -->ok!"
 sleep 1
+
+
+
+
