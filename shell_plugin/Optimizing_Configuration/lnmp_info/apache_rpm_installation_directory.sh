@@ -9,7 +9,7 @@ ENV_PATH=../env_config
 
 CONF_PATH="/etc/httpd/conf/httpd.conf"
 
-DOCUMENT_PATH=`grep  -i  "ServerRoot "   /etc/httpd/conf/httpd.conf  | grep -v "^#" |  awk   '{print  $2}'`
+DOCUMENT_PATH=`grep  -i  "ServerRoot "   $CONF_PATH  | grep -v "^#" |  awk   '{print  $2}'`
 
 LINE_NUM=`grep  -n  "Rpm_Installation_Directory"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
