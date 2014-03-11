@@ -4,8 +4,8 @@
 
 {
 	'SYSTEM':{
-	'OS_version':
-	'OS_bit':
+	'OS_version':'CentOS release 6.3 (Final)'
+	'OS_bit':'x86_64'
 	}
 	
 	'APACHE':{

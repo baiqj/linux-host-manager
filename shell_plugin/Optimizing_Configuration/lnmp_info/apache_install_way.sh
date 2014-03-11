@@ -13,8 +13,14 @@ locate  "httpd.conf"  |  grep  "httpd.conf$"
 
 if  [ `echo $?`  == 0  ] 
 then
-	 sed -i  "/'Apache_Install':/s/$/\'On\'/"  $ENV_PATH
-else
-	 sed -i  "/'Apache_Install':/s/$/\'Off\'/"  $ENV_PATH
+	if [ rpm  -qa  |  grep  httpd ] 
+	then
+		sed -i  "/'Apache_Install_Way':/s/$/\'RPM\'/"  $ENV_PATH
+	else
+		sed -i  "/'Apache_Install_Way':/s/$/\'\MAKE'/"  $ENV_PATH
+	fi
+else	
+	echo  "Apache Not Install"
 fi
+
 

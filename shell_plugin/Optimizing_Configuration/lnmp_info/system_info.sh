@@ -27,3 +27,4 @@ else
 	 sed -i  "/'OS_bit':/s/$/\'i386\'/"  $ENV_PATH
 fi
 
+
