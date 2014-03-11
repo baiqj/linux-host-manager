@@ -1,44 +1,43 @@
 <div class="row">
-    <table class="table table-striped">  
-      <thead>  
-        <tr>
-          <th>软件名称</th>  
-          <th>软件简介</th>
-          <th>安装进度</th>  
-        </tr>  
-      </thead> 
-      <tbody>  
-        <tr>  
-          <td style="width:10px;">MySQL</td>  
-          <td style="width:60px;text-align: left;"><h6>MySQL是世界上最流行的开源数据库。无论您是一个快速成长的Web应用企业，独立软件开发商或是大型企业，MySQL都能经济有效地帮助您交付高性能，可扩展的数据库应用。</h6></td> 
-          <td style="width:50px;">安装完成</td>
-        </tr>
-        <td style="width:10px;">MySQL</td>  
-          <td style="width:60px;">MySQL introduction</td> 
-          <td style="width:50px;">正在安装...</td>
-        </tr>
-        <tr>  
-          <td style="width:10px;">Httpd</td>  
-          <td style="width:60px;">Httpd introduction</td> 
-          <td style="width:50px;">等待安装</td>
-        </tr>
-        <tr>  
-          <td style="width:10px;">Httpd</td>  
-          <td style="width:60px;">Httpd introduction</td> 
-          <td style="width:50px;">等待安装</td>
-        </tr>
-        <tr>  
-          <td style="width:10px;">Httpd</td>  
-          <td style="width:60px;">Httpd introduction</td> 
-          <td style="width:50px;">等待安装</td>
-        </tr>
-        <tr>  
-          <td style="width:10px;">Httpd</td>  
-          <td style="width:60px;">Httpd introduction</td> 
-          <td style="width:50px;">等待安装</td>
-        </tr>
-      </tbody>  
-    </table> 
+  <div id="lnmp_install_image" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#lnmp_install_image" data-slide-to="0" class="active"></li>
+    <li data-target="#lnmp_install_image" data-slide-to="1"></li>
+    <li data-target="#lnmp_install_image" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="http://placehold.it/1850x450" alt="image one" class="image-response">
+      <div class="carousel-caption">
+        image one
+      </div>
+    </div>
+    <div class="item">
+      <img src="http://placehold.it/1850x450" alt="image two" class="image-response">
+      <div class="carousel-caption">
+        image two
+      </div>
+    </div>
+    <div class="item">
+      <img src="http://placehold.it/1850x450" alt="image three" class="image-response">
+      <div class="carousel-caption">
+        image three
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="row">
+  <div class="progress progress-striped active">
+     <div class="progress-bar"  role="progressbar" aria-valuenow="{{install_process_value}}}" aria-valuemin="0" aria-valuemax="100" style="width: {{install_process_value}}%"> 
+      </div>
+  </div>
+  <span>{{install_process_value}}% Complete</span>
 </div>
 <div class="row">
   <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -63,3 +62,10 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+      $('#lnmp_install_image').carousel({
+        interval: 3000
+      });
+    })
+</script>

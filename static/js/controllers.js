@@ -53,27 +53,57 @@ cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout','$h
                                   download_rate:'下行150k/s'
                                 }
                               ],
-                      disk_info:[ 
-                                  { name:'disk1',avai_space:'100G'},
-                                  { name:'disk2',avai_space:'120G'}
-                                ],
+                      disk_info:[]                  
                     };
 
   $scope.Ctrl = function(){
     //custome code about your function
+    var lastData, currentData;
     var rootUrl = location.pathname.replace(/(\s+)?\/$/, '');
     var rurl = rootUrl + '/query/b*'
     $http({method: 'GET', url: rurl}).
     success(function(data, status, headers, config) {
-      console.log(data);
       $scope.sys_info.os_dist = data['server.distribution'];
       $scope.sys_info.run_time = data['server.uptime']['up'];
       $scope.sys_info.cpu_load = Math.round(data['server.cpustat']['total']['used'] / data['server.cpustat']['total']['all'] * 10000) / 100 + '%';;
       $scope.sys_info.memory_usage = data['server.meminfo']['mem_used_rate'];
+      $scope.sys_info.disk_info = data['server.diskinfo']['partitions'][0]['partitions'];
+      console.log(data['server.diskinfo']);
     }).
     error(function(data, status, headers, config) {
       console.log('failed get base system information');
     });
+    $http({method: 'GET', url: rootUrl+'/query/server.rxtx'}).
+    success(function(data, status, headers, config){
+      lastData = data;
+      console.log(lastData);
+    }).
+    error(function(data,status,headers,config){
+      console.log('failed get base network datas!');
+    });
+
+    function yanshi(inttime){//延时（暂停）函数
+      var timestamp = new Date().getTime();
+      var jisuantime = timestamp
+      var jg;
+      while((jg=jisuantime*1-timestamp*1)<inttime){
+          jisuantime = new Date().getTime();
+     }
+      return jg;
+    }
+      setTimeout("console.log('1 秒！')",1000)
+      console.log('延迟了'+yanshi(9500)+'毫秒');
+
+
+    $http({method: 'GET', url: rootUrl+'/query/server.rxtx'}).
+    success(function(data, status, headers, config){
+      currentData = data;
+      console.log(currentData);
+    }).
+    error(function(data,status,headers,config){
+      console.log('failed get base network datas!');
+    });
+
     // end your function codes
   }
 
@@ -131,9 +161,25 @@ cloudAppControllers.controller('lampCtrl', ['$rootScope','$scope',
   
   }]);
 
+cloudAppControllers.controller('lamp-installCtrl', ['$rootScope','$scope',
+  function($rootScope,$scope) {
+  /* custom code section */
+  $rootScope.htmlTitle = "一键通";
+  $scope.install_process_value = 30;
+  
+  }]);
+
 cloudAppControllers.controller('lnmpCtrl', ['$rootScope','$scope',
   function($rootScope,$scope) {
   /* custom code section */
   $rootScope.htmlTitle = "一键通";
+  
+  }]);
+
+cloudAppControllers.controller('lnmp-installCtrl', ['$rootScope','$scope',
+  function($rootScope,$scope) {
+  /* custom code section */
+  $rootScope.htmlTitle = "一键通";
+  $scope.install_process_value = 30;
   
   }]);

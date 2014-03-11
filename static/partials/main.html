@@ -133,21 +133,15 @@
           <td >内存使用率:</td> 
           <td >{{sys_info.memory_usage}}</td>
         </tr>
-        <tr><td>网络状况 </td><td></td></tr>
-        <tr ng-repeat="NIC in sys_info.nic_info"> 
-          <td>{{NIC.name}}</td>
-          <td >{{NIC.upload_rate}}<br />{{NIC.download_rate}}</td>
-        </tr>
-        <tr><td>硬盘可用空间</td><td></td></tr>
+        <tr><td>硬盘已用空间</td><td></td></tr>
         <tr ng-repeat="disk in sys_info.disk_info"> 
-          <td>{{disk.name}}</td>
-          <td >{{disk.avai_space}}</td>
+          <td ng-show=disk['used_rate']>{{disk.mount}}</td>
+          <td ng-show=disk['used_rate']>{{disk.used_rate}}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
-
 
 <script>
     $(document).ready(function(){

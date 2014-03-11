@@ -39,7 +39,7 @@ cloudApp.config(['$routeProvider',
       }).
       when('/sites/onekey/lnmp-start', {
         templateUrl: 'partials/OneKey/lnmp-processing.html',
-        controller: 'lnmpCtrl'
+        controller: 'lnmp-installCtrl'
       }).
       when('/sites/lamp', {
         templateUrl: 'partials/OneKey/lamp.html',
@@ -47,7 +47,7 @@ cloudApp.config(['$routeProvider',
       }).
       when('/sites/onekey/lamp-start', {
         templateUrl: 'partials/OneKey/lamp-processing.html',
-        controller: 'lampCtrl'
+        controller: 'lamp-installCtrl'
       }).
       otherwise({
         redirectTo: '/login'

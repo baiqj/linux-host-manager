@@ -18,7 +18,7 @@ directive('navbar', function(){
     }
   ];
 }],
-		template: '  <div >\
+		template: '<div >\
   	<accordion close-others=false>\
   		<div class="panel panel-default" >\
   			<div class="panel-heading text-center" style="background-color: #1375B2;">\
@@ -32,14 +32,12 @@ directive('navbar', function(){
   				<li><a href="#/sites/create">一键建站</a></li>\
   				<li><a href="#/sites/lamp">一键LAMP</a></li>\
   				<li><a href="#/sites/lnmp">一键LNMP</a></li>\
+  				<li><a href="#/sites/create">一键备份</a></li>\
+  				<li><a href="#/sites/lamp">一键迁移</a></li>\
   				<li><a href="#/sites/lnmp">一键优化</a></li>\
 			</ul>\
 		</accordion-group>\
 		<accordion-group href="#/OneKey"  heading="站点管理" is-open="false">\
-  			<ul class="nav nav-pills nav-stacked">\
-  				<li><a href="#/sites/create">一键备份</a></li>\
-  				<li><a href="#/sites/lamp">网站迁移</a></li>\
-			</ul>\
 		</accordion-group>\
 		<accordion-group href="#/OneKey"  heading="软件管理" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\
