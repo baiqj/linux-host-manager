@@ -15,12 +15,12 @@ if  [ `echo $?`  == 0  ]
 then
 	if [ rpm  -qa  |  grep  httpd ] 
 	then
-		sed -i  "/'Apache_Install_Way':/s/$/\'RPM\'/"  $ENV_PATH
+		sed -i  "/'Apache_Install_Way':/s/$/\'Rpm\'/"  $ENV_PATH
 	else
-		sed -i  "/'Apache_Install_Way':/s/$/\'\MAKE'/"  $ENV_PATH
+		sed -i  "/'Apache_Install_Way':/s/$/\'\Make\'/"  $ENV_PATH
 	fi
 else	
-	echo  "Apache Not Install"
+	sed -i  "/'Apache_Install_Way':/s/$/\'\Not\'/"  $ENV_PATH
 fi
 
 
