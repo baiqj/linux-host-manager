@@ -8,22 +8,32 @@
 
 {
 	'SYSTEM':{
-	'OS_version':
-	'OS_bit':
+'OS_version':
+'OS_bit':
 			}
 	
 	'APACHE':{
 'Apache_Install':
 'Apache_Install_Way':
-'Apache_Version':
-'Apache_Conf_Path':
-'Start_Path':
-'Stop_Path':
-'Rrestart_Path':
+'Apache_Rpm_Version':
+'Apache_Make_Version':
+'Rpm_Installation_Directory':
+'Make_Installation_Directory':
+'Rpm_Conf_Path':
+'Make_Conf_Path':
+'Rpm_Start_Path':
+'Make_Start_Path':
+'Rpm_Stop_Path':
+'Make_Stop_Path':
+'Rpm_Restart_Path':
+'Make_Restart_Path':
 			}
 	
-	
 }
+
+apachectl   查看apache各种信息
+
+
 /etc/passwd 的文件属性
 /etc/group的文件属性
 锁定的帐号的列表
@@ -36,22 +46,7 @@ ssh是否禁用了dns解析
 是否配置了磁盘空间检测报警
 
 
-######################
-#第一、Apache信息
-######################
 
-#判断apache是否安装，安装为“ON”，未安装为“OFF”
-apache_install
-#判断apache的安装方式，RPM/APT或MAKE
-apache_install_way
-#检测apache的安装版本
-apache_version
-#检测apache启动关闭命令的绝对路径
-start_path
-stop_path
-restart_path
-#检测apache的主配置文件的路径
-conf_path
 #检测apache的vhost的路径,多个文件之间使用":"隔开
 vhost_conf
 
