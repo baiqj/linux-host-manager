@@ -4,18 +4,19 @@
 
 {
 	'SYSTEM':{
-	'OS_version':'CentOS release 6.3 (Final)'
-	'OS_bit':'x86_64'
-	}
+	'OS_version':
+	'OS_bit':
+			}
 	
 	'APACHE':{
-	'Apache_Install':
-	'Apache_Install_Way':
-	'Apache_Version':
-	'Start_Path':
-	'Stop_Path':
-	'Rrestart_Path':
-	}
+'Apache_Install':
+'Apache_Install_Way':
+'Apache_Version':
+'Apache_Conf_Path':
+'Start_Path':
+'Stop_Path':
+'Rrestart_Path':
+			}
 	
 	
 }
