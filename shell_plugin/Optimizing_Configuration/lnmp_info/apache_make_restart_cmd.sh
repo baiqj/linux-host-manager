@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##############################
-#检测Make安装方式Apache的启动命令
+#检测Make安装方式Apache的重新启动命令
 ##############################
 updatedb
 
@@ -15,13 +15,13 @@ locate  "apachectl"  |  grep  "\/apachectl$"  |  grep  -v  "/usr/sbin/apachectl"
 
 CMD=`locate  "apachectl"  |  grep  "\/apachectl$"  |  grep  -v  "/usr/sbin/apachectl"`
 
-LINE_NUM=`grep  -n  "Make_Start_Cmd"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Make_Restart_Cmd"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Make_Start_Cmd"行之后添加一行
+#在"Make_Restart_Cmd"行之后添加一行
 
-sed  -ie  "/Make_Start_Cmd/a \'Make_Start_Cmd\':\'"'$CMD -k  start'"\'"   $ENV_PATH
+sed  -ie  "/Make_Restart_Cmd/a \'Make_Restart_Cmd\':\'"'$CMD -k  restart'"\'"   $ENV_PATH
 
-#删除原来的"Make_Start_Cmd"行
+#删除原来的"Make_Restart_Cmd"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 
