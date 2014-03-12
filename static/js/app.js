@@ -49,6 +49,18 @@ cloudApp.config(['$routeProvider',
         templateUrl: 'partials/OneKey/lamp-processing.html',
         controller: 'lamp-installCtrl'
       }).
+      when('/sites/backup', {
+        templateUrl: 'partials/OneKey/backup.html',
+        controller: 'backupCtrl'
+      }).
+      when('/sites/move', {
+        templateUrl: 'partials/OneKey/move.html',
+        controller: 'moveCtrl'
+      }).
+      when('/logout', {
+       templateUrl: 'partials/login.html',
+        controller: 'logoutCtrl'
+      }).
       otherwise({
         redirectTo: '/login'
       });

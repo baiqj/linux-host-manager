@@ -32,8 +32,8 @@ directive('navbar', function(){
   				<li><a href="#/sites/create">一键建站</a></li>\
   				<li><a href="#/sites/lamp">一键LAMP</a></li>\
   				<li><a href="#/sites/lnmp">一键LNMP</a></li>\
-  				<li><a href="#/sites/create">一键备份</a></li>\
-  				<li><a href="#/sites/lamp">一键迁移</a></li>\
+  				<li><a href="#/sites/backup">一键备份</a></li>\
+  				<li><a href="#/sites/move">一键迁移</a></li>\
   				<li><a href="#/sites/lnmp">一键优化</a></li>\
 			</ul>\
 		</accordion-group>\
@@ -51,6 +51,13 @@ directive('navbar', function(){
   				<li><a href="#/sites/lamp">用户列表</a></li>\
 			</ul>\
 		</accordion-group>\
+		<div class="panel panel-default" >\
+  			<div class="panel-heading text-center" style="background-color: #1375B2;">\
+    			<h4 class="panel-title">\
+     				<a href="#/logout" >退出</a>\
+    			</h4>\
+  			</div>\
+  		</div>\
  	 </accordion></div>',
 		replace: true
 	};

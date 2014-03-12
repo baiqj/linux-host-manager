@@ -4,10 +4,12 @@
 
 var cloudAppControllers = angular.module('cloudAppControllers', ['ui.bootstrap']);
 
-cloudAppControllers.controller('loginCtrl', ['$scope',  'Request',
-  function($scope, Request) {
+cloudAppControllers.controller('loginCtrl', ['$scope','$http','$location','Message',
+  function($scope, $http,$location,Message) {
   
 	/* code section */
+  
+
 	var password_strength = function(pwd) {
     var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
     var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
@@ -26,10 +28,54 @@ cloudAppControllers.controller('loginCtrl', ['$scope',  'Request',
   $scope.login = function(){
     var result = password_strength($scope.password);
     console.log(result);
+  $http({method: 'POST', 
+            url: '/login',
+            data:{username:$scope.username, password:hex_md5($scope.password)}
+        }).
+    success(function(data, status, headers, config){
+      if(data.code == 1){
+        $location.path('/main');
+      } else {
+        console.log(data);
+      }
+    }).
+    error(function(data,status,headers,config){
+      console.log('failed get base network datas!');
+    });
   }
 
-
   }]);
+cloudAppControllers.controller('logoutCtrl', ['$rootScope','$scope','$timeout','$http','$location',
+  function($rootScope,$scope,$timeout,$http,$location){
+
+    $rootScope.isLogin = false;
+
+  $http.get('/xsrf', function(){
+      $http.post('/logout', {}, function(data){
+        Timeout(function(){$location.path('/');}, 3000, module);
+      });
+    });
+  $http({method: 'GET', 
+            url: '/xsrf'
+        }).
+    success(function(data, status, headers, config){
+      console.log(data);
+      $http({method: 'POST',
+                url:   '/logout',
+                data: {}}).
+            success(function(data,status,headers,config){
+                console.log('copy the return result.');
+                $location.path('/');
+            }).
+            error(function(data,status,headers,config){
+                  console.log('redict to root path failed');
+            });
+    }).
+    error(function(data,status,headers,config){
+      console.log('failed get base network datas!');
+    });
+
+}]);
 
 cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout','$http','$location',
   function($rootScope,$scope,$timeout,$http,$location){
@@ -72,36 +118,6 @@ cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout','$h
     }).
     error(function(data, status, headers, config) {
       console.log('failed get base system information');
-    });
-    $http({method: 'GET', url: rootUrl+'/query/server.rxtx'}).
-    success(function(data, status, headers, config){
-      lastData = data;
-      console.log(lastData);
-    }).
-    error(function(data,status,headers,config){
-      console.log('failed get base network datas!');
-    });
-
-    function yanshi(inttime){//延时（暂停）函数
-      var timestamp = new Date().getTime();
-      var jisuantime = timestamp
-      var jg;
-      while((jg=jisuantime*1-timestamp*1)<inttime){
-          jisuantime = new Date().getTime();
-     }
-      return jg;
-    }
-      setTimeout("console.log('1 秒！')",1000)
-      console.log('延迟了'+yanshi(9500)+'毫秒');
-
-
-    $http({method: 'GET', url: rootUrl+'/query/server.rxtx'}).
-    success(function(data, status, headers, config){
-      currentData = data;
-      console.log(currentData);
-    }).
-    error(function(data,status,headers,config){
-      console.log('failed get base network datas!');
     });
 
     // end your function codes
@@ -181,5 +197,19 @@ cloudAppControllers.controller('lnmp-installCtrl', ['$rootScope','$scope',
   /* custom code section */
   $rootScope.htmlTitle = "一键通";
   $scope.install_process_value = 30;
+  
+  }]);
+
+cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope',
+  function($rootScope,$scope) {
+  /* custom code section */
+  $rootScope.htmlTitle = "一键通";
+  
+  }]);
+
+cloudAppControllers.controller('moveCtrl', ['$rootScope','$scope',
+  function($rootScope,$scope) {
+  /* custom code section */
+  $rootScope.htmlTitle = "一键通";
   
   }]);
