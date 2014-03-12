@@ -21,8 +21,8 @@
 'Make_Installation_Directory':
 'Rpm_Conf_Path':
 'Make_Conf_Path':
-'Rpm_Start_Path':
-'Make_Start_Path':
+'Rpm_Start_Cmd':
+'Make_Start_Cmd':
 'Rpm_Stop_Path':
 'Make_Stop_Path':
 'Rpm_Restart_Path':
