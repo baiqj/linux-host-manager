@@ -12,7 +12,7 @@
 'OS_bit':
 			}
 	
-	'APACHE':{
+	'APACHE_BASE':{
 'Apache_Install':
 'Apache_Install_Way':
 'Apache_Rpm_Version':
@@ -23,68 +23,69 @@
 'Make_Conf_Path':
 'Rpm_Start_Cmd':
 'Make_Start_Cmd':
-'Rpm_Stop_Path':
-'Make_Stop_Path':
+'Rpm_Stop_Cmd':
+'Make_Stop_Cmd':
 'Rpm_Restart_Path':
 'Make_Restart_Path':
+			}
+			
+	'APACHE_OPTIONS':{
+'Rpm_ServerTokens':
+'Rpm_ServerRoot':
+'Rpm_PidFile':
+'Rpm_Timeout':
+'Rpm_KeepAlive':
+'Rpm_MaxKeepAliveRequests':
+'Rpm_KeepAliveTimeout':
+'Rpm_Listen':
+'Rpm_User':
+'Rpm_Group':
+'Rpm_ServerAdmin':
+'Rpm_UseCanonicalName':
+'Rpm_DocumentRoot':
+'Rpm_HostnameLookups':
+'Rpm_ErrorLog':
+'Rpm_ServerSignature':
+'Rpm_LogLevel':
+'Make_ServerTokens':
+'Make_ServerRoot':
+'Make_PidFile':
+'Make_Timeout':
+'Make_KeepAlive':
+'Make_MaxKeepAliveRequests':
+'Make_KeepAliveTimeout':
+'Make_Listen':
+'Make_User':
+'Make_Group':
+'Make_ServerAdmin':
+'Make_UseCanonicalName':
+'Make_DocumentRoot':
+'Make_HostnameLookups':
+'Make_ErrorLog':
+'Make_ServerSignature':
+'Make_LogLevel':
+			}
+			
+	'APACHE_MODULES':{
+'mod_status.so':
+'mod_expires.so':
+'mod_security.so':
+'libphp5.so':
 			}
 	
 }
 
-apachectl   查看apache各种信息
+LoadModule status_module modules/mod_status.so
+LoadModule expires_module modules/mod_expires.so
 
-
-/etc/passwd 的文件属性
-/etc/group的文件属性
-锁定的帐号的列表
-ssh是否禁用了dns解析
-是否安装了chkrootkit
-是否安装了rkhunter？
-是否安装了防范DDoS攻击的软件？
-是否安装了logwatch?
-是否安装了logcheck?
-是否配置了磁盘空间检测报警
-
-
+SSL
+安全
+php
 
 #检测apache的vhost的路径,多个文件之间使用":"隔开
 vhost_conf
 
-#列出apache的主要配置项
-ServerTokens OS
-
-ServerRoot "/etc/httpd"
-
-PidFile run/httpd.pid
-
-Timeout 60
-
-KeepAlive Off
-
-MaxKeepAliveRequests 100
-
-KeepAliveTimeout 15
-
-Listen 80
-
-运行apache的用户是否为nologin
-User apache
-
-Group apache
-
-ServerAdmin root@localhost
-
-UseCanonicalName Off
-
-DocumentRoot "/var/www/html"
-
-HostnameLookups Off
-
-ErrorLog logs/error_log
-
-ServerSignature On
-
-LogLevel warn
+apachectl   查看apache各种信息
 
 #检测apache已经加载的so模块的名称，模块之间使用":"隔开
 module
@@ -110,14 +111,14 @@ LoadModule logio_module modules/mod_logio.so
 LoadModule env_module modules/mod_env.so
 LoadModule ext_filter_module modules/mod_ext_filter.so
 LoadModule mime_magic_module modules/mod_mime_magic.so
-LoadModule expires_module modules/mod_expires.so
+
 LoadModule deflate_module modules/mod_deflate.so
 LoadModule headers_module modules/mod_headers.so
 LoadModule usertrack_module modules/mod_usertrack.so
 LoadModule setenvif_module modules/mod_setenvif.so
 LoadModule mime_module modules/mod_mime.so
 LoadModule dav_module modules/mod_dav.so
-LoadModule status_module modules/mod_status.so
+
 LoadModule autoindex_module modules/mod_autoindex.so
 LoadModule info_module modules/mod_info.so
 LoadModule dav_fs_module modules/mod_dav_fs.so
@@ -141,6 +142,20 @@ LoadModule suexec_module modules/mod_suexec.so
 LoadModule disk_cache_module modules/mod_disk_cache.so
 LoadModule cgi_module modules/mod_cgi.so
 LoadModule version_module modules/mod_version.so
+
+
+
+/etc/passwd 的文件属性
+/etc/group的文件属性
+锁定的帐号的列表
+ssh是否禁用了dns解析
+是否安装了chkrootkit
+是否安装了rkhunter？
+是否安装了防范DDoS攻击的软件？
+是否安装了logwatch?
+是否安装了logcheck?
+是否配置了磁盘空间检测报警
+
 
 
 是否使用了日志分割？
