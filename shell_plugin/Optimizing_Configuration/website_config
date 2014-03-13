@@ -8,3 +8,15 @@
 
 #网站程序的版本例如discuz的版本，wordpress的版本
 
+#网站域名
+domainname
+
+#网站程序目录
+domain_directory
+#网站数据库名字
+domain_db
+
+#数据库登陆用户名
+domain_db_user
+#数据库登陆密码
+domain_db_user_pass
