@@ -6,11 +6,15 @@
 
 updatedb
 
-#查找编译安装apache生成的主配置文件
-locate   httpd.conf  |  grep  -v   "\/httpd.conf$"
+#判断是否存在Make编译安装的Apahce主配置文件，没有的话退出本脚本
 
-#判断上个命令执行的返回值，返回非零时退出当前脚本
-[ `echo $?` == 0 ] || exit 1
+locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\/etc\/httpd\/conf\/httpd.conf" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"  
+
+[ `echo  $?` == 0 ] ||  exit 1
+
+#查看编译安装的apache的主配置文件的路径
+
+CONF_PATH=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\/etc\/httpd\/conf\/httpd.conf" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"  `
 
 ENV_PATH=../env_config
 

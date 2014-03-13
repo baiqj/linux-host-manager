@@ -9,14 +9,14 @@ ENV_PATH=../env_config
 
 #判断rpm方式的conf文件是否存在
 
-RPM=`locate   "/etc/httpd/conf/httpd.conf" | wc -l`
+RPM=`locate   "/etc/httpd/conf/httpd.conf" |  wc -l`
 
 #判断make方式的conf文件是否存在
+#注意主配置文件所在的路径不包含关键字："/etc/httpd/conf/httpd.conf" |"share"|"doc"|"ln*mp*"等
+MAKE=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\/etc\/httpd\/conf\/httpd.conf" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"   | wc -l`
 
-MAKE=`locate  "httpd.conf"  | grep  "\/httpd.conf$"  |  grep -v "etc/httpd/conf/httpd.conf" | wc -l`
 
-
-locate  "httpd.conf"  | grep  "\/httpd.conf$"  
+locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"    
 
 if  [ `echo $?`  == 0  ] 
 then

@@ -7,9 +7,16 @@ updatedb
 
 ENV_PATH=../env_config
 
-CONF_PATH=`locate  httpd.conf |  grep "\/httpd.conf$" |  grep -v  "/etc/httpd/conf/httpd.conf"`
+#注意主配置文件所在的路径不包含关键字："/etc/httpd/conf/httpd.conf" |"share"|"doc"|"ln*mp*"等
 
-DOCUMENT_PATH=`grep  -i  "ServerRoot "   $CONF_PATH  | grep -v "^#" |  awk   '{print  $2}'`
+locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\/etc\/httpd\/conf\/httpd.conf" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"  
+
+#判断是否存在编译安装生成的httpd.conf文件，没有的话退出当前脚本
+[  `echo  $?`  ==  0 ]   ||  exit  1
+
+CONF=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\/etc\/httpd\/conf\/httpd.conf" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"  `
+
+DOCUMENT_PATH=`grep  -i  "ServerRoot "   $CONF  | grep -v "^#" |  awk   '{print  $2}'`
 
 LINE_NUM=`grep  -n  "Make_Installation_Directory"   $ENV_PATH  |  awk -F:  '{print $1}'`
 

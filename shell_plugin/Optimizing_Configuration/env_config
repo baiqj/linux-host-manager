@@ -90,7 +90,57 @@
 'Make_ssl':
 			}
 	
+	'NGINX_BASE':{
+'Nginx_Base_Install':
+'Nginx_Install_Way':
+'Nginx_Rpm_Version':
+'Nginx_Make_Version':
+'Rpm_Installation_Directory':
+'Make_Installation_Directory':
+'Rpm_Conf_Path':
+'Make_Conf_Path':
+'Rpm_Start_Cmd':
+'Make_Start_Cmd':
+'Rpm_Stop_Cmd':
+'Make_Stop_Cmd':
+'Rpm_Restart_Path':
+'Make_Restart_Path':
+			}
 }
+
+
+
+########################
+#第二、Nginx信息
+########################
+
+#判断nginx是否安装，安装为“ON”，未安装为“OFF”
+nginx_install
+#判断apache的安装方式，RPM/APT或MAKE
+nginx_install_way
+#检测nginx的安装版本
+nginx_version
+#检测nginx启动关闭命令的绝对路径
+start_path
+stop_path
+restart_path
+#检测nginx的主配置文件的路径
+conf_path
+#检测nginx的vhost的路径,多个文件之间使用":"隔开
+vhost_conf
+#全局配置
+user  nginx;
+worker_processes  1;
+
+nginx是否配置了日志分割
+
+nginx是否支持防范域名恶意解析？
+
+nginx是否开启了gzip压缩
+
+nginx是否安装了安全模块
+
+
 
 
 
@@ -137,35 +187,7 @@ ssh是否禁用了dns解析
 屏蔽了哪些恶意蜘蛛？
 
 
-########################
-#第二、Nginx信息
-########################
 
-#判断nginx是否安装，安装为“ON”，未安装为“OFF”
-nginx_install
-#判断apache的安装方式，RPM/APT或MAKE
-nginx_install_way
-#检测nginx的安装版本
-nginx_version
-#检测nginx启动关闭命令的绝对路径
-start_path
-stop_path
-restart_path
-#检测nginx的主配置文件的路径
-conf_path
-#检测nginx的vhost的路径,多个文件之间使用":"隔开
-vhost_conf
-#全局配置
-user  nginx;
-worker_processes  1;
-
-nginx是否配置了日志分割
-
-nginx是否支持防范域名恶意解析？
-
-nginx是否开启了gzip压缩
-
-nginx是否安装了安全模块
 
 
 ###########################

@@ -7,9 +7,15 @@ updatedb
 
 ENV_PATH=../env_config
 
-#判断是否有make方式安装的apache，没有的话退出该脚本
+#判断是否存在Make编译安装的Apahce主配置文件，没有的话退出本脚本
 
-[ locate  httpd.conf  | grep  "\/httpd.conf$" | grep  -v  "/etc/httpd/conf/httpd.conf" ] ||  exit  1
+locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\/etc\/httpd\/conf\/httpd.conf" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"  
+
+[ `echo  $?` == 0 ] ||  exit 1
+
+#查看编译安装的apache的主配置文件的路径
+
+CONF=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\/etc\/httpd\/conf\/httpd.conf" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"  `
 
 #查看make编译安装的apachectl命令路径
 
