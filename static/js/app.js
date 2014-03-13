@@ -82,7 +82,7 @@ run(['$rootScope', '$location', '$timeout',function($rootScope, $location,$timeo
           $rootScope.isLogin = false;
         } else {
           $rootScope.isLogin = true;
-          console.log("1234567");
+           console.log("1234567");
         } 
       });
 

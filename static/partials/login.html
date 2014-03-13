@@ -1,4 +1,4 @@
-<div ng-include src="'/xsrf'"></div>
+<!-- <div ng-include src="'/xsrf'"></div> -->
 <form class="form-signin" role="form"  ng-submit="login()" onsubmit="return false" method="get" action="/">
 
     <h2 class="form-signin-heading text-center">用户登陆</h2>
@@ -12,9 +12,3 @@
     <button  type="submit" id="login" class="btn btn-lg btn-primary btn-block"  ng-disabled="processing" >登 陆</button>
 	<div class="pull-right"><a  href="#/main"> 忘记密码?</a>	</div>
 </form>
-<script type="text/javascript">
-$('input#username').maxlength({
-        });
-$('input#password').maxlength({
-        });
-</script>

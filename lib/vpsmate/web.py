@@ -415,7 +415,7 @@ class QueryHandler(RequestHandler):
     /query/config.fstab(sda1)
     """
     def get(self, items):
-        self.authed()
+        #self.authed()
         
         items = items.split(',')
         qdict = {'server': [], 'service': [], 'config': [], 'tool': []}

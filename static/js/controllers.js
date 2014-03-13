@@ -45,16 +45,12 @@ cloudAppControllers.controller('loginCtrl', ['$scope','$http','$location','Messa
   }
 
   }]);
+
 cloudAppControllers.controller('logoutCtrl', ['$rootScope','$scope','$timeout','$http','$location',
   function($rootScope,$scope,$timeout,$http,$location){
 
     $rootScope.isLogin = false;
 
-  $http.get('/xsrf', function(){
-      $http.post('/logout', {}, function(data){
-        Timeout(function(){$location.path('/');}, 3000, module);
-      });
-    });
   $http({method: 'GET', 
             url: '/xsrf'
         }).
@@ -62,9 +58,10 @@ cloudAppControllers.controller('logoutCtrl', ['$rootScope','$scope','$timeout','
       console.log(data);
       $http({method: 'POST',
                 url:   '/logout',
-                data: {}}).
+                data: {}
+            }).
             success(function(data,status,headers,config){
-                console.log('copy the return result.');
+                console.log('logout success.');
                 $location.path('/');
             }).
             error(function(data,status,headers,config){
@@ -72,7 +69,7 @@ cloudAppControllers.controller('logoutCtrl', ['$rootScope','$scope','$timeout','
             });
     }).
     error(function(data,status,headers,config){
-      console.log('failed get base network datas!');
+      console.log('logout failed when getting /xsrf');
     });
 
 }]);
@@ -83,22 +80,10 @@ cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout','$h
   $rootScope.htmlTitle = "首页";
 
   // get system base information from server
-  $scope.sys_info = { os_dist: 'CentOS 6.5 Final', 
-                      run_time: '0天3小时40分34秒',
-                      cpu_load: '56%',
-                      memory_usage:'43%',
-                      nic_info:[
-                                {
-                                  name:'eth0',
-                                  upload_rate:'上行120k/s', 
-                                  download_rate:'下行160k/s'
-                                },
-                                {
-                                  name:'eth1',
-                                  upload_rate:'上行110k/s', 
-                                  download_rate:'下行150k/s'
-                                }
-                              ],
+  $scope.sys_info = { os_dist:  '', 
+                      run_time: '',
+                      cpu_load: '',
+                      memory_usage:'',
                       disk_info:[]                  
                     };
 
@@ -109,15 +94,18 @@ cloudAppControllers.controller('mainCtrl', ['$rootScope','$scope','$timeout','$h
     var rurl = rootUrl + '/query/b*'
     $http({method: 'GET', url: rurl}).
     success(function(data, status, headers, config) {
+      console.log(data);
       $scope.sys_info.os_dist = data['server.distribution'];
       $scope.sys_info.run_time = data['server.uptime']['up'];
       $scope.sys_info.cpu_load = Math.round(data['server.cpustat']['total']['used'] / data['server.cpustat']['total']['all'] * 10000) / 100 + '%';;
       $scope.sys_info.memory_usage = data['server.meminfo']['mem_used_rate'];
       $scope.sys_info.disk_info = data['server.diskinfo']['partitions'][0]['partitions'];
-      console.log(data['server.diskinfo']);
     }).
     error(function(data, status, headers, config) {
       console.log('failed get base system information');
+      if(status == 403)
+        $location.path('/');
+
     });
 
     // end your function codes
