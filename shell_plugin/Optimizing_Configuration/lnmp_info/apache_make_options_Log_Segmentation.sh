@@ -19,11 +19,11 @@ CONF=`locate  httpd.conf  |  grep  "\/httpd.conf$"  | grep -v   "/etc/httpd/conf
 
 /grep   -v  "^#"  $CONF  |  grep  -wi  "errorlog"  | grep  -iw  "rotatelogs"
 
-#判断上一个命令的返回值，返回"0"表示安装了php模块
+#判断上一个命令的返回值，返回"0"表示安装了日志分割工具
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Rpm_Log_Segmentation/a \'Rpm_Log_Segmentation\':\'On\'"  $ENV_PATH
+	sed  -ie  "/Make_Log_Segmentation/a \'Make_Log_Segmentation\':\'On\'"  $ENV_PATH
 else
-	sed  -ie  "/Rpm_Log_Segmentation/a \'Rpm_Log_Segmentation\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Make_Log_Segmentation/a \'Make_Log_Segmentation\':\'Off\'" $ENV_PATH
 fi
