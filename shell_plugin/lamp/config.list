@@ -1,0 +1,9 @@
+mysqlrootpwd:xMc1d3FM
+
+DOMAIN=vhost1.hongxin.com  DB_NAME=vhost1_hongxin_com   DB_USER_NAME=vhost1   DB_PASSWORD=vhost1
+
+DOMAIN=vhost2.hongxin.com  DB_NAME=vhost2_hongxin_com   DB_USER_NAME=vhost2   DB_PASSWORD=vhost2
+
+DOMAIN=vhost3.hongxin.com  DB_NAME=vhost3_hongxin_com   DB_USER_NAME=vhost3   DB_PASSWORD=vhost3
+
+DOMAIN=vhost4.hongxin.com  DB_NAME=vhost4_hongxin_com   DB_USER_NAME=vhost4   DB_PASSWORD=vhost4
