@@ -14,8 +14,12 @@ echo "============================Install MySQL 5.5.28==========================
 
 #检测系统是否有mysql用户，如果没有则添加mysql，若有，则不添加
 
-groupadd mysql
-useradd -s /sbin/nologin -M -g mysql mysql
+id   mysql
+if  [ `echo  $?` != 0 ]
+then
+	groupadd mysql
+	useradd -s /sbin/nologin -g mysql mysql
+fi
 
 
 CONF_PATH=`find  ./   -name  "config.list"`
