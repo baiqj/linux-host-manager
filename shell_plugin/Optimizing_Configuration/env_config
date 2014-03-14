@@ -11,6 +11,8 @@
 #使用apachectl验证配置文件的正确性
 #使用nginx命令查看nginx配置
 #yum  安装nginx  # rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+#使用php命令查看php配置
+
 
 
 #我们是通过判断httpd.conf是否存在及所在路径判断apache
@@ -115,25 +117,35 @@
 'Nginx_Rpm_Listen':
 'Nginx_Rpm_User':
 'Nginx_Rpm_Group':
-'Nginx_Rpm_ErrorLog':
-'Nginx_Rpm_LogLevel':
-'Nginx_Rpm_Vhost'
+'Nginx_Rpm_Vhost_Num':
 'Nginx_Rpm_Vhost_Conf':
 'Nginx_Rpm_Worker_Processes':
 'Nginx_Make_PidFile':
 'Nginx_Make_Listen':
 'Nginx_Make_User':
 'Nginx_Make_Group':
-'Nginx_Make_ErrorLog':
-'Nginx_Make_LogLevel':
-'Nginx_Make_Vhost'
+'Nginx_Make_Vhost_Num'
 'Nginx_Make_Vhost_Conf':
 'Nginx_Make_Worker_Processes':
 			}
+			
+	'PHP_BASE':{
+'Php_Install':
+'Php_Install_Way':
+'Php_Rpm_Version':
+'Php_Make_Version':
+'Php_Rpm_Installation_Directory':
+'Php_Make_Installation_Directory':
+'Php_Rpm_Conf_Path':
+'Php_Make_Conf_Path':
+'Php_Rpm_Start_Cmd':
+'Php_Make_Start_Cmd':
+'Php_Rpm_Stop_Cmd':
+'Php_Make_Stop_Cmd':
+'Php_Rpm_Reload_Cmd':
+'Php_Make_Reload_Cmd':
+			}
 }
-
-
-
 
 
 
