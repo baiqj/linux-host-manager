@@ -52,6 +52,12 @@ body {
   background-color: #FFFFFF;
 }
 
+/* 导航中heading的颜色样式 */
+h4 > a:link {color:#FFFFFF;}    /* unvisited link */
+h4 > a:visited {color:#FFFFFF;} /* visited link */
+h4 > a:hover {color:#FFFFFF; text-decoration: none;}   /* mouse over link */
+h4 > a:active {color:#FFFFFF;}  /* selected link */
+
 
 .banner { position: relative; overflow: auto; }
 .banner li { list-style: none; }

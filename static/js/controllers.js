@@ -44,6 +44,12 @@ cloudAppControllers.controller('loginCtrl', ['$scope','$http','$location','Messa
     });
   }
 
+  $scope.showForgetPwdMsg = false;
+  $scope.forGetPwd = function(){
+    console.log("12345 show showForgetPwdMsg");
+    $scope.showForgetPwdMsg = !$scope.showForgetPwdMsg;
+  }
+
   }]);
 
 cloudAppControllers.controller('logoutCtrl', ['$rootScope','$scope','$timeout','$http','$location',
@@ -195,7 +201,36 @@ cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope',
   
   }]);
 
+cloudAppControllers.controller('startbackupCtrl', ['$rootScope','$scope',
+  function($rootScope,$scope) {
+  /* custom code section */
+  $rootScope.htmlTitle = "一键通";
+
+  $scope.select_all = function(){
+    $scope.var1 = true;
+    $scope.var2 = true;
+    $scope.var3 = true;
+    $scope.var4 = true;
+    $scope.var5 = true;
+  }
+
+  $scope.cancel_all = function(){
+    $scope.var1 = false;
+    $scope.var2 = false;
+    $scope.var3 = false;
+    $scope.var4 = false;
+    $scope.var5 = false;
+  }
+  }]);
+
 cloudAppControllers.controller('moveCtrl', ['$rootScope','$scope',
+  function($rootScope,$scope) {
+  /* custom code section */
+  $rootScope.htmlTitle = "一键通";
+  
+  }]);
+
+cloudAppControllers.controller('movingCtrl', ['$rootScope','$scope',
   function($rootScope,$scope) {
   /* custom code section */
   $rootScope.htmlTitle = "一键通";

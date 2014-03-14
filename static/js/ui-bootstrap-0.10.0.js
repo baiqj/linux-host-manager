@@ -231,7 +231,8 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
     templateUrl:'template/accordion/accordion-group.html',
     scope:{ 
         heading: '@heading',
-        href: '@href'
+        href: '@href',
+        src: '@src'
        },        // Create an isolated scope and interpolate the heading attribute onto this scope
     controller: function() {
       this.setHeading = function(element) {
@@ -3434,9 +3435,9 @@ angular.module("template/accordion/accordion-group.html", []).run(["$templateCac
   $templateCache.put("template/accordion/accordion-group.html",
     "<div class=\"panel panel-default\">\n" +
     "  <div class=\"panel-heading\" style=\"background-color: #1375B2;\">\n" +
-    "    <h4 class=\"panel-title text-center\" >\n" +
-    "      <a class=\"accordion-toggle\" href=\"{{href}}\"  ng-click=\"isOpen = !isOpen\" accordion-transclude=\"heading\">{{heading}}</a>\n" +
-    /*"      <small><i class='pull-right glyphicon' ng-click=\"isOpen = !isOpen\" ng-class='{&quot;glyphicon-chevron-down&quot;: isopen, &quot;glyphicon-chevron-right&quot;: !isopen}'></i></small>\n" +*/
+    "    <h4 class=\"panel-title text-center \" >\n" +
+    "     <a class=\"accordion-toggle\" style='hover:{color:white; text-decoration:none;}' href=\"{{href}}\"  ng-click=\"isOpen = !isOpen\" accordion-transclude=\"heading\">" +
+    "      <img style='padding-bottom:5px;heigth:30px;width:30px;' src=\"{{src}}\" href=\"{{href}}\" class='image-response'></img><br />{{heading}}</a>\n" +
     "    </h4>\n" +
     "  </div>\n" +
     "  <div class=\"panel-collapse text-center\" collapse=\"!isOpen\">\n" +

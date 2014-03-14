@@ -23,11 +23,12 @@ directive('navbar', function(){
   		<div class="panel panel-default" >\
   			<div class="panel-heading text-center" style="background-color: #1375B2;">\
     			<h4 class="panel-title">\
-     				<a href="#/main" > 首页</a>\
+    				<a href="#/main" ><img style="padding-bottom:5px;heigth:30px;width:30px;" src="../images/index-nav.png" class="image-response"></img><br />\
+     				首页</a>\
     			</h4>\
   			</div>\
   		</div>\
-  		<accordion-group href="#/OneKey"  heading="一键通" is-open="false">\
+  		<accordion-group href="#/OneKey"  src="../images/onekey-nav.png" heading="一键通" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\
   				<li><a href="#/sites/create">一键建站</a></li>\
   				<li><a href="#/sites/lamp">一键LAMP</a></li>\
@@ -37,15 +38,15 @@ directive('navbar', function(){
   				<li><a href="#/sites/lnmp">一键优化</a></li>\
 			</ul>\
 		</accordion-group>\
-		<accordion-group href="#/OneKey"  heading="站点管理" is-open="false">\
+		<accordion-group href="#/OneKey"  src="../images/sites-nav.png" heading="站点管理" is-open="false">\
 		</accordion-group>\
-		<accordion-group href="#/OneKey"  heading="软件管理" is-open="false">\
+		<accordion-group href="#/OneKey"  src="../images/soft-nav.png" heading="软件管理" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\
   				<li><a href="#/sites/create">软件仓库</a></li>\
   				<li><a href="#/sites/lamp">软件配置</a></li>\
 			</ul>\
 		</accordion-group>\
-		<accordion-group href="#/OneKey"  heading="系统管理" is-open="false">\
+		<accordion-group href="#/OneKey"  src="../images/system-nav.png" heading="系统管理" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\
   				<li><a href="#/sites/create">系统监控</a></li>\
   				<li><a href="#/sites/lamp">用户列表</a></li>\
@@ -54,7 +55,9 @@ directive('navbar', function(){
 		<div class="panel panel-default" >\
   			<div class="panel-heading text-center" style="background-color: #1375B2;">\
     			<h4 class="panel-title">\
-     				<a href="#/logout" >退出</a>\
+    				<a href="#/logout">\
+    				<div class="glyphicon glyphicon-log-out"></div><br />\
+     				退出</a>\
     			</h4>\
   			</div>\
   		</div>\

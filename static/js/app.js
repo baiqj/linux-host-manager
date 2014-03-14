@@ -53,9 +53,17 @@ cloudApp.config(['$routeProvider',
         templateUrl: 'partials/OneKey/backup.html',
         controller: 'backupCtrl'
       }).
+      when('/sites/onekey/backup-start', {
+        templateUrl: 'partials/OneKey/start-backup.html',
+        controller: 'startbackupCtrl'
+      }).
       when('/sites/move', {
         templateUrl: 'partials/OneKey/move.html',
         controller: 'moveCtrl'
+      }).
+      when('/sites/onekey/start-moving', {
+        templateUrl: 'partials/OneKey/moving.html',
+        controller: 'movingCtrl'
       }).
       when('/logout', {
        templateUrl: 'partials/login.html',
@@ -91,6 +99,7 @@ run(['$rootScope', '$location', '$timeout',function($rootScope, $location,$timeo
  /* var testTimeout = function(){
     console.log("test for timeout use.");
   }
+          <td>step one</td>
 
   $timeout(function(){
     testTimeout.call();
