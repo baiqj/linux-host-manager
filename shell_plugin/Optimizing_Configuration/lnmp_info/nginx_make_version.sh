@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##############################
-#检测Make安装方式Nginx的主配置文件的路径
+#检测Make编译安装方式Nginx的安装版本
 ##############################
 updatedb
 
@@ -24,13 +24,25 @@ DOCUMENT_PATH=`cat  ./cache.tmp  |   grep  -i "configure *arguments"  |  awk -F 
 #查看编译安装的主配置文件的路径
 
 CONF=`locate  "nginx.conf"  |  grep  "$DOCUMENT_PATH"  |  grep  "\/conf\/nginx.conf$"`
-  
-LINE_NUM=`grep  -n  "Nginx_Make_Conf_Path"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Nginx_Make_Conf_Path"行之后添加一行
+VERSION=`cat   ./cache.tmp |  awk  '{print $3}'`
 
-sed  -ie  "/Nginx_Make_Conf_Path/a \'Nginx_Make_Conf_Path\':\'$DOCUMENT_PATH\'"   $ENV_PATH
+rm  -rf   ./cache.tmp
 
-#删除原来的"Nginx_Make_Conf_Path"行
+#查看"Nginx_Make_Version"所在的行号
+
+LINE_NUM=`grep  -n  "Nginx_Make_Version"   $ENV_PATH  |  awk -F:  '{print $1}'`
+
+#在"Nginx_Make_Version"行之后添加一行
+
+sed  -ie  "/Nginx_Make_Version/a \'Nginx_Make_Version\':\'$VERSION\'" $ENV_PATH
+
+#删除原来的"Nginx_Make_Version"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
+
+
+
+
+
+

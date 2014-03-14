@@ -9,6 +9,9 @@
 #脚本执行前使用 dos2unix 进行转换
 
 #使用apachectl验证配置文件的正确性
+#使用nginx命令查看nginx配置
+#yum  安装nginx  # rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+
 
 #我们是通过判断httpd.conf是否存在及所在路径判断apache
 {
@@ -103,8 +106,8 @@
 'Nginx_Make_Start_Cmd':
 'Nginx_Rpm_Stop_Cmd':
 'Make_Stop_Cmd':
-'Nginx_Rpm_Restart_Path':
-'Nginx_Make_Restart_Path':
+'Nginx_Rpm_Restart_Cmd':
+'Nginx_Make_Reload_Cmd':
 			}
 			
 	'NGINX_OPTIONS':{

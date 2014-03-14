@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##############################
-#检测Make安装方式Nginx的主配置文件的路径
+#检测Make安装方式Nginx的关闭命令
 ##############################
 updatedb
 
@@ -24,13 +24,18 @@ DOCUMENT_PATH=`cat  ./cache.tmp  |   grep  -i "configure *arguments"  |  awk -F 
 #查看编译安装的主配置文件的路径
 
 CONF=`locate  "nginx.conf"  |  grep  "$DOCUMENT_PATH"  |  grep  "\/conf\/nginx.conf$"`
-  
-LINE_NUM=`grep  -n  "Nginx_Make_Conf_Path"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Nginx_Make_Conf_Path"行之后添加一行
+rm  -rf   ./cache.tmp
 
-sed  -ie  "/Nginx_Make_Conf_Path/a \'Nginx_Make_Conf_Path\':\'$DOCUMENT_PATH\'"   $ENV_PATH
+LINE_NUM=`grep  -n  "Nginx_Make_Stop_Cmd"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#删除原来的"Nginx_Make_Conf_Path"行
+#在"Nginx_Make_Stop_Cmd"行之后添加一行
+
+sed  -ie  "/Nginx_Make_Stop_Cmd/a \'Nginx_Make_Stop_Cmd\':\'"'$CMD -s stop'"\'"   $ENV_PATH
+
+#删除原来的"Nginx_Make_Stop_Cmd"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
+
+
+
