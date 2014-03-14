@@ -19,9 +19,14 @@ CMD=`locate nginx   |  grep  "\/nginx$"    |  grep   -i  "\/*nginx*\/"`
 
 $CMD  -V   &>  ./cache.tmp
 
-CONF=`cat  ./cache.tmp  | grep -i  "configure arguments"  |  awk -F  "--conf-path="  '{print  $2}'  |  awk  '{print  $1}'`
+#查看编译安装的主配置文件的路径
+
+DOCUMENT=`cat  ./cache.tmp  |   grep  -i "configure *arguments"  |  awk -F '--prefix='  '{print $2}'  |  awk  '{print  $1}'`
+
+CONF=`locate  "nginx.conf"  |  grep  "$DOCUMENT"  |  | grep  "\/conf\/"  grep  "\/nginx.conf$"`
 
 rm  -rf   ./cache.tmp
+
 
 VALUE=`grep -v "#"  $CONF   |  grep  -iw  "pid"  | awk  '{print  $2}'  |  awk  -F ';'  '{print  $1}'`
 

@@ -112,7 +112,6 @@
 			
 	'NGINX_OPTIONS':{
 'Nginx_Rpm_PidFile':
-'Nginx_Rpm_KeepAliveTimeout':
 'Nginx_Rpm_Listen':
 'Nginx_Rpm_User':
 'Nginx_Rpm_Group':
@@ -122,9 +121,9 @@
 'Nginx_Rpm_Vhost_Conf':
 'Nginx_Rpm_Worker_Processes':
 'Nginx_Make_PidFile':
-'Nginx_Make_KeepAliveTimeout':
 'Nginx_Make_Listen':
 'Nginx_Make_User':
+'Nginx_Make_Group':
 'Nginx_Make_ErrorLog':
 'Nginx_Make_LogLevel':
 'Nginx_Make_Vhost'

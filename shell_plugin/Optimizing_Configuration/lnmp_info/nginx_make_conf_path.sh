@@ -21,8 +21,10 @@ $CMD  -V  &>   ./cache.tmp
 
 #查看编译安装的主配置文件的路径
 
-CONF=`cat  ./cache.tmp  |   grep  -i "configure *arguments"  |  awk -F '--conf-path='  '{print $2}'  |  awk  '{print  $1}'`
- 
+DOCUMENT=`cat  ./cache.tmp  |   grep  -i "configure *arguments"  |  awk -F '--prefix='  '{print $2}'  |  awk  '{print  $1}'`
+
+CONF=`locate  "nginx.conf"  |  grep  "$DOCUMENT"  |  | grep  "\/conf\/"  grep  "\/nginx.conf$"`
+
 rm  -rf   ./cache.tmp
 
 LINE_NUM=`grep  -n  "Nginx_Make_Conf_Path"   $ENV_PATH  |  awk -F:  '{print $1}'`

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##############################
-#检测Rpm安装方式Nginx的运行账号
+#检测Rpm安装方式Nginx的运行组名称
 ##############################
 updatedb
 
@@ -17,17 +17,17 @@ ENV_PATH=../env_config
 CMD=`rpm  -ql  nginx  |  grep  "\/nginx$"  |  grep  -E  "/usr/sbin/|/usr/bin/"`
 $CMD  -V   &>  ./cache.tmp
 
-VALUE=`cat  ./cache.tmp  | grep -i  "configure arguments"  |  awk -F  "--user="  '{print  $2}'  |  awk  '{print  $1}'`
+VALUE=`cat  ./cache.tmp  | grep -i  "configure arguments"  |  awk -F  "--group="  '{print  $2}'  |  awk  '{print  $1}'`
 
 rm  -rf   ./cache.tmp
 
-LINE_NUM=`grep  -n  "Nginx_Rpm_User"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Nginx_Rpm_Group"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Nginx_Rpm_User"行之后添加一行
+#在"Nginx_Rpm_Group"行之后添加一行
 
-sed  -ie  "/Nginx_Rpm_User/a \'Nginx_Rpm_User\':\'$VALUE\'"   $ENV_PATH
+sed  -ie  "/Nginx_Rpm_Group/a \'Nginx_Rpm_Group\':\'$VALUE\'"   $ENV_PATH
 
-#删除原来的"Nginx_Rpm_User"行
+#删除原来的"Nginx_Rpm_Group"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 
