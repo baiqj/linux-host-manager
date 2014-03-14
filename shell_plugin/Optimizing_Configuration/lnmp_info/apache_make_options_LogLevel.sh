@@ -20,15 +20,15 @@ CONF=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\
 
 VALUE=`grep  -v  "^#"  $CONF |  grep  -i "LogLevel " |  awk  '{print  $2}'`
 
-#查看"Rpm_LogLevel"所在的行号
+#查看"Apache_Make_LogLevel"所在的行号
 
-LINE_NUM=`grep  -n  "Rpm_LogLevel"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Apache_Make_LogLevel"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Rpm_LogLevel"行之后添加一行
+#在"Apache_Make_LogLevel"行之后添加一行
 
-sed  -ie  "/Rpm_LogLevel/a \'Rpm_LogLevel\':\'$VALUE\'" $ENV_PATH
+sed  -ie  "/Apache_Make_LogLevel/a \'Apache_Make_LogLevel\':\'$VALUE\'" $ENV_PATH
 
-#删除原来的"Rpm_LogLevel"行
+#删除原来的"Apache_Make_LogLevel"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 

@@ -18,13 +18,13 @@ locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\/etc\/
 CONF=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\/etc\/httpd\/conf\/httpd.conf" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"  `
 
 
-LINE_NUM=`grep  -n  "Make_Conf_Path"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Apache_Make_Conf_Path"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Make_Conf_Path"行之后添加一行
+#在"Apache_Make_Conf_Path"行之后添加一行
 
-sed  -ie  "/Make_Conf_Path/a \'Make_Conf_Path\':\'$CONF\'"   $ENV_PATH
+sed  -ie  "/Apache_Make_Conf_Path/a \'Apache_Make_Conf_Path\':\'$CONF\'"   $ENV_PATH
 
-#删除原来的"Make_Conf_Path"行
+#删除原来的"Apache_Make_Conf_Path"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 

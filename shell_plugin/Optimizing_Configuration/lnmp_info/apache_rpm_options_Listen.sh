@@ -14,15 +14,15 @@ CONF='/etc/httpd/conf/httpd.conf'
 
 VALUE=`grep  -v  "^#"  $CONF |  grep  -i "Listen " |  awk  '{print  $2}'`
 
-#查看"Rpm_Listen"所在的行号
+#查看"Apache_Rpm_Listen"所在的行号
 
-LINE_NUM=`grep  -n  "Rpm_Listen"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Apache_Rpm_Listen"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Rpm_Listen"行之后添加一行
+#在"Apache_Rpm_Listen"行之后添加一行
 
-sed  -ie  "/Rpm_Listen/a \'Rpm_Listen\':\'$VALUE\'" $ENV_PATH
+sed  -ie  "/Apache_Rpm_Listen/a \'Apache_Rpm_Listen\':\'$VALUE\'" $ENV_PATH
 
-#删除原来的"Rpm_Listen"行
+#删除原来的"Apache_Rpm_Listen"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 

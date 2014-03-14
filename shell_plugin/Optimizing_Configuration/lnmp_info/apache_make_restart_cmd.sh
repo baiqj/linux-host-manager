@@ -19,13 +19,13 @@ CONF=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\
 
 CMD=`locate  "apachectl"  |  grep  "\/apachectl$"  |  grep  -v  "/usr/sbin/apachectl"`
 
-LINE_NUM=`grep  -n  "Make_Restart_Cmd"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Apache_Make_Restart_Cmd"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Make_Restart_Cmd"行之后添加一行
+#在"Apache_Make_Restart_Cmd"行之后添加一行
 
-sed  -ie  "/Make_Restart_Cmd/a \'Make_Restart_Cmd\':\'"'$CMD -k  restart'"\'"   $ENV_PATH
+sed  -ie  "/Apache_Make_Restart_Cmd/a \'Apache_Make_Restart_Cmd\':\'"'$CMD -k  restart'"\'"   $ENV_PATH
 
-#删除原来的"Make_Restart_Cmd"行
+#删除原来的"Apache_Make_Restart_Cmd"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 

@@ -20,15 +20,15 @@ CONF=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\
 
 VALUE=`grep  -v  "^#"  $CONF |  grep  -i "UseCanonicalName " |  awk  '{print  $2}'`
 
-#查看"Rpm_UseCanonicalName"所在的行号
+#查看"Apache_Make_UseCanonicalName"所在的行号
 
-LINE_NUM=`grep  -n  "Rpm_UseCanonicalName"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Apache_Make_UseCanonicalName"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Rpm_UseCanonicalName"行之后添加一行
+#在"Apache_Make_UseCanonicalName"行之后添加一行
 
-sed  -ie  "/Rpm_UseCanonicalName/a \'Rpm_UseCanonicalName\':\'$VALUE\'" $ENV_PATH
+sed  -ie  "/Apache_Make_UseCanonicalName/a \'Apache_Make_UseCanonicalName\':\'$VALUE\'" $ENV_PATH
 
-#删除原来的"Rpm_UseCanonicalName"行
+#删除原来的"Apache_Make_UseCanonicalName"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 

@@ -28,7 +28,7 @@ $CMD  -t -D  DUMP_MODULES | awk  '{print $1}' |  grep  "security"
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Make_mod_security/a \'Make_mod_security\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_mod_security/a \'Apache_Make_mod_security\':\'On\'" $ENV_PATH
 else
-	sed  -ie  "/Make_mod_security/a \'Make_mod_security\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_mod_security/a \'Apache_Make_mod_security\':\'Off\'" $ENV_PATH
 fi

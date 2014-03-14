@@ -25,7 +25,7 @@ CONF=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Make_Log_Segmentation/a \'Make_Log_Segmentation\':\'On\'"  $ENV_PATH
+	sed  -ie  "/Apache_Make_Log_Segmentation/a \'Apache_Make_Log_Segmentation\':\'On\'"  $ENV_PATH
 else
-	sed  -ie  "/Make_Log_Segmentation/a \'Make_Log_Segmentation\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_Log_Segmentation/a \'Apache_Make_Log_Segmentation\':\'Off\'" $ENV_PATH
 fi

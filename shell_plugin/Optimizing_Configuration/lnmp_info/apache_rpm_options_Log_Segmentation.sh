@@ -16,7 +16,7 @@ ENV_PATH=../env_config
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Rpm_Log_Segmentation/a \'Rpm_Log_Segmentation\':\'On\'"  $ENV_PATH
+	sed  -ie  "/Apache_Rpm_Log_Segmentation/a \'Apache_Rpm_Log_Segmentation\':\'On\'"  $ENV_PATH
 else
-	sed  -ie  "/Rpm_Log_Segmentation/a \'Rpm_Log_Segmentation\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Rpm_Log_Segmentation/a \'Apache_Rpm_Log_Segmentation\':\'Off\'" $ENV_PATH
 fi

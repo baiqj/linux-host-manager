@@ -16,7 +16,7 @@ ENV_PATH=../env_config
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Rpm_mod_status/a \'Rpm_mod_status\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Rpm_mod_status/a \'Apache_Rpm_mod_status\':\'On\'" $ENV_PATH
 else
-	sed  -ie  "/Rpm_mod_status/a \'Rpm_mod_status\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Rpm_mod_status/a \'Apache_Rpm_mod_status\':\'Off\'" $ENV_PATH
 fi

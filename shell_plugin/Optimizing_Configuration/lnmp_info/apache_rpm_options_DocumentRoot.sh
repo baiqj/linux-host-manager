@@ -14,15 +14,15 @@ CONF='/etc/httpd/conf/httpd.conf'
 
 VALUE=`grep  -v  "^#"  $CONF |  grep  -i "DocumentRoot " |  awk  '{print  $2}' | awk  -F  '"'  '{print $2}'`
 
-#查看"Rpm_DocumentRoot"所在的行号
+#查看"Apache_Rpm_DocumentRoot"所在的行号
 
-LINE_NUM=`grep  -n  "Rpm_DocumentRoot"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Apache_Rpm_DocumentRoot"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Rpm_DocumentRoot"行之后添加一行
+#在"Apache_Rpm_DocumentRoot"行之后添加一行
 
-sed  -ie  "/Rpm_DocumentRoot/a \'Rpm_DocumentRoot\':\'$VALUE\'" $ENV_PATH
+sed  -ie  "/Apache_Rpm_DocumentRoot/a \'Apache_Rpm_DocumentRoot\':\'$VALUE\'" $ENV_PATH
 
-#删除原来的"Rpm_DocumentRoot"行
+#删除原来的"Apache_Rpm_DocumentRoot"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 

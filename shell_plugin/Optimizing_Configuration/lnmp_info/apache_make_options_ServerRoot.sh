@@ -20,15 +20,15 @@ CONF=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\
 
 VALUE=`grep  -v  "^#"  $CONF |  grep  -i "ServerRoot " |  awk  '{print  $2}' | awk  -F '"'  '{print $2}'`
 
-#查看"Rpm_ServerRoot"所在的行号
+#查看"Apache_Make_ServerRoot"所在的行号
 
-LINE_NUM=`grep  -n  "Rpm_ServerRoot"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Apache_Make_ServerRoot"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Rpm_ServerRoot"行之后添加一行
+#在"Apache_Make_ServerRoot"行之后添加一行
 
-sed  -ie  "/Rpm_ServerRoot/a \'Rpm_ServerRoot\':\'$VALUE\'" $ENV_PATH
+sed  -ie  "/Apache_Make_ServerRoot/a \'Apache_Make_ServerRoot\':\'$VALUE\'" $ENV_PATH
 
-#删除原来的"Rpm_ServerRoot"行
+#删除原来的"Apache_Make_ServerRoot"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 

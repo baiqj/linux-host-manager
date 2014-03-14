@@ -16,7 +16,7 @@ ENV_PATH=../env_config
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Rpm_libphp5/a \'Rpm_libphp5\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Rpm_libphp5/a \'Apache_Rpm_libphp5\':\'On\'" $ENV_PATH
 else
-	sed  -ie  "/Rpm_libphp5/a \'Rpm_libphp5\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Rpm_libphp5/a \'Apache_Rpm_libphp5\':\'Off\'" $ENV_PATH
 fi

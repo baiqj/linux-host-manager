@@ -26,15 +26,15 @@ grep -v  "^#"  $CONF  | grep  -i  NameVirtualHost  |  grep -v  "^#"
 if [ `echo  $?` == 0 ]
 
 then
-	#查看"Make_Vhost"所在的行号
+	#查看"Apache_Make_Vhost"所在的行号
 
-	LINE_NUM=`grep  -n  "Make_Vhost"   $ENV_PATH  |  awk -F:  '{print $1}'`
+	LINE_NUM=`grep  -n  "Apache_Make_Vhost"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-	#在"Make_Vhost"行之后添加一行
+	#在"Apache_Make_Vhost"行之后添加一行
 
-	sed  -ie  "/Make_Vhost/a \'Make_Vhost\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_Vhost/a \'Apache_Make_Vhost\':\'On\'" $ENV_PATH
 
-	#删除原来的"Make_Vhost"行
+	#删除原来的"Apache_Make_Vhost"行
 
 	sed -i  ''$LINE_NUM'd'   $ENV_PATH
 	
@@ -91,15 +91,15 @@ do
 	sed  ''$i',1p'  include.tmp  |  grep  -i  "NameVirtualHost"  |  grep  -v  "^#"
 	if  [ `echo  $?` == 0 ]
 	then
-	#查看"Make_Vhost"所在的行号
+	#查看"Apache_Make_Vhost"所在的行号
 
-	LINE_NUM=`grep  -n  "Make_Vhost"   $ENV_PATH  |  awk -F:  '{print $1}'`
+	LINE_NUM=`grep  -n  "Apache_Make_Vhost"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-	#在"Make_Vhost"行之后添加一行
+	#在"Apache_Make_Vhost"行之后添加一行
 
-	sed  -ie  "/Make_Vhost/a \'Make_Vhost\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_Vhost/a \'Apache_Make_Vhost\':\'On\'" $ENV_PATH
 
-	#删除原来的"Make_Vhost"行
+	#删除原来的"Apache_Make_Vhost"行
 
 	sed -i  ''$LINE_NUM'd'   $ENV_PATH
 	
@@ -111,7 +111,7 @@ do
 done
 
 #当所有的文件中都不包含"NameVirtualHost"时，表示不启用虚拟主机功能
-sed  -ie  "/Make_Vhost/a \'Make_Vhost\':\'Off\'" $ENV_PATH
+sed  -ie  "/Apache_Make_Vhost/a \'Apache_Make_Vhost\':\'Off\'" $ENV_PATH
 rm  -rf   ./cache.tmp
 rm  -rf   ./include.tmp
 

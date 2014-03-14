@@ -30,7 +30,7 @@ $CMD  -t -D  DUMP_MODULES | awk  '{print $1}' |  grep  "expires"
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Make_mod_expires/a \'Make_mod_expires\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_mod_expires/a \'Apache_Make_mod_expires\':\'On\'" $ENV_PATH
 else
-	sed  -ie  "/Make_mod_expires/a \'Make_mod_expires\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_mod_expires/a \'Apache_Make_mod_expires\':\'Off\'" $ENV_PATH
 fi

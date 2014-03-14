@@ -28,7 +28,7 @@ $CMD  -t -D  DUMP_MODULES | awk  '{print $1}' |  grep  "status"
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Make_mod_status/a \'Make_mod_status\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_mod_status/a \'Apache_Make_mod_status\':\'On\'" $ENV_PATH
 else
-	sed  -ie  "/Make_mod_status/a \'Make_mod_status\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_mod_status/a \'Apache_Make_mod_status\':\'Off\'" $ENV_PATH
 fi

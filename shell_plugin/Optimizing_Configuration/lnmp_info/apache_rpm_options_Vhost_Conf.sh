@@ -82,13 +82,13 @@ sed   -i    ':t;N;s/\n/,/;b t'  cache.tmp
 sed  -i  "s/$/]/g"  cache.tmp 
 sed  -i  "s/^/[/g"  cache.tmp 
 
-#查看"Rpm_Vhost_Conf"所在的行号
-LINE_NUM=`grep  -n  "Rpm_Vhost_Conf"   $ENV_PATH  |  awk -F:  '{print $1}'`
+#查看"Apache_Rpm_Vhost_Conf"所在的行号
+LINE_NUM=`grep  -n  "Apache_Rpm_Vhost_Conf"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Rpm_Vhost_Conf"行之后添加一行
-sed  -ie  "/Rpm_Vhost_Conf/a \'Rpm_Vhost_Conf\':`cat  cache.tmp`" $ENV_PATH
+#在"Apache_Rpm_Vhost_Conf"行之后添加一行
+sed  -ie  "/Apache_Rpm_Vhost_Conf/a \'Apache_Rpm_Vhost_Conf\':`cat  cache.tmp`" $ENV_PATH
 
-#删除原来的"Rpm_Vhost_Conf"行
+#删除原来的"Apache_Rpm_Vhost_Conf"行
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
 			
 rm  -rf    ./cache.tmp

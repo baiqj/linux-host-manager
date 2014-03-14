@@ -16,7 +16,7 @@ ENV_PATH=../env_config
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Rpm_ssl/a \'Rpm_ssl\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Rpm_ssl/a \'Apache_Rpm_ssl\':\'On\'" $ENV_PATH
 else
-	sed  -ie  "/Rpm_ssl/a \'Rpm_ssl\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Rpm_ssl/a \'Apache_Rpm_ssl\':\'Off\'" $ENV_PATH
 fi

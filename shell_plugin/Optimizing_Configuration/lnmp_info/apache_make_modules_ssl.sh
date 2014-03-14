@@ -28,7 +28,7 @@ $CMD  -t -D  DUMP_MODULES | awk  '{print $1}' |  grep  "ssl"
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Make_ssl/a \'Make_ssl\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_ssl/a \'Apache_Make_ssl\':\'On\'" $ENV_PATH
 else
-	sed  -ie  "/Make_ssl/a \'Make_ssl\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_ssl/a \'Apache_Make_ssl\':\'Off\'" $ENV_PATH
 fi

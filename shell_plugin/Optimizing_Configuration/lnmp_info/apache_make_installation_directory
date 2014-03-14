@@ -18,12 +18,12 @@ CONF=`locate   "httpd.conf"  |  grep  -i  "\/conf\/httpd\.conf$" |  grep  -v  "\
 
 DOCUMENT_PATH=`grep  -i  "ServerRoot "   $CONF  | grep -v "^#" |  awk   '{print  $2}'`
 
-LINE_NUM=`grep  -n  "Make_Installation_Directory"   $ENV_PATH  |  awk -F:  '{print $1}'`
+LINE_NUM=`grep  -n  "Apache_Make_Installation_Directory"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Make_Installation_Directory"行之后添加一行
+#在"Apache_Make_Installation_Directory"行之后添加一行
 
-sed  -ie  "/Make_Installation_Directory/a \'Make_Installation_Directory\':\'$DOCUMENT_PATH\'"   $ENV_PATH
+sed  -ie  "/Apache_Make_Installation_Directory/a \'Apache_Make_Installation_Directory\':\'$DOCUMENT_PATH\'"   $ENV_PATH
 
-#删除原来的"Make_Installation_Directory"行
+#删除原来的"Apache_Make_Installation_Directory"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH

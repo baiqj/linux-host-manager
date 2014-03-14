@@ -28,7 +28,7 @@ $CMD  -t -D  DUMP_MODULES | awk  '{print $1}' |  grep  "php"
 
 if [ `echo  $?` == 0 ] 
 then
-	sed  -ie  "/Rpm_libphp5/a \'Rpm_libphp5\':\'On\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_libphp5/a \'Apache_Make_libphp5\':\'On\'" $ENV_PATH
 else
-	sed  -ie  "/Rpm_libphp5/a \'Rpm_libphp5\':\'Off\'" $ENV_PATH
+	sed  -ie  "/Apache_Make_libphp5/a \'Apache_Make_libphp5\':\'Off\'" $ENV_PATH
 fi
