@@ -17,9 +17,11 @@ CONF="/etc/nginx/nginx.conf"
 
 CMD=`rpm  -ql  nginx  |  grep  "\/nginx$"  |  grep  -E  "/usr/sbin/|/usr/bin/"`
 $CMD  -V   &>  ./cache.tmp
-rm  -rf   ./cache.tmp
+
 
 DOCUMENT_PATH=`cat  ./cache.tmp  | grep -i  "configure arguments"  |  awk -F  "--prefix="  '{print  $2}'  |  awk  '{print  $1}'`
+
+rm  -rf   ./cache.tmp
 
 LINE_NUM=`grep  -n  "Nginx_Rpm_Installation_Directory"   $ENV_PATH  |  awk -F:  '{print $1}'`
 

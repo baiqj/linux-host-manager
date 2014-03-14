@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##############################
-#检测Rpm安装方式Nginx的主配置文件的路径
+#检测Rpm安装方式Nginx的pid的路径
 ##############################
 updatedb
 
@@ -22,12 +22,15 @@ CONF=`cat  ./cache.tmp  | grep -i  "configure arguments"  |  awk -F  "--conf-pat
 
 rm  -rf   ./cache.tmp
 
-LINE_NUM=`grep  -n  "Nginx_Rpm_Conf_Path"   $ENV_PATH  |  awk -F:  '{print $1}'`
+VALUE=`grep -v "#"   $CONF   |  grep  -iw  "pid"  | awk  '{print  $2}'  |  awk  -F ';'  '{print  $1}'`
 
-#在"Nginx_Rpm_Conf_Path"行之后添加一行
+LINE_NUM=`grep  -n  "Nginx_Rpm_PidFile"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-sed  -ie  "/Nginx_Rpm_Conf_Path/a \'Nginx_Rpm_Conf_Path\':\'$CONF\'"   $ENV_PATH
+#在"Nginx_Rpm_PidFile"行之后添加一行
 
-#删除原来的"Nginx_Rpm_Conf_Path"行
+sed  -ie  "/Nginx_Rpm_PidFile/a \'Nginx_Rpm_PidFile\':\'$VALUE\'"   $ENV_PATH
+
+#删除原来的"Nginx_Rpm_PidFile"行
 
 sed -i  ''$LINE_NUM'd'   $ENV_PATH
+

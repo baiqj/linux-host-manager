@@ -23,10 +23,6 @@ DOCUMENT_PATH=`cat  ./cache.tmp  |   grep  -i "configure *arguments"  |  awk -F 
 
 rm  -rf   ./cache.tmp
 
-#查看编译安装的主配置文件的路径
-
-CONF=`locate  "nginx.conf"  |  grep  "$DOCUMENT_PATH"  |  grep  "\/conf\/nginx.conf$"`
-
 
 LINE_NUM=`grep  -n  "Nginx_Make_Installation_Directory"   $ENV_PATH  |  awk -F:  '{print $1}'`
 

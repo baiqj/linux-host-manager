@@ -16,14 +16,7 @@ CMD=`locate nginx   |  grep  "\/nginx$"    |  grep   -i  "\/*nginx*\/"`
 
 #查看nginx编译时的参数
 
-$CMD  -V  &>   ./cache.tmp
-
-#查看编译安装的安装目录
-DOCUMENT_PATH=`cat  ./cache.tmp  |   grep  -i "configure *arguments"  |  awk -F '--prefix='  '{print $2}'  |  awk  '{print  $1}'`
-
-#查看编译安装的主配置文件的路径
-
-CONF=`locate  "nginx.conf"  |  grep  "$DOCUMENT_PATH"  |  grep  "\/conf\/nginx.conf$"`
+$CMD  -v  &>   ./cache.tmp
 
 VERSION=`cat   ./cache.tmp |  awk  '{print $3}'`
 

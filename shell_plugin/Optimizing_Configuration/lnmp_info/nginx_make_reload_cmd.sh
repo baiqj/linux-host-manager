@@ -21,10 +21,6 @@ $CMD  -V  &>   ./cache.tmp
 #查看编译安装的安装目录
 DOCUMENT_PATH=`cat  ./cache.tmp  |   grep  -i "configure *arguments"  |  awk -F '--prefix='  '{print $2}'  |  awk  '{print  $1}'`
 
-#查看编译安装的主配置文件的路径
-
-CONF=`locate  "nginx.conf"  |  grep  "$DOCUMENT_PATH"  |  grep  "\/conf\/nginx.conf$"`
-
 rm  -rf   ./cache.tmp
 
 LINE_NUM=`grep  -n  "Nginx_Make_Reload_Cmd"   $ENV_PATH  |  awk -F:  '{print $1}'`

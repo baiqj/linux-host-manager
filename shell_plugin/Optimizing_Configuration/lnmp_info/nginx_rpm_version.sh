@@ -18,6 +18,8 @@ $CMD  -v   &>  ./cache.tmp
 
 VERSION=`cat  ./cache.tmp | awk  '{print $3}'`
 
+rm  -rf   ./cache.tmp
+
 #查看"Nginx_Rpm_Version"所在的行号
 
 LINE_NUM=`grep  -n  "Nginx_Rpm_Version"   $ENV_PATH  |  awk -F:  '{print $1}'`
