@@ -7,7 +7,7 @@ updatedb
 
 ENV_PATH=../env_config
 
-#判断是否存在Make编译安装的Apahce主配置文件，没有的话退出本脚本
+#判断是否存在Make编译安装的php主配置文件，没有的话退出本脚本
 
 locate   "php.ini"  |  grep  -i  "\/php\.ini$" |  grep  -v  "\/etc\/php.ini" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"  
 

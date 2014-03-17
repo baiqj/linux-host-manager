@@ -7,9 +7,9 @@ updatedb
 
 ENV_PATH=../env_config
 
-#判断是否有rpm方式安装的nginx，没有的话退出该脚本
+#判断是否有rpm方式安装的php，没有的话退出该脚本
 
-[ `rpm -qa | grep  nginx` ] ||  exit 1
+[ `rpm  -q  nginx` ] ||  exit 1
 
 CONF="/etc/nginx/nginx.conf"
 

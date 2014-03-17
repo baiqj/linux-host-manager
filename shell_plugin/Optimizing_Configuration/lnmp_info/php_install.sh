@@ -7,9 +7,9 @@ updatedb
 
 ENV_PATH=../env_config
 
-#判断PHP的主配置文件是否存在
+#判断PHP是否存在
 
-locate   "php.ini"  |  grep  -i  "\/php\.ini$" |   grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"  
+locate   php  |  grep  "\/bin\/php$" 
 
 
 if  [ `echo $?`  == 0  ] 

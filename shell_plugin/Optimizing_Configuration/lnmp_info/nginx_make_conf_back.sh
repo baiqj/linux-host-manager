@@ -1,11 +1,15 @@
 #!/bin/bash
 
 ##############################
-#检测Make安装方式Nginx的主配置文件的路径
+#make安装方式NGINX的主配置文件的备份
 ##############################
 updatedb
 
 ENV_PATH=../env_config
+
+#判断nginx是否为rpm方式安装
+rpm  -q  nginx
+[ `echo  $?` ] ||  exit  1
 
 #查看make编译安装的nginx命令路径
 
@@ -27,12 +31,16 @@ CONF=`locate  "nginx.conf"  |  grep  "$DOCUMENT"   | grep  "\/conf\/" | grep  "\
 
 rm  -rf   ./cache.tmp
 
-LINE_NUM=`grep  -n  "Nginx_Make_Conf_Path"   $ENV_PATH  |  awk -F:  '{print $1}'`
 
-#在"Nginx_Make_Conf_Path"行之后添加一行
+#判断是否存在"CONF_BACK"目录
 
-sed  -ie  "/Nginx_Make_Conf_Path/a \'Nginx_Make_Conf_Path\':\'$CONF\'"   $ENV_PATH
+if  [ -d   CONF_BACK  ]
+then	
+	
+else
+	mkdir  ./CONF_BACK
+if
 
-#删除原来的"Nginx_Make_Conf_Path"行
+\cp     $CONF     .\CONG_BACK
 
-sed -i  ''$LINE_NUM'd'   $ENV_PATH
+
