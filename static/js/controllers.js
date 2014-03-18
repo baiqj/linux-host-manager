@@ -45,11 +45,6 @@ cloudAppControllers.controller('loginCtrl', ['$scope','$http','$location','Messa
   }
 
   $scope.isShowForgetPwd = false;
-  $scope.forgetPwd = function(){
-      $scope.isShowForgetPwd = !$scope.isShowForgetPwd;
-
-  }
-
   }]);
 
 cloudAppControllers.controller('logoutCtrl', ['$rootScope','$scope','$timeout','$http','$location',
@@ -234,12 +229,29 @@ cloudAppControllers.controller('movingCtrl', ['$rootScope','$scope',
   function($rootScope,$scope) {
   /* custom code section */
   $rootScope.htmlTitle = "一键通";
-  
   }]);
 
 cloudAppControllers.controller('optimizeCtrl', ['$rootScope','$scope',
     function($rootScope,$scope) {
         /* custom code section */
         $rootScope.htmlTitle = "一键通";
+
+        $scope.AlertDemoCtrl = function ($scope) {
+            $scope.alerts = [
+                { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
+                { type: 'success', msg: 'Well done! You successfully read this important alert message.' },
+                { type: 'warning', msg: 'Well done! You successfully read this important alert message.' },
+                { type: 'info', msg: 'Well done! You successfully read this important alert message.' }
+            ];
+
+            $scope.addAlert = function() {
+                $scope.alerts.push({msg: "Another alert!"});
+            };
+
+            $scope.closeAlert = function(index) {
+                $scope.alerts.splice(index, 1);
+            };
+
+        }
 
     }]);
