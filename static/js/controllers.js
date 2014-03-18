@@ -44,10 +44,10 @@ cloudAppControllers.controller('loginCtrl', ['$scope','$http','$location','Messa
     });
   }
 
-  $scope.showForgetPwdMsg = false;
-  $scope.forGetPwd = function(){
-    console.log("12345 show showForgetPwdMsg");
-    $scope.showForgetPwdMsg = !$scope.showForgetPwdMsg;
+  $scope.isShowForgetPwd = false;
+  $scope.forgetPwd = function(){
+      $scope.isShowForgetPwd = !$scope.isShowForgetPwd;
+
   }
 
   }]);
@@ -236,3 +236,10 @@ cloudAppControllers.controller('movingCtrl', ['$rootScope','$scope',
   $rootScope.htmlTitle = "一键通";
   
   }]);
+
+cloudAppControllers.controller('optimizeCtrl', ['$rootScope','$scope',
+    function($rootScope,$scope) {
+        /* custom code section */
+        $rootScope.htmlTitle = "一键通";
+
+    }]);

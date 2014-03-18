@@ -232,7 +232,7 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
     scope:{ 
         heading: '@heading',
         href: '@href',
-        src: '@src'
+        imgsrc: '@imgsrc'
        },        // Create an isolated scope and interpolate the heading attribute onto this scope
     controller: function() {
       this.setHeading = function(element) {
@@ -3437,7 +3437,7 @@ angular.module("template/accordion/accordion-group.html", []).run(["$templateCac
     "  <div class=\"panel-heading\" style=\"background-color: #1375B2;\">\n" +
     "    <h4 class=\"panel-title text-center \" >\n" +
     "     <a class=\"accordion-toggle\" style='hover:{color:white; text-decoration:none;}' href=\"{{href}}\"  ng-click=\"isOpen = !isOpen\" accordion-transclude=\"heading\">" +
-    "      <img style='padding-bottom:5px;heigth:30px;width:30px;' src=\"{{src}}\" href=\"{{href}}\" class='image-response'></img><br />{{heading}}</a>\n" +
+    "      <img style='padding-bottom:5px;heigth:30px;width:30px;' src=\"{{imgsrc}}\" href=\"{{href}}\" class='image-response'></img><br />{{heading}}</a>\n" +
     "    </h4>\n" +
     "  </div>\n" +
     "  <div class=\"panel-collapse text-center\" collapse=\"!isOpen\">\n" +

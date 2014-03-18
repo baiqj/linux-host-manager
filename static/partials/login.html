@@ -1,6 +1,6 @@
 <div ng-include src="'/xsrf'"></div>
 <div class="row">
-<form class="form-signin" role="form"  ng-submit="login()" onsubmit="return false" method="get" action="/">
+<form class="form-signin" style="margin-bottom: 0px;" role="form"  ng-submit="login()" onsubmit="return false" method="get" action="/">
 
     <h2 class="form-signin-heading text-center">用户登陆</h2>
     
@@ -10,18 +10,17 @@
     <!-- <div class="col-lg-6 col-sm-6" style="padding-left:0"><input type="text" class="form-control" placeholder="{{username}}" required></div>
 	<div class="col-lg-6 col-sm-6" style="padding-right:0"><input type="text" class="form-control" placeholder="验证码" required></div> -->
 
-    <button  type="submit" id="login" class="btn btn-lg btn-primary btn-block"  ng-disabled="processing" >登 陆</button>
+    <button  type="submit" id="login" class="btn  btn-primary btn-block"  ng-disabled="processing" >登 陆</button>
+    <a  class="btn btn-block" ng-click="isShowForgetPwd = !isShowForgetPwd;" >忘记密码</a>
 </form>
 </div>
-<div class="row">
-<button  class="btn btn-primary col-lg-offset-4 col-sm-offset-4 col-md-offset-4" style="margin-top:-100px;" ng-click="forGetPwd();"> 忘记密码?</button>
-<div class="alert alert-info col-lg-8 col-lg-offset-4 col-sm-offset-4 col-md-offset-4"  ng-show="showForgetPwdMsg">
-				<!-- <button ng-click="showForgetPwdMsg=false" type="button" class="close">123</button> -->
-				请在服务器上执行以下命令重置管理员用户名和密码：<br>
-				* 重置用户名：
-					/usr/local/linux-host-manager/config.py username '用户名'<br>
-				* 重置密码：　
-					/usr/local/linux-host-manager/config.py password '密码'<br>
+<div class="col-lg-offset-4" style="margin-top: -30px;">
+    <div class="alert alert-info"  ng-show="isShowForgetPwd">
+		请在服务器上执行以下命令重置管理员用户名和密码：<br>
+		* 重置用户名：
+			/usr/local/linux-host-manager/config.py username '用户名'<br>
+		* 重置密码：　
+			/usr/local/linux-host-manager/config.py password '密码'<br>
+	</div>
 </div>
-</div>
-	
+

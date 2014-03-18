@@ -28,25 +28,25 @@ directive('navbar', function(){
     			</h4>\
   			</div>\
   		</div>\
-  		<accordion-group href="#/OneKey"  src="../images/onekey-nav.png" heading="一键通" is-open="false">\
+  		<accordion-group href="#/OneKey"  imgsrc="../images/onekey-nav.png" heading="一键通" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\
   				<li><a href="#/sites/create">一键建站</a></li>\
   				<li><a href="#/sites/lamp">一键LAMP</a></li>\
   				<li><a href="#/sites/lnmp">一键LNMP</a></li>\
   				<li><a href="#/sites/backup">一键备份</a></li>\
   				<li><a href="#/sites/move">一键迁移</a></li>\
-  				<li><a href="#/sites/lnmp">一键优化</a></li>\
+  				<li><a href="#/sites/optimize">一键优化</a></li>\
 			</ul>\
 		</accordion-group>\
-		<accordion-group href="#/OneKey"  src="../images/sites-nav.png" heading="站点管理" is-open="false">\
+		<accordion-group href="#/OneKey"  imgsrc="../images/sites-nav.png" heading="站点管理" is-open="false">\
 		</accordion-group>\
-		<accordion-group href="#/OneKey"  src="../images/soft-nav.png" heading="软件管理" is-open="false">\
+		<accordion-group href="#/OneKey"  imgsrc="../images/soft-nav.png" heading="软件管理" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\
   				<li><a href="#/sites/create">软件仓库</a></li>\
   				<li><a href="#/sites/lamp">软件配置</a></li>\
 			</ul>\
 		</accordion-group>\
-		<accordion-group href="#/OneKey"  src="../images/system-nav.png" heading="系统管理" is-open="false">\
+		<accordion-group href="#/OneKey"  imgsrc="../images/system-nav.png" heading="系统管理" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\
   				<li><a href="#/sites/create">系统监控</a></li>\
   				<li><a href="#/sites/lamp">用户列表</a></li>\

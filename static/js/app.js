@@ -65,6 +65,10 @@ cloudApp.config(['$routeProvider',
         templateUrl: 'partials/OneKey/moving.html',
         controller: 'movingCtrl'
       }).
+      when('/sites/optimize', {
+            templateUrl: 'partials/OneKey/optimize.html',
+            controller: 'optimizeCtrl'
+        }).
       when('/logout', {
        templateUrl: 'partials/login.html',
         controller: 'logoutCtrl'
