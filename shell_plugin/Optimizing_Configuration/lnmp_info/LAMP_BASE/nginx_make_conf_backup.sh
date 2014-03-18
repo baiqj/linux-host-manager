@@ -5,7 +5,7 @@
 ##############################
 updatedb
 
-ENV_PATH=../env_config
+ENV_PATH=../../env_config
 
 #查看make编译安装的nginx命令路径
 
@@ -30,14 +30,10 @@ rm  -rf   ./cache.tmp
 
 #判断是否存在"CONF_BACK"目录
 
-if  [ -d   CONF_BACK  ]
-then	
-	
-else
-	mkdir  ./CONF_BACK
-if
+[ -d   ./CONF_BACK  ]   ||  mkdir  ./CONF_BACK
 
 
-\cp    $CONF    ./CONG_BACK/`date  +%Y-%m-%d`-nginx.conf
+
+\cp    $CONF    ./CONF_BACK/`date  +%Y-%m-%d`-nginx.conf
 
 

@@ -5,16 +5,12 @@
 ##############################
 updatedb
 
-ENV_PATH=../env_config
+ENV_PATH=../../env_config
 
 #判断是否存在"CONF_BACK"目录
 
-if  [ -d   CONF_BACK  ]
-then	
-	
-else
-	mkdir  ./CONF_BACK
-if
+[ -d   CONF_BACK  ]   ||   mkdir  ./CONF_BACK
+
 
 #判断php是否为rpm方式安装
 [ `echo  $?` == 0 ] &&  \cp   /etc/php-fpm.conf    ./CONG_BACK/`date  +%Y-%m-%d`-php-fpm.conf    &&   \cp   /etc/php.ini			./CONG_BACK/`date  +%Y-%m-%d`-php.ini 
@@ -40,8 +36,8 @@ rm  -rf   ./cache.tmp
 
 CONF=`locate  "php.ini"  |  grep  "$DOCUMENT_PATH"   | grep  "\/php.ini$"`
 
-\cp    $CONF    ./CONG_BACK/`date  +%Y-%m-%d`-php.ini
+\cp    $CONF    ./CONF_BACK/`date  +%Y-%m-%d`-php.ini
 
 CONF=`locate  "php-fpm.conf"  |  grep  "$DOCUMENT_PATH"   | grep  "\/php-fpm\.conf$"`
 
-\cp    $CONF    ./CONG_BACK/`date  +%Y-%m-%d`-php-fpm.conf   
+\cp    $CONF    ./CONF_BACK/`date  +%Y-%m-%d`-php-fpm.conf   

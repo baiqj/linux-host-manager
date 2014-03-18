@@ -5,7 +5,7 @@
 ##############################
 updatedb
 
-ENV_PATH=../env_config
+ENV_PATH=../../env_config
 
 #查看make编译安装的nginx命令路径
 

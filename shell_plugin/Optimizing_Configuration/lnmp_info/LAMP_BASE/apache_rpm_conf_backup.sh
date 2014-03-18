@@ -5,7 +5,7 @@
 ##############################
 updatedb
 
-ENV_PATH=../env_config
+ENV_PATH=../../env_config
 
 #判断apache是否为rpm方式安装
 rpm  -q  httpd
@@ -13,13 +13,8 @@ rpm  -q  httpd
 
 #判断是否存在"CONF_BACK"目录
 
-if  [ -d   CONF_BACK  ]
-then	
-	
-else
-	mkdir  ./CONF_BACK
-if
+[ -d   CONF_BACK  ]  ||  mkdir  ./CONF_BACK
 
-\cp    /etc/httpd/conf/httpd.conf   ./CONG_BACK/`date  +%Y-%m-%d`-httpd.conf
+\cp    /etc/httpd/conf/httpd.conf   ./CONF_BACK/`date  +%Y-%m-%d`-httpd.conf
 
 

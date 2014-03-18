@@ -5,7 +5,7 @@
 ##############################
 updatedb
 
-ENV_PATH=../env_config
+ENV_PATH=../../env_config
 
 #判断是否安装了mysql,返回值为零时为已经安装
 locate  mysqld |   grep  "\/mysqld$"
@@ -20,7 +20,7 @@ rpm  -q   mysql
 if  [ `echo $?`  == 0  ] 
 then
 		sed -i  "/'MySql_Install_Way':/s/$/\'Rpm\'/"  $ENV_PATH
-then
+else
 		sed -i  "/'MySql_Install_Way':/s/$/\'\Make\'/"  $ENV_PATH
 fi
 	

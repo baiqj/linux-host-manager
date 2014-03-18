@@ -4,7 +4,7 @@
 #############################
 
 updatedb
-ENV_PATH=../env_config
+ENV_PATH=../../env_config
 
 #查看php的启动脚本
 

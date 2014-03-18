@@ -2,7 +2,7 @@
 
 updatedb
 
-ENV_PATH=../env_config
+ENV_PATH=../../env_config
 
 #查看mysql是否在运行，正在运行的话退出当前脚本
 ps  -ef  |  grep  mysql  |  grep  -v  "grep" 

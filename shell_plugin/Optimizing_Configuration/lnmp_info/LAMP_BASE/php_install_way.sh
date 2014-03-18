@@ -5,15 +5,15 @@
 ##############################
 updatedb
 
-ENV_PATH=../env_config
+ENV_PATH=../../env_config
 
 #判断rpm方式的conf文件是否存在
 
-RPM=`locate   "/etc/php.ini" |  wc -l`
+RPM=`locate   "^/etc/php.ini" |  wc -l`
 
 #判断make方式的conf文件是否存在
 #注意主配置文件所在的路径不包含关键字："/etc/nginx/conf/nginx.conf" |"share"|"doc"|"ln*mp*"等
-MAKE=`locate   "php.ini"  |  grep  -i  "\/php\.ini$" |  grep  -v  "\/etc\/php.ini" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"   | wc -l`
+MAKE=`locate   "php.ini"  |  grep  -i  "\/php\.ini$" |  grep  -v  "^/etc\/php.ini" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"   | wc -l`
 
 #判断是否存在php.ini配置文件
 locate   "php.ini"  |  grep  -i  "\/php\.ini$" |  grep  -vi "\/doc"  |  grep  -vi  "\/share\/"  |  grep -vi  "ln*mp*"    

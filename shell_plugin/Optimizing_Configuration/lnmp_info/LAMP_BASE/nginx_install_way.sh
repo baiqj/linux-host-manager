@@ -5,7 +5,7 @@
 ##############################
 updatedb
 
-ENV_PATH=../env_config
+ENV_PATH=../../env_config
 
 #判断rpm方式的conf文件是否存在
 
