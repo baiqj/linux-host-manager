@@ -32,12 +32,6 @@
 'Apache_Make_Installation_Directory':
 'Apache_Rpm_Conf_Path':
 'Apache_Make_Conf_Path':
-'Apache_Rpm_Start_Cmd':
-'Apache_Make_Start_Cmd':
-'Apache_Rpm_Stop_Cmd':
-'Apache_Make_Stop_Cmd':
-'Apache_Rpm_Restart_Cmd':
-'Apache_Make_Restart_Cmd':
 			}
 			
 	'APACHE_OPTIONS':{
@@ -104,12 +98,6 @@
 'Nginx_Make_Installation_Directory':
 'Nginx_Rpm_Conf_Path':
 'Nginx_Make_Conf_Path':
-'Nginx_Rpm_Start_Cmd':
-'Nginx_Make_Start_Cmd':
-'Nginx_Rpm_Stop_Cmd':
-'Nginx_Make_Stop_Cmd':
-'Nginx_Rpm_Reload_Cmd':
-'Nginx_Make_Reload_Cmd':
 			}
 			
 	'NGINX_OPTIONS':{
@@ -137,12 +125,6 @@
 'Php_Make_Installation_Directory':
 'Php_Rpm_Conf_Path':
 'Php_Make_Conf_Path':
-'Php_Rpm_Start_Cmd':
-'Php_Make_Start_Cmd':
-'Php_Rpm_Stop_Cmd':
-'Php_Make_Stop_Cmd':
-'Php_Rpm_Reload_Cmd':
-'Php_Make_Reload_Cmd':
 			}
 			
 	'MYSQL_BASE':{
@@ -153,30 +135,22 @@
 'MySql_Make_Installation_Directory':
 'MySql_Rpm_Conf_Path':
 'MySql_Make_Conf_Path':
-'MySql_Rpm_Start_Cmd':
-'MySql_Make_Start_Cmd':
-'MySql_Rpm_Stop_Cmd':
-'MySql_Make_Stop_Cmd':
-'MySql_Rpm_Restart_Cmd':
-'MySql_Make_Restart_Cmd':
 			}
 			
-	'COVER_INSTALL_APACHE':{
-'Apache_Conf_Back':
+	'SECURITY_OPTIONS':{
+'Passwd_Permissions':
+'Group_Permissions':
+'Ssh_Disable_Dns':
+		}
 
-	}	
 }
 
 
 
+
+
+
 PHP-CGI和PHP-FPM都是FastCGI管理器，只是PHP-FPM提供了更好的PHP进程管理方式，PHP5.3.3已经集成php-fpm了，不再是第三方的包了
-
-
-
-
-
-
-使用apachectl验证配置文件的正确性
 
 #检测apache的vhost的路径,多个文件之间使用":"隔开
 vhost_conf
@@ -190,10 +164,9 @@ NameVirtualHost *:80
 #    CustomLog logs/dummy-host.example.com-access_log common
 #</VirtualHost>
 
-/etc/passwd 的文件属性
-/etc/group的文件属性
+
 锁定的帐号的列表
-ssh是否禁用了dns解析
+
 是否安装了chkrootkit
 是否安装了rkhunter？
 是否安装了防范DDoS攻击的软件？

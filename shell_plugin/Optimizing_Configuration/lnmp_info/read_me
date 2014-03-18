@@ -1,0 +1,11 @@
+脚本及目录说明：
+lnmp_info:存放用于检测LNMP环境的脚本
+	|-CONF_BACK:用于存放原有的LNMP环境中的配置文件的备份
+	|-LAMP_BASE:用于存放LNMP的基本检测
+				--是否安装Nginx、MySql、Apache
+				--安装方式
+				--将原有的LNMP环境的主配置文件进行备份
+				--将原有的LNMP环境设置开机不启动
+				--关闭当前的LNMP的相关服务
+				--更改原有的mysql端口，使可以同时运行多个mysql
+	
