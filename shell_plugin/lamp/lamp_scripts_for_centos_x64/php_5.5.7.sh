@@ -8,8 +8,7 @@ if [ $(id -u) != "0" ]; then
     exit 1
 fi
 cd ./packages
-cat "installing autoconf"
-echo "installing autoconf" >>install_log
+
 
 tar zxvf autoconf-2.13.tar.gz
 cd autoconf-2.13/
@@ -24,8 +23,7 @@ cd libiconv-1.13.1
 make  &&  make install
 cd  ../
 
-cat "installing libmcrypt" 
-echo "installing libmcrypt" >>install_log
+
 tar zxvf libmcrypt-2.5.8.tar.gz
 cd libmcrypt-2.5.8/
 ./configure
@@ -40,16 +38,14 @@ make && make install
 cd ../../
 
 
-cat "installing mhash" 
-echo "installing mhash" >>install_log
+
 tar zxvf mhash-0.9.9.9.tar.gz
 cd mhash-0.9.9.9/
 ./configure
 make && make install
 
 cd ../
-cat "installing mcrypt" >>install_log
-echo "installing mcrypt" >>install_log
+
 tar -zxvf mcrypt-2.6.8.tar.gz
 cd mcrypt-2.6.8/
 ./configure
@@ -60,8 +56,7 @@ ldconfig
 
 cd  ../
 
-cat "installing php-5.5.7" 
-echo "installing php-5.5.7">> install_log
+
 tar zxvf php-5.5.7.tar.gz
 cd php-5.5.7/
 

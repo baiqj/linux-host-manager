@@ -9,12 +9,8 @@ if [ $(id -u) != "0" ]; then
 fi
 
 #检测系统是否有www用户，如果没有则添加该用户，如果有则不做处理
-id   www
-if  [ `echo  $?` != 0 ]
-then
-	groupadd www
-	useradd -s /sbin/nologin -g www www
-fi
+id  www
+[  `echo $?`  ==  0  ]  ||  groupadd www ; useradd -s /sbin/nologin -g www www
 
 cd ./packages
 tar zxvf httpd-2.2.22.tar.gz

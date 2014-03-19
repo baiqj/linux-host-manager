@@ -2,32 +2,29 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-# Check if user is root
-if [ $(id -u) != "0" ]; then
-    echo "Error: You must be root to run this script, please use root to install lnmp"
-    exit 1
-fi
+# 验证当前的用户是否为root账号，不是的话退出当前脚本
+[ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
 
 
 
 echo "============================Install MySQL 5.5.28=================================="
 
 #检测系统是否有mysql用户，如果没有则添加mysql，若有，则不添加
+id  mysql
+[  `echo $?`  ==  0  ]  ||  groupadd mysql ; useradd -s /sbin/nologin -g mysql mysql
 
-groupadd mysql
-useradd -s /sbin/nologin -M -g mysql mysql
+updatedb
+CONFIG=`locate  config.list`
 
-
-CONF_PATH=`find  ./   -name  "config.list"`
 #使用python程序生成config.list，用于存放mysql的root密码.
 #config.list的格式见样本
-mysqlrootpwd=`grep  -i  "mysqlrootpwd"  $CONF_PATH  |  awk  -F ":"  '{print  $2}'`
+mysqlrootpwd=`grep  -i  "mysqlrootpwd"  $CONFIG |  awk  -F ":"  '{print  $2}'`
 
 
 cd ./packages/
 tar zxvf mysql-5.5.28.tar.gz
 cd  mysql-5.5.28/
-cmake   --prefix=/usr/local/mysql --with-extra-charsets=complex --enable-thread-safe-client --enable-assembler --with-mysqld-ldflags=-all-static --with-charset=utf8 --enable-thread-safe-client --with-big-tables --with-readline --with-ssl --with-embedded-server --enable-local-infile
+#cmake   --prefix=/usr/local/mysql --with-extra-charsets=complex --enable-thread-safe-client --enable-assembler --with-mysqld-ldflags=-all-static --with-charset=utf8 --enable-thread-safe-client --with-big-tables --with-readline --with-ssl --with-embedded-server --enable-local-infile
 
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DDEFAULT_CHARSET=utf8 \
@@ -44,11 +41,11 @@ make && make install
 #查找是否存在my.cnf，如果存在修改原来my.cnf的名字，如果不存在继续
 
 mv /etc/my.cnf /etc/my.cnf.bak
-cp /usr/local/mysql/support-files/my-medium.cnf   /etc/my.cnf
+\cp /usr/local/mysql/support-files/my-medium.cnf   /etc/my.cnf
 sed -i 's/skip-locking/skip-external-locking/g' /etc/my.cnf
 /usr/local/mysql/scripts/mysql_install_db --user=mysql   --basedir=/usr/local/mysql  --datadir=/usr/local/mysql/data
+chgrp -R mysql /usr/local/mysql/
 chown -R mysql /usr/local/mysql/data
-chgrp -R mysql /usr/local/mysql/.
 cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld
 chmod 755 /etc/init.d/mysqld
 
@@ -58,15 +55,14 @@ cat > /etc/ld.so.conf.d/mysql.conf<<EOF
 EOF
 ldconfig
 
+
 ln -s /usr/local/mysql/lib/mysql /usr/lib/mysql
 ln -s /usr/local/mysql/include/mysql /usr/include/mysql
-
-/etc/init.d/mysql start
-
-ln -s /usr/local/mysql/bin/mysql /usr/bin/mysql
-ln -s /usr/local/mysql/bin/mysqldump /usr/bin/mysqldump
 ln -s /usr/local/mysql/bin/myisamchk /usr/bin/myisamchk
 ln -s /usr/local/mysql/bin/mysqld_safe /usr/bin/mysqld_safe
+
+
+/etc/init.d/mysqld start
 
 /usr/local/mysql/bin/mysqladmin -u root password $mysqlrootpwd
 

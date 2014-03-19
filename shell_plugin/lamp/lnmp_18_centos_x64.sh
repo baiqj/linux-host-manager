@@ -4,11 +4,9 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-# Check if user is root
-if [ $(id -u) != "0" ]; then
-    echo "Error: You must be root to run this script, please use root to install lamp"
-    exit 1
-fi
+# 验证当前的用户是否为root账号，不是的话退出当前脚本
+[ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
+
 
 pwd=`pwd`
 
@@ -29,7 +27,7 @@ chmod +x lnmp_scripts_for_centos_x64/*.sh
 #Nginx  Version
 #1.5.8
 
-./lnmp_scripts_for_centos_x64/nginx-1.5.28.sh
+./lnmp_scripts_for_centos_x64/nginx-1.5.8.sh
 
 #PHP Version
 #5.5.7
