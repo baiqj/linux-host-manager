@@ -262,7 +262,7 @@ class LoginHandler(RequestHandler):
                 self.write({'code': -1,
                     'msg': u'登录已被锁定，请在 %s 后重试登录。<br>'\
                         u'如需立即解除锁定，请在服务器上执行以下命令：<br>'\
-                        u'/usr/local/vpsmate/config.py loginlock off' %
+                        u'/usr/local/linux-host-manager/config.py loginlock off' %
                         datetime.datetime.fromtimestamp(loginlockexpire)
                             .strftime('%Y-%m-%d %H:%M:%S')})
                 return
@@ -276,7 +276,7 @@ class LoginHandler(RequestHandler):
         if cfg_password == '':
             self.write({'code': -1,
                 'msg': u'登录密码还未设置，请在服务器上执行以下命令进行设置：<br>'\
-                    u'/usr/local/vpsmate/config.py password \'您的密码\''})
+                    u'/usr/local/linux-host-manager/config.py password \'您的密码\''})
         elif username != cfg_username:  # wrong with username
             self.write({'code': -1, 'msg': u'用户不存在！'})
         else:   # username is corret

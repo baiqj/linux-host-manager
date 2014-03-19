@@ -8,9 +8,7 @@ cloudAppControllers.controller('loginCtrl', ['$scope','$http','$location','Messa
   function($scope, $http,$location,Message) {
   
 	/* code section */
-  
-
-	var password_strength = function(pwd) {
+	var password_strength_check = function(pwd) {
     var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
     var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
     var enoughRegex = new RegExp("(?=.{6,}).*", "g");
@@ -26,16 +24,18 @@ cloudAppControllers.controller('loginCtrl', ['$scope','$http','$location','Messa
   };
 
   $scope.login = function(){
-    var result = password_strength($scope.password);
-    console.log(result);
-  $http({method: 'POST', 
+    $scope.password_strength = password_strength_check($scope.password);
+    console.log($scope.password_strength);
+    $http({method: 'POST',
             url: '/login',
             data:{username:$scope.username, password:hex_md5($scope.password)}
         }).
     success(function(data, status, headers, config){
-      if(data.code == 1){
-        $location.path('/main');
+      if(data.code == 0){
+        $scope.loginWarning = !$scope.loginWarning;
+        //$location.path('/main');
       } else {
+        Message.setError(data.msg);
         console.log(data);
       }
     }).
@@ -236,22 +236,33 @@ cloudAppControllers.controller('optimizeCtrl', ['$rootScope','$scope',
         /* custom code section */
         $rootScope.htmlTitle = "一键通";
 
-        $scope.AlertDemoCtrl = function ($scope) {
-            $scope.alerts = [
-                { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
-                { type: 'success', msg: 'Well done! You successfully read this important alert message.' },
-                { type: 'warning', msg: 'Well done! You successfully read this important alert message.' },
-                { type: 'info', msg: 'Well done! You successfully read this important alert message.' }
-            ];
+    }]);
 
-            $scope.addAlert = function() {
-                $scope.alerts.push({msg: "Another alert!"});
-            };
+cloudAppControllers.controller('settingCtrl', ['$rootScope','$scope','$http','$location','Message',
+    function($rootScope,$scope,$http,$location,Message) {
+        /* custom code section */
+        $rootScope.isLogin = false;
+        $rootScope.htmlTitle = "修改密码";
 
-            $scope.closeAlert = function(index) {
-                $scope.alerts.splice(index, 1);
-            };
+        $scope.updateAuthInfo = function(){
+            console.log('start update password');
+            $http({method: 'POST',
+                url: '/setting/auth',
+                data:{username:$scope.username, password:hex_md5($scope.password),passwordc:hex_md5($scope.password_confirm),passwordcheck: $scope.passwordcheck}
+            }).
+                success(function(data, status, headers, config){
+                    if(data.code == 0){
+                        console.log("update password success!!");
+                        Message.setError(data.msg);
+                        //$location.path('/main');
 
+                    } else {
+                        console.log(data);
+                    }
+                }).
+                error(function(data,status,headers,config){
+                    console.log('failed get to change password!');
+                });
         }
 
     }]);

@@ -92,6 +92,7 @@ factory('Message', ['$rootScope', '$timeout', function($scope, $timeout) {
 	
 	Message.setError = function(msg, keepMsg) {
 		$scope.errorMessage = msg;
+        console.log($scope.errorMessage);
 		if (msg) {
 			$scope.showSuccessMsg = false;
 			$scope.showErrorMsg = true;
