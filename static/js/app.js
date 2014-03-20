@@ -5,6 +5,7 @@
 var cloudApp = angular.module('cloudApp', [
   'ngRoute',
   'cloudAppControllers',
+  'cloudAppFileControllers',
   'cloudAppDirectives',
   'cloudAppServices',
   'ui.bootstrap',
@@ -72,6 +73,10 @@ cloudApp.config(['$routeProvider',
         when('/setting/changePwd', {
             templateUrl: 'partials/setting.html',
             controller: 'settingCtrl'
+        }).
+        when('/file/list', {
+            templateUrl: 'partials/file/file.html',
+            controller: 'FileCtrl'
         }).
       when('/logout', {
        templateUrl: 'partials/login.html',

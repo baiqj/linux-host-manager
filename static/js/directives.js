@@ -38,7 +38,7 @@ directive('navbar', function(){
   				<li><a href="#/sites/optimize">一键优化</a></li>\
 			</ul>\
 		</accordion-group>\
-		<accordion-group href="#/OneKey"  imgsrc="../images/sites-nav.png" heading="站点管理" is-open="false">\
+		<accordion-group href="#/file/list"  imgsrc="../images/sites-nav.png" heading="文件列表" is-open="false">\
 		</accordion-group>\
 		<accordion-group href="#/OneKey"  imgsrc="../images/soft-nav.png" heading="软件管理" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\

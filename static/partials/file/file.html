@@ -1,0 +1,25 @@
+<div id="dirlist">
+    <div>{{currentDir}}</div>
+<button ng-click="listdir('');">list dir</button>
+<button ng-click="upandlist();">返回上一级</button>
+<table >
+    <thead>
+    <th >名称</th><th>大小</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in items">
+        <td>
+        <i class="glyphicon glyphicon-folder-close" title="文件夹" ng-show="item.isdir"></i>
+        <i class="glyphicon glyphicon-file" title="文件" ng-show="item.isreg"></i>
+        <a class="black" ng-click="listdir(item.name,false);" ng-show="item.isdir||(item.islnk&&item.link_isdir)">{{item.name}}</a>
+        <a class="black" ng-click="readfile(item.name)" ng-show="item.isreg||(item.islnk&&!item.link_isdir)">{{item.name}}</a>
+        <td>{{item.size}}</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+<div id="edit">
+ <button ng-click="back()">返回文件列表</button>
+ <div id="editor"></div>
+ <button ng-click="saveFile();">saveFile</button>
+</div>

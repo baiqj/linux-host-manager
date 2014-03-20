@@ -759,7 +759,7 @@ class OperationHandler(RequestHandler):
     def post(self, op):
         """Run a server operation
         """
-        self.authed()
+        #self.authed()
         if hasattr(self, op):
             getattr(self, op)()
         else:
