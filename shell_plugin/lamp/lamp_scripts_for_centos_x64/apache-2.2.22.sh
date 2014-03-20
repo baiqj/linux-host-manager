@@ -18,7 +18,7 @@ make && make install
 
 #回到根目录
 cd  ../../
-rm -rf httpd-2.2.22
+rm  -rf  ./packages/httpd-2.2.22
 
 \cp   -rpv   conf/httpd.conf  /usr/local/apache/conf/httpd.conf
 
@@ -27,8 +27,10 @@ mkdir -p /usr/local/apache/conf/vhost
 chown  www:www  -R  /usr/local/apache
 
 #设置apache开机启动
+rpm  -ivh    ./packages/dos2unix-3.1-37.el6.x86_64.rpm
 
-\cp   -rpv   conf/apache   /etc/init.d/
+\cp   -rpv   ./conf/apache   /etc/init.d/
+dos2unix     /etc/init.d/apache
 chmod  +x   /etc/init.d/apache
 
 chkconfig  apache  --add
