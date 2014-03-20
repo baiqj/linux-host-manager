@@ -31,8 +31,9 @@ cloudAppControllers.controller('loginCtrl', ['$scope','$http','$location','Messa
             data:{username:$scope.username, password:hex_md5($scope.password)}
         }).
     success(function(data, status, headers, config){
-      if(data.code == 0){
+      if(data.code == 1){
         $scope.loginWarning = !$scope.loginWarning;
+        Message.setSuccess(data.msg);
         //$location.path('/main');
       } else {
         Message.setError(data.msg);
@@ -245,7 +246,8 @@ cloudAppControllers.controller('settingCtrl', ['$rootScope','$scope','$http','$l
         $rootScope.htmlTitle = "修改密码";
 
         $scope.updateAuthInfo = function(){
-            console.log('start update password');
+            console.log($scope.passwordcheck);
+
             $http({method: 'POST',
                 url: '/setting/auth',
                 data:{username:$scope.username, password:hex_md5($scope.password),passwordc:hex_md5($scope.password_confirm),passwordcheck: $scope.passwordcheck}
@@ -253,11 +255,13 @@ cloudAppControllers.controller('settingCtrl', ['$rootScope','$scope','$http','$l
                 success(function(data, status, headers, config){
                     if(data.code == 0){
                         console.log("update password success!!");
-                        Message.setError(data.msg);
+                        Message.setSuccess(data.msg);
                         //$location.path('/main');
-
+                    } else if(data.code == -1){
+                            Message.setError(data.msg);
                     } else {
-                        console.log(data);
+                        Message.setError(data.msg);
+
                     }
                 }).
                 error(function(data,status,headers,config){

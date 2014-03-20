@@ -97,17 +97,13 @@ directive('message', function(){
 			$rootScope.infoMessage = '';
 			$scope.$rootScope = $rootScope;
 
-            $scope.closeAlert = function(index) {
-                $scope.alerts.splice(index, 1);
-            };
-
 			if (!$scope.id) $scope.id = 'message';
 		}],
 		template: '<div id="{{id}}">\
-				<alert  class="alert-dangerr"    ng-show="$rootScope.showErrorMsg"   close="$rootScope.showErrorMsg = false;">{{$rootScope.errorMessage}}</alert>\
-				<alert  class="alert-success"   ng-show="$rootScope.showSuccessMsg" close="$rootScope.showSuccessMsg = false;">{{$rootScope.successMessage}}</alert>\
-				<alert  class="alert-warning"   ng-show="$rootScope.showWarningMsg" close="$rootScope.showWarningMsg = false;">{{$rootScope.warningMessage}}</alert>\
-				<alert  class="alert-info"      ng-show="$rootScope.showInfoMsg"    close="$rootScope.showInfoMsg = false;">{{$rootScope.infoMessage}}</alert>\
+				<div  class="alert alert-danger"   ng-show="$rootScope.showErrorMsg" >{{$rootScope.errorMessage}}</div>\
+				<div  class="alert alert-success"   ng-show="$rootScope.showSuccessMsg" >{{$rootScope.successMessage}}</div>\
+				<div  class="alert alert-warning"   ng-show="$rootScope.showWarningMsg" >{{$rootScope.warningMessage}}</div>\
+				<div  class="alert alert-info"      ng-show="$rootScope.showInfoMsg" >{{$rootScope.infoMessage}}</div>\
 			</div>',
 		replace: true
 	};
