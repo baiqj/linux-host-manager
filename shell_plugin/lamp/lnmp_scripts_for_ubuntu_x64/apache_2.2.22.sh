@@ -22,11 +22,9 @@ tar zxvf httpd-2.2.22.tar.gz
 cd httpd-2.2.22/
 ./configure --prefix=/usr/local/apache --enable-so  --enable-rewrite
 make && make install
-cd  ../
-rm -rf httpd-2.2.22
-cd ..
-pwd
 
+rm -rf httpd-2.2.22
+cd  ../../
 
 \cp   -rpv   conf/httpd.conf  /usr/local/apache/conf/httpd.conf
 

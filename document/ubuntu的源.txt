@@ -1,0 +1,81 @@
+经测试搜狐的源（cn.archive.ubuntu.com、mirrors.sohu.com）是联通线路，电信服务器访问超级慢。
+
+网易的源（mirrors.163.com）不知道是什么线路，但电信服务器访问超级快。 
+
+今天刚安装上Ubuntu Server 12，默认的apt-get源比较慢。更改一下源地址。
+
+方法：
+
+1、修改源地址：
+cp /etc/apt/sources.list /etc/apt/sources.list.bak
+vim /etc/apt/sources.list
+
+加入如下内容（中科大的）：
+
+deb http://mirrors.ustc.edu.cn/ubuntu/ precise-updates main restricted
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ precise-updates main restricted
+deb http://mirrors.ustc.edu.cn/ubuntu/ precise universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ precise universe
+deb http://mirrors.ustc.edu.cn/ubuntu/ precise-updates universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ precise-updates universe
+deb http://mirrors.ustc.edu.cn/ubuntu/ precise multiverse
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ precise multiverse
+deb http://mirrors.ustc.edu.cn/ubuntu/ precise-updates multiverse
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ precise-updates multiverse
+deb http://mirrors.ustc.edu.cn/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ precise-backports main restricted universe multiverse
+
+
+比较快的源：
+
+搜狐源：
+deb http://mirrors.sohu.com/ubuntu/ precise-updates main restricted
+deb-src http://mirrors.sohu.com/ubuntu/ precise-updates main restricted
+deb http://mirrors.sohu.com/ubuntu/ precise universe
+deb-src http://mirrors.sohu.com/ubuntu/ precise universe
+deb http://mirrors.sohu.com/ubuntu/ precise-updates universe
+deb-src http://mirrors.sohu.com/ubuntu/ precise-updates universe
+deb http://mirrors.sohu.com/ubuntu/ precise multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ precise multiverse
+deb http://mirrors.sohu.com/ubuntu/ precise-updates multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ precise-updates multiverse
+deb http://mirrors.sohu.com/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ precise-backports main restricted universe multiverse
+
+网易源：
+
+deb http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb http://mirrors.163.com/ubuntu/ precise universe
+deb-src http://mirrors.163.com/ubuntu/ precise universe
+deb http://mirrors.163.com/ubuntu/ precise-updates universe
+deb-src http://mirrors.163.com/ubuntu/ precise-updates universe
+deb http://mirrors.163.com/ubuntu/ precise multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise multiverse
+deb http://mirrors.163.com/ubuntu/ precise-updates multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-updates multiverse
+deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+
+更新看看速度：
+
+sudo apt-get update
+sudo apt-get upgrade
+
+
+
+ubuntu的源进行更新时报错如下
+
+Fetched 5,658 kB in 2min 2s (46.4 kB/s)
+W: Failed to fetch http://cn.archive.ubuntu.com/ubuntu/dists/precise/restricted/                                                      source/Sources  404  Not Found
+
+W: Failed to fetch gzip:/var/lib/apt/lists/partial/cn.archive.ubuntu.com_ubuntu_                                                      dists_precise-updates_restricted_source_Sources  Hash Sum mismatch
+
+W: Failed to fetch gzip:/var/lib/apt/lists/partial/cn.archive.ubuntu.com_ubuntu_                                                      dists_precise-backports_main_source_Sources  Hash Sum mismatch
+
+E: Some index files failed to download. They have been ignored, or old ones used                                                       instead.
+
+
+处理办法
+rm -vf /var/lib/apt/lists/partial/*
+

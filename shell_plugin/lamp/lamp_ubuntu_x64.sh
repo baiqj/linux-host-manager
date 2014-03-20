@@ -18,7 +18,7 @@ chmod +x ./lamp_scripts_for_ubuntu_x64/*.sh
 cat "running initialize_disk.sh" >>install_log
 ./lamp_scripts_for_ubuntu_x64/initialize_disk.sh
 #对centos进行初始化
-cat "run centos_env.sh">>install_log
+cat "running centos_env.sh">>install_log
 ./lamp_scripts_for_ubuntu_x64/ubuntu_env.sh
 
 #Mysql Version
@@ -38,7 +38,7 @@ cat "running apache-2.2.22.sh" >>install_log
 
 #PHP Version
 #5.5.7
-
+cat "running php_5.5.7.sh" >>install_log
 ./lamp_scripts_for_ubuntu_x64/php_5.5.7.sh
 
 
