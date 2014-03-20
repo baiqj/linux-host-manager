@@ -110,15 +110,15 @@ make && make install
 
 cd  ../
 
-rm  -rf    /usr/local/etc/*
-\cp   -rpv   php/*     /usr/local/php/etc/
+\cp   -rpv   ../conf/php*     /usr/local/php/etc/
 
-\cp   -rpv    zend/    /usr/local/
+mkdir  -p    /usr/local/zend
+\cp   -rpv    ZendGuardLoader.so    /usr/local/zend/
 
 cd  php-5.5.7/  
 
 #设置php-fpm开机启动
-cp  sapi/fpm/init.d.php-fpm   /etc/init.d/php-fpm
+\cp  sapi/fpm/init.d.php-fpm   /etc/init.d/php-fpm
 chmod a+x  /etc/init.d/php-fpm  
 chkconfig --add php-fpm
 chkconfig  php-fpm  on

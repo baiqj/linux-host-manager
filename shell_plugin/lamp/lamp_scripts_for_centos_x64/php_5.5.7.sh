@@ -2,11 +2,9 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-# Check if user is root
-if [ $(id -u) != "0" ]; then
-    echo "Error: You must be root to run this script, please use root to install lnmp"
-    exit 1
-fi
+# 验证当前的用户是否为root账号，不是的话退出当前脚本
+[ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
+
 cd ./packages
 
 
@@ -14,7 +12,6 @@ tar zxvf autoconf-2.13.tar.gz
 cd autoconf-2.13/
 ./configure --prefix=/usr/local/autoconf-2.13
 make && make install
-
 cd  ../
 
 tar -zxvf libiconv-1.13.1.tar.gz
@@ -22,6 +19,7 @@ cd libiconv-1.13.1
 ./configure --prefix=/usr/local/libiconv
 make  &&  make install
 cd  ../
+
 
 
 tar zxvf libmcrypt-2.5.8.tar.gz
@@ -39,6 +37,7 @@ cd ../../
 
 
 
+
 tar zxvf mhash-0.9.9.9.tar.gz
 cd mhash-0.9.9.9/
 ./configure
@@ -46,16 +45,27 @@ make && make install
 
 cd ../
 
+
+ cat  <<EOF>>  /etc/ld.so.conf
+[html]
+/usr/local/lib
+EOF
+
+ldconfig
+
 tar -zxvf mcrypt-2.6.8.tar.gz
 cd mcrypt-2.6.8/
 ./configure
 make && make install
 
 echo  "/usr/local/mysql/lib"   >>  /etc/ld.so.conf
+
 ldconfig 
 
 cd  ../
 
+echo  "/usr/local/libiconv/"    >>  /etc/ld.so.conf
+ldconfig
 
 tar zxvf php-5.5.7.tar.gz
 cd php-5.5.7/
@@ -63,7 +73,7 @@ cd php-5.5.7/
 rm  -rf    /usr/lib/mysql
 ln -s /usr/lib64/mysql/*  /usr/lib/mysql
  
- 
+
 #检测是否安装了nginx，如果存在/usr/local/nginx，则认为是安装lnmp的环境，为nginx编译配置php 
 if  [ -d   /usr/local/nginx   ]
 
@@ -71,10 +81,21 @@ if  [ -d   /usr/local/nginx   ]
 
 then
 
-./configure --prefix=/usr/local/php  --with-config-file-path=/usr/local/php/etc   --with-mysql=/usr/local/mysql  --with-mysqli=/usr/local/mysql/bin/mysql_config   --with-mysql-sock=/tmp/mysql.sock --with-iconv-dir=/usr/local/libiconv   --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-fpm --enable-magic-quotes --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex  --enable-mbstring --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --without-pear --with-gettext   --with-fpm-user=www  --with-fpm-group=www --enable-fastcgi 
+./configure --prefix=/usr/local/php  \
+--with-config-file-path=/usr/local/php/etc    \
+--with-mysql=/usr/local/mysql  --with-mysqli=/usr/local/mysql/bin/mysql_config   \
+--with-mysql-sock=/tmp/mysql.sock --with-iconv-dir=/usr/local/libiconv   \
+--with-iconv  --with-freetype-dir --with-jpeg-dir --with-png-dir \
+--with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-fpm \
+--enable-magic-quotes --enable-safe-mode --enable-bcmath \
+--enable-shmop --enable-sysvsem --enable-inline-optimization \
+--with-curl --with-curlwrappers --enable-mbregex  --enable-mbstring \
+--with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf \
+--with-openssl --with-mhash --enable-pcntl --enable-sockets \
+--with-xmlrpc --enable-zip --enable-soap --without-pear --with-gettext  \
+ --with-fpm-user=www  --with-fpm-group=www --enable-fastcgi 
 
-
-make ZEND_EXTRA_LIBS='-liconv'
+make ZEND_EXTRA_LIBS='--liconv'
 
 make install
 
@@ -89,24 +110,41 @@ make && make install
 
 cd  ../
 
-rm  -rf    /usr/local/etc/*
-\cp   -rpv   php/*     /usr/local/php/etc/
+\cp   -rpv   ../conf/php*     /usr/local/php/etc/
 
-\cp   -rpv    zend/    /usr/local/
+mkdir  -p    /usr/local/zend
+\cp   -rpv    ZendGuardLoader.so    /usr/local/zend/
 
 cd  php-5.5.7/  
 
-cp  sapi/fpm/init.d.php-fpm   /etc/init.d/php-fpm
+#设置php-fpm开机启动
+\cp  sapi/fpm/init.d.php-fpm   /etc/init.d/php-fpm
 chmod a+x  /etc/init.d/php-fpm  
-
+chkconfig --add php-fpm
+chkconfig  php-fpm  on
+service  php-fpm   restart
 
 elif   [ -d   /usr/local/apache  ]
 # install php-5.5.7 for apache
 
 then
-./configure --prefix=/usr/local/php  --with-config-file-path=/usr/local/php/etc   --with-mysql=/usr/local/mysql  --with-mysqli=/usr/local/mysql/bin/mysql_config   --with-mysql-sock=/tmp/mysql.sock --with-iconv-dir=/usr/local/libiconv   --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath  --enable-magic-quotes --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex  --enable-mbstring --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --without-pear --with-gettext   --with-apxs2=/usr/local/apache/bin/apxs   --enable-zend-multibyte
+./configure --prefix=/usr/local/php   \
+--with-config-file-path=/usr/local/php/etc   \
+--with-mysql=/usr/local/mysql \
+--with-mysqli=/usr/local/mysql/bin/mysql_config  \
+--with-mysql-sock=/tmp/mysql.sock \
+--with-iconv-dir=/usr/local/libiconv   \
+--with-iconv   --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib \
+--with-libxml-dir=/usr --enable-xml --disable-rpath  --enable-magic-quotes \
+--enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem \
+--enable-inline-optimization --with-curl --with-curlwrappers \
+--enable-mbregex  --enable-mbstring --with-mcrypt --enable-ftp \
+--with-gd --enable-gd-native-ttf --with-openssl --with-mhash \
+--enable-pcntl --enable-sockets --with-xmlrpc --enable-zip \
+--enable-soap --without-pear --with-gettext   \
+--with-apxs2=/usr/local/apache/bin/apxs   --enable-zend-multibyte
 
-make ZEND_EXTRA_LIBS='-liconv'
+make ZEND_EXTRA_LIBS='--liconv'
 
 make install
 
@@ -127,9 +165,9 @@ mkdir   -p   /usr/local/php/etc
 cp  php.ini-production    /usr/local/php/etc/php.ini
 
 ldconfig
-pwd >> install_log
+
 cd ../../
-pwd >>install_log
+
 echo  "AddType application/x-httpd-php .php"     >>   /usr/local/apache/conf/httpd.conf
 
 fi

@@ -4,11 +4,8 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-# Check if user is root
-if [ $(id -u) != "0" ]; then
-    echo "Error: You must be root to run this script, please use root to install lnmp"
-    exit 1
-fi
+# 验证当前的用户是否为root账号，不是的话退出当前脚本
+[ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
 
 
  fdisk  -l  |  grep  "/dev/"  |  grep  "bytes"  |  awk  -F  ":"   '{print  $1}'  |   awk   '{print  $2}'  |  sort   >   /tmp/.disk.list

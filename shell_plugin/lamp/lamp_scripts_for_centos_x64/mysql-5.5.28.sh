@@ -2,26 +2,23 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-# Check if user is root
-if [ $(id -u) != "0" ]; then
-    echo "Error: You must be root to run this script, please use root to install lnmp"
-    exit 1
-fi
+# 验证当前的用户是否为root账号，不是的话退出当前脚本
+[ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
 
 
 
 echo "============================Install MySQL 5.5.28=================================="
 
 #检测系统是否有mysql用户，如果没有则添加mysql，若有，则不添加
-
 id  mysql
 [  `echo $?`  ==  0  ]  ||  groupadd mysql ; useradd -s /sbin/nologin -g mysql mysql
 
+updatedb
+CONFIG=`locate  config.list`
 
-CONF_PATH=`find  ./   -name  "config.list"`
 #使用python程序生成config.list，用于存放mysql的root密码.
 #config.list的格式见样本
-mysqlrootpwd=`grep  -i  "mysqlrootpwd"  $CONF_PATH  |  awk  -F ":"  '{print  $2}'`
+mysqlrootpwd=`grep  -i  "mysqlrootpwd"  $CONFIG |  awk  -F ":"  '{print  $2}'`
 
 
 cd ./packages/
@@ -44,11 +41,11 @@ make && make install
 #查找是否存在my.cnf，如果存在修改原来my.cnf的名字，如果不存在继续
 
 mv /etc/my.cnf /etc/my.cnf.bak
-cp /usr/local/mysql/support-files/my-medium.cnf   /etc/my.cnf
+\cp /usr/local/mysql/support-files/my-medium.cnf   /etc/my.cnf
 sed -i 's/skip-locking/skip-external-locking/g' /etc/my.cnf
 /usr/local/mysql/scripts/mysql_install_db --user=mysql   --basedir=/usr/local/mysql  --datadir=/usr/local/mysql/data
+chgrp -R mysql /usr/local/mysql/
 chown -R mysql /usr/local/mysql/data
-chgrp -R mysql /usr/local/mysql/.
 cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld
 chmod 755 /etc/init.d/mysqld
 
@@ -57,6 +54,7 @@ cat > /etc/ld.so.conf.d/mysql.conf<<EOF
 /usr/local/lib
 EOF
 ldconfig
+
 
 ln -s /usr/local/mysql/lib/mysql /usr/lib/mysql
 ln -s /usr/local/mysql/include/mysql /usr/include/mysql
