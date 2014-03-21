@@ -55,6 +55,15 @@ directive('navbar', function(){
 		<div class="panel panel-default" >\
   			<div class="panel-heading text-center" style="background-color: #1375B2;">\
     			<h4 class="panel-title">\
+    				<a href="#/OneKey">\
+    				<div class="glyphicon glyphicon-log-out"></div><br />\
+     				用户反馈</a>\
+    			</h4>\
+  			</div>\
+  		</div>\
+  		<div class="panel panel-default" >\
+  			<div class="panel-heading text-center" style="background-color: #1375B2;">\
+    			<h4 class="panel-title">\
     				<a href="#/logout">\
     				<div class="glyphicon glyphicon-log-out"></div><br />\
      				退出</a>\

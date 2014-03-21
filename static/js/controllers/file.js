@@ -31,32 +31,37 @@ cloudAppFileControllers.controller('FileCtrl',['$scope','$http',
 
         $scope.currentDir = '/root/pythonPro';
 
-        $scope.listdir = function(dirName){
+        $scope.entryDir = function(dirName){
             if(dirName == ''){
                 $scope.currentDir = '/root';
             } else {
                 $scope.currentDir = $scope.currentDir + '/' + dirName;
             }
-
+            console.log('Current DIR is:' + $scope.currentDir);
+            $scope.listdir($scope.currentDir);
+        }
+        $scope.listdir = function(currentDir){
+            console.log('[lsitdir]Current DIR is:' + $scope.currentDir);
             $http({method: 'POST',
                 url: '/operation/file',
                 data:{
                     'action':'listdir',
-                    'path': $scope.currentDir,
+                    'path': currentDir,
                     'showhidden': false,
                     'remember': false}
             }).
-                success(function(data, status, headers, config){
-                    if(data.code == 0){
-                        $scope.items = data.data;
-                        console.log("Get /root info success.");
-                    } else {
-                        console.log('Get /root info failed.');
-                    }
-                }).
-                error(function(data,status,headers,config){
+            success(function(data, status, headers, config){
+                console.log('Get the data:' + data);
+                if(data.code == 0){
+                    $scope.items = data.data;
+                    console.log("Get /root info success.");
+                } else {
+                    console.log('Get /root info failed.');
+                }
+            }).
+            error(function(data,status,headers,config){
                     console.log('failed get "/root" dir lists!');
-                });
+            });
         }
 
         $scope.readfile =function(filename){
@@ -140,10 +145,65 @@ cloudAppFileControllers.controller('FileCtrl',['$scope','$http',
         }
 
         $scope.upandlist = function(){
-             /*var patharr = $scope.currentDir.split('/');
+             var patharr = $scope.currentDir.split('/');
              patharr.pop();
-             $scope.listdir(patharr.join('/')+'/', true);*/
+             $scope.currentDir = patharr.join('/');
+             console.log('[upandlist]Current Dir is:',$scope.currentDir);
+             $scope.listdir(patharr.join('/')+'/');
          }
+
+        $scope.newfolder = function(){
+            console.log('[newfoler] Function newfolder() has been called!!');
+            $('#newfolder').modal();
+            $http({
+                    method: 'POST',
+                    url:    'operation/file',
+                    data:{
+                        'action':'createfolder',
+                        'path':$scope.currentDir,
+                        'name':$scope.newfolderName
+                    }
+            }).
+            success(function(data,status,headers,config){
+                    console.log(data);
+                    $scope.listdir($scope.currentDir);
+            }).
+            error(function(data,status,headers,config){
+
+            });
+        }
+
+        $scope.newfile = function(){
+            console.log('[newfile] Function newfile() has been called!!');
+            $('#newfile').modal();
+            $http({
+                method: 'POST',
+                url:    'operation/file',
+                data:{
+                    'action':'createfile',
+                    'path':$scope.currentDir,
+                    'name':$scope.newfileName
+                }
+            }).
+                success(function(data,status,headers,config){
+                    console.log(data);
+                    $scope.listdir($scope.currentDir);
+                }).
+                error(function(data,status,headers,config){
+
+                });
+        }
+
+        $scope.uploadfile = function(){
+            console.log('[uploadfile] Function uploadfile() has been called!!');
+            $('#uploadfile').modal();
+
+            console.log('[uploadfile] Function uploadfile() has been called!!');
+        }
+
+        $scope.douploadfile = function(){
+            $('#uploadform').submit();
+        }
     }
 
 ])

@@ -31,7 +31,7 @@ cloudAppControllers.controller('loginCtrl', ['$scope','$http','$location','Messa
             data:{username:$scope.username, password:hex_md5($scope.password)}
         }).
     success(function(data, status, headers, config){
-      if(data.code == 1){
+      if(data.code == 0){
         $scope.loginWarning = !$scope.loginWarning;
         Message.setSuccess(data.msg);
         //$location.path('/main');
