@@ -14,3 +14,10 @@ chmod +x lnmp_scripts_for_website/*.sh
 
 #根据config.list执行apache-vhost.sh创建vhost
 ./lnmp_scripts_for_website/nginx-vhost.sh
+
+#为DedeCMS V5.7 (SP1)安装补丁包
+
+#备份原有的网站目录
+
+
+#上传补丁包覆盖原有的文件

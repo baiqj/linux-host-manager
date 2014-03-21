@@ -11,7 +11,7 @@ lnmp_info:存放用于检测LNMP环境的脚本
 				--关闭当前的LNMP的相关服务
 				--更改原有的mysql端口，使可以同时运行多个mysql
 	
-	
+nginx  -t   验证nginx配置文件的正确性
 	
 	
 
