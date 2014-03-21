@@ -1,17 +1,14 @@
 #!/bin/bash
 
-# Check if user is root
-if [ $(id -u) != "0" ]; then
-    echo "Error: You must be root to run this script, use sudo sh $0"
-    exit 1
-fi
+# 验证当前的用户是否为root账号，不是的话退出当前脚本
+[ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
 
 rm  -rf  /home/wwwroot/default;
 
 ############################
 #msyql  starting....
 ############################
-/etc/init.d/mysql   start
+service  mysqld   restart
 
 ############################
 #nginx  starting....
@@ -21,12 +18,13 @@ nginx
 ############################
 #php-fpm  starting....
 ############################
-/etc/init.d/php-fpm   start
+service  php-fpm   restart
 
 
 DATA_DISK=`cat   /tmp/.mount.list`
 
-CONFIG_PATH=`find   /tmp  -name  "\.config\.list"`
+update
+CONFIG_PATH=`locate   config.list`
 
 sed  -i   '/^ *$/d'    $CONFIG_PATH
 
@@ -37,8 +35,6 @@ MYSQL_PASSWORD=`grep  -i  "mysqlrootpwd"  $CONFIG_PATH | awk -F  ":" '{print  $2
 HOSTNAME="localhost"
 MYSQL_PORT="3306"
 
-
-
 for  ((i=1;i<=NUM;i++))
 do
 
@@ -47,6 +43,8 @@ do
 	DB_NAME=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "DB_NAME="   '{print  $2}'  |  awk   '{print  $1}'`
 	DB_USER_NAME=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "DB_USER_NAME="   '{print  $2}'  |  awk   '{print  $1}'`
 	DB_PASSWORD=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "DB_PASSWORD="   '{print  $2}'  |  awk   '{print  $1}'`
+	PROGRAM_TYPE=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "PROGRAM_TYPE="   '{print  $2}'  |  awk   '{print  $1}'`
+	DB_CHARACTER=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "DB_CHARACTER="   '{print  $2}'  |  awk   '{print  $1}'`
 
 	
 	VHOST_DIR="$DATA_DISK/www/$DOMAIN"
@@ -58,10 +56,9 @@ do
 	alf="log_format  $al_name  '\$remote_addr - \$remote_user [\$time_local] \"\$request\" '
              '\$status \$body_bytes_sent \"\$http_referer\" '
              '\"\$http_user_agent\" \$http_x_forwarded_for';"
-	al="access_log  /home/wwwlogs/$al_name.log  $al_name;"
 	
 	echo "==========================="
-	echo You access log file="$al_name.log"
+	echo You access log file=$VHOST_DIR/$al_name.log
 	echo "==========================="
 
 
@@ -105,40 +102,25 @@ server
 				expires      12h;
 			}
 
-		$al
+		access_log  $VHOST_DIR/$al_name.log  $al_name;
 	}
 eof
 
-
-
-cur_php_version=`/usr/local/php/bin/php -r 'echo PHP_VERSION;'`
-
-
-if echo "$cur_php_version" | grep -q "5.3."
-then
-cat >>/usr/local/php/etc/php.ini<<eof
-[HOST=$DOMAIN]
-open_basedir=$VHOST_DIR/:/tmp/
-[PATH=$VHOST_DIR]
-open_basedir=$VHOST_DIR/:/tmp/
-eof
-/etc/init.d/php-fpm restart
-fi
-
-
-
-
-echo "Test Nginx configure file......"
-/usr/local/nginx/sbin/nginx -t
-echo ""
 
 ############
 #MYSQL
 ############
 
+#为每一个vhost创建相应的数据库和对应的数据库管理账户
+
 create_db_mysql="create  database  ${DB_NAME}"
 
-mysql  -h${HOSTNAME}  -P${MYSQL_PORT}   -u${MYSQL_ADMIN}   -p${MYSQL_PASSWORD}  -e  "${create_db_mysql}"  --default-character-set=utf8 -s
+#根据config.list中数据库的编码类型创建对应的数据库
+
+[ "$DB_CHARACTER"  ==  "GBK" ]  &&  mysql  -h${HOSTNAME}  -P${MYSQL_PORT}   -u${MYSQL_ADMIN}   -p${MYSQL_PASSWORD}  -e  "${create_db_mysql}"  --default-character-set=GBK -s
+
+[ "$DB_CHARACTER"  ==  "utf8" ]  &&   mysql  -h${HOSTNAME}  -P${MYSQL_PORT}   -u${MYSQL_ADMIN}   -p${MYSQL_PASSWORD}  -e  "${create_db_mysql}"  --default-character-set=utf8 -s
+
 
 cat > /tmp/mysql_user_script<<EOF
 create user  ${DB_USER_NAME}@${HOSTNAME};
@@ -151,6 +133,14 @@ EOF
 
 rm -f /tmp/mysql_sec_script
 
+#根据config.list不同的程序类型执行不同的安装脚本
+
+
+[ "$PROGRAM_TYPE"  ==  "dedecms" ]  &&   ./lnmp_scripts_for_website/dedecms_5.7.sh
+[ "$PROGRAM_TYPE"  ==  "discuz" ]  &&    ./lnmp_scripts_for_website/discuz_x3.1.sh
+[ "$PROGRAM_TYPE"  ==  "phpwind" ]  &&    ./lnmp_scripts_for_website/phpwind_8.7.sh
+[ "$PROGRAM_TYPE"  ==  "wordpress" ]  &&   ./lnmp_scripts_for_website/wordpress_3.6.sh
+
 }
 
 done
@@ -160,6 +150,8 @@ chown   www.www   -R   $DATA_DISK/www
 echo   "default-character-set = utf8"    >>   /etc/my.cnf
 
 echo  "Restart Mysql....."
-/etc/init.d/mysql  restart
+/etc/init.d/mysqld  restart
 echo "Restart Nginx......"
-/usr/local/nginx/sbin/nginx -s reload
+nginx  -s  reload
+echo  "Restart php-fpm...."
+service  php-fpm  restart

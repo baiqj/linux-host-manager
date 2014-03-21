@@ -37,7 +37,7 @@ cd nginx
 ./configure --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module --with-ipv6
 make && make install
 
-\cp   ./conf/*        /usr/local/nginx/conf
+\cp    ../../conf/nginx/*        /usr/local/nginx/conf/
 
 chown   www:www  -R  /usr/local/nginx
 
