@@ -3,11 +3,8 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-# Check if user is root
-if [ $(id -u) != "0" ]; then
-    echo "Error: You must be root to run this script, please use root to install lnmp"
-    exit 1
-fi
+# 验证当前的用户是否为root账号，不是的话退出当前脚本
+[ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
 
 cur_dir=$(pwd)
 
@@ -15,13 +12,12 @@ HOSTNAME="localhost"
 
 DATA_DISK=`cat   /tmp/.mount.list`
 
-CONFIG_PATH=`find   /tmp  -name  "\.wordpress\.list"`
+updatedb
+CONFIG_PATH=`locate   config.list`
 
 sed  -i   '/^ *$/d'    $CONFIG_PATH
 
 NUM=`grep  -i  "domain="   $CONFIG_PATH  | wc  -l `
-
-
 
 for  ((i=1;i<=NUM;i++))
 do
@@ -30,15 +26,17 @@ do
 	DB_NAME=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "DB_NAME="   '{print  $2}'  |  awk   '{print  $1}'`
 	DB_USER_NAME=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "DB_USER_NAME="   '{print  $2}'  |  awk   '{print  $1}'`
 	DB_PASSWORD=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "DB_PASSWORD="   '{print  $2}'  |  awk   '{print  $1}'`
-
+	PROGRAM_TYPE=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "PROGRAM_TYPE="   '{print  $2}'  |  awk   '{print  $1}'`
+	DB_CHARACTER=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "DB_CHARACTER="   '{print  $2}'  |  awk   '{print  $1}'`
 	
 	VHOST_DIR="$DATA_DISK/www/$DOMAIN"
-	tar  -zxvf  Wordpress-3.6.tar.gz   
 
-	\cp   -rpv      Wordpress/*       $VHOST_DIR
-	
 
-	chown -R www:www  $VHOST_DIR
+if  [ "$PROGRAM_TYPE" == "wordpress" ]
+then
+	tar  -zxvf  	./packages/Wordpress-3.6.tar.gz
+	\cp   -rpv  Wordpress/*    $VHOST_DIR	
+	rm   -rf    Wordpress
 
 cat >$VHOST_DIR/wp-config.php<<eof
 <?php
@@ -135,6 +133,13 @@ if ( !defined('ABSPATH') )
 require_once(ABSPATH . 'wp-settings.php');
 eof
 
+chown -R www:www  $VHOST_DIR
+
+else
+
+continue
+
+fi
 
 done
 
