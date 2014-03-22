@@ -702,11 +702,17 @@ class Service(object):
     def autostart_list(self):
         """Return a list of the autostart service name.
         """
+        inTab = False
         with open('/etc/inittab') as f:
             for line in f:
                 if line.startswith('id:'):
                     startlevel = line.split(':')[1]
+                    inTab=True
                     break
+        if not inTab:
+            target  =   subprocess.check_output(['systemctl', 'get-default']) 
+            d       =   {'graphical.target':5,'multi-user.target':3}
+            startlevel  = d[target.rstrip()]
         rcpath = '/etc/rc.d/rc%s.d/' % startlevel
         services = [
             os.path.basename(os.readlink(filepath))

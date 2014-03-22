@@ -26,16 +26,17 @@ def write_pid():
     pidfp.write(str(os.getpid()))
     pidfp.close()
 
-def main():
+def main(front):
     # settings of tornado application
     settings = {
         'root_path': root_path,
         'data_path': os.path.join(root_path, 'data'),
-        'static_path': os.path.join(root_path, 'static'),
+        'static_path': os.path.join(root_path, front),
         'xsrf_cookies': True,
         'cookie_secret': make_cookie_secret(),
     }
-    
+    print settings
+
     application = vpsmate.web.Application([
         (r'/xsrf', vpsmate.web.XsrfHandler),
         (r'/authstatus', vpsmate.web.AuthStatusHandler),
@@ -58,7 +59,9 @@ def main():
         (r'/fileupload', vpsmate.web.FileUploadHandler),
         (r'/version', vpsmate.web.VersionHandler),
         (r'/.*', vpsmate.web.ErrorHandler, {'status_code': 404}),
-    ], **settings)
+    ],
+    debug=True,
+    **settings)
 
     # read configuration from config.ini
     cfg = vpsmate.config.Config(settings['data_path'] + '/config.ini')
@@ -71,4 +74,8 @@ def main():
     tornado.ioloop.IOLoop.instance().start()
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv)==1:
+        front = 'static'
+    else:
+        front = sys.argv[1]
+    main(front)

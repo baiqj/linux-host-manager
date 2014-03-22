@@ -431,15 +431,15 @@ class QueryHandler(RequestHandler):
                 iteminfo = item.split('.', 1)
                 if len(iteminfo) != 2: continue
                 sec, q = iteminfo
-		# skip if invalid
+		        # skip if invalid
                 if sec not in ('server', 'service', 'config', 'tool'): continue
-		# skip if covered
+		        # skip if covered
                 if qdict[sec] == '**': continue
 		# use wildcard or append
 		if q == '**' or q == '*':
 			qdict[sec] = q
 		else:
-                	qdict[sec].append(q)
+		    qdict[sec].append(q)
 
 
         # item : realtime update
@@ -458,7 +458,7 @@ class QueryHandler(RequestHandler):
             'uname'        : False, 
             'cpuinfo'      : False,
             'diskinfo'     : False,
-            'virt'         : False,
+            #'virt'         : False,
         }
         service_items = {
             'vpsmate'      : False,
@@ -3205,6 +3205,7 @@ class BackendHandler(RequestHandler):
                 break
 
         self._finish_job(jobname, code, msg)
+
 
     @tornado.gen.engine
     def wget(self, url, path):
