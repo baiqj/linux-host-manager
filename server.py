@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.6
+#!/usr/bin/env python2.7
 #-*- coding: utf-8 -*-
 #
 # Copyright (c) 2012, VPSMate development team
