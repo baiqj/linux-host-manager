@@ -205,6 +205,59 @@ cloudAppFileControllers.controller('FileCtrl',['$scope','$http',
         $scope.douploadfile = function(){
             $('#uploadform').submit();
         }
+
+        $scope.rename = function(oldname){
+            $('#newname').modal();
+            $scope.newname = function(){
+                $http({
+                        method:'POST',
+                        url:    'operation/file',
+                        data:{
+                                'action':'rename',
+                                'path': $scope.currentDir + '/' + oldname,
+                                'name': $scope.newfileName
+                        }
+                }).
+                success(function(data,status,header,config){
+                        console.log(data);
+
+                }).
+                error(function(data,status,header,config){
+                        console.log('Rename failed!!!!!!');
+                });
+
+            };
+        }
+
+        $scope.move2trash = function(name){
+            $http({
+                    method:'POST',
+                    url:    '/operation/file',
+                    data:   {
+                            'action':'delete',
+                            'paths':  $scope.currentDir + '/' + name
+                    }
+            }).
+            success(function(data,status,header,config){
+                    console.log(data);
+                    if (data.code == 0) {
+                        $scope.listdir($scope.currentDir);
+                        //$scope.getitem(name);
+                        // deal with .filename.bak
+                        var bakname = '.'+name+'.bak';
+                        /*for (var i=0;i<$scope.items.length;i++) {
+                            if ($scope.items[i].name == bakname) {
+                                $scope.getitem(bakname);
+                                break;
+                            }
+                        }*/
+                    }
+                }).
+            error(function(data,status,header,config){
+                    console.log(data);
+                });
+
+        }
     }
 
 ])
