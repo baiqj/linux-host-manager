@@ -119,3 +119,8 @@ run(['$rootScope', '$location', '$timeout',function($rootScope, $location,$timeo
   },1);*/
 
 }]);
+
+var getCookie = function(name) {
+    var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+    return r ? r[1] : undefined;
+};

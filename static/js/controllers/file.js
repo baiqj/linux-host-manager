@@ -3,6 +3,7 @@ var cloudAppFileControllers = angular.module('cloudAppFileControllers', []);
 cloudAppFileControllers.controller('FileCtrl',['$scope','$http',
     function($scope,$http){
 
+        //$('#_xsrf').val(getCookie('XSRF-TOKEN'));
         var hasChange = false;
         var editor = CodeMirror(document.getElementById('editor'), {
             value: '',
