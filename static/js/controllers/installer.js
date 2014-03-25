@@ -21,7 +21,7 @@ installControllers.controller('InstallCtrl',['$scope','$http',
 $scope.listdir = function (currentDir) {
     console.log('[lsitdir]Current DIR is:' + $scope.currentDir);
     $http({method: 'POST',
-        url: '/operation/sites',
+        url: '/operation/file',
         data: {
             'action': 'listdir',
             'path': currentDir,
