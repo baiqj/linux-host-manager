@@ -68,6 +68,7 @@ cloudAppControllers.controller('logoutCtrl', ['$rootScope','$scope','$timeout','
             }).
             error(function(data,status,headers,config){
                   console.log('redict to root path failed');
+                  $location.path('/');
             });
     }).
     error(function(data,status,headers,config){
@@ -124,26 +125,41 @@ cloudAppControllers.controller('OneKeyCtrl', ['$rootScope','$scope',
   
   }]);
 
-cloudAppControllers.controller('siteCreateCtrl', ['$rootScope','$scope','$location',
-  function($rootScope,$scope,$location) {
+cloudAppControllers.controller('siteCreateCtrl', ['$rootScope','$scope','$location','Message',
+  function($rootScope,$scope,$location,Message) {
   /* custom code section */
   $rootScope.htmlTitle = "一键通";
 
   //from server get the version information and set the variable in the below
-  $scope.http_versions  = ['1.2.3','3.4.5','5.1.6'];
-  $scope.mysql_versions = ['1.2.3','3.4.5','5.1.6'];
-  $scope.php_versions   = ['1.2.3','3.4.5','5.1.6'];
+  $scope.phpwind_versions  = ['1.2.3','3.4.5','5.1.6'];
+  $scope.discuz_versions = ['1.2.3','3.4.5','5.1.6'];
+  $scope.dedecms_versions   = ['1.2.3','3.4.5','5.1.6'];
 
-  $scope.http_version = 0;
-  $scope.mysql_version = 0;
-  $scope.php_version = 0;
+  $scope.siteType = "phpwind";
+  $scope.phpwind_version = '0';
+  $scope.discuz_version = '0';
+  $scope.dedecms_version = '0';
   $scope.charsetOpt = "utf-8";
 
   $scope.submit = function(){
+      if ($scope.domainName == null){
+          Message.setError("请填入域名");
+          return;
+      }
+      if ($scope.siteType == 'phpwind'){
+          $scope.version = $scope.phpwind_version;
+      } else if ($scope.siteType == 'Discuz') {
+          $scope.version = $scope.discuz_version;
+      } else if($scope.siteType == 'dedecms') {
+          $scope.version = $scope.dedecms_version;
+      } else if ($scope.siteType == 'other') {
+          $scope.version = null;
+      } else {
+          console.log('error info: select failed!!')
+      }
     console.log('domain=' + $scope.domainName 
-      + '\nphpversion=' + $scope.php_version  
-      + '\nhttpversion=' + $scope.http_version
-      + '\nmysqlversion=' + $scope.mysql_version);
+      + '\nphpversion=' + $scope.siteType
+      + '\nhttpversion=' + $scope.version);
     // send install infomation to server
     // -----------send a request to server and your code here!!!-------------
     // then redict to 'creating page'

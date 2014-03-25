@@ -608,7 +608,7 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
  *
  * @example
 <example module="ui.bootstrap">
-  <file name="index.html">
+  <sites name="index.html">
     <carousel>
       <slide>
         <img src="http://placekitten.com/150/150" style="margin:auto;">
@@ -623,13 +623,13 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
         </div>
       </slide>
     </carousel>
-  </file>
-  <file name="demo.css">
+  </sites>
+  <sites name="demo.css">
     .carousel-indicators {
       top: auto;
       bottom: 15px;
     }
-  </file>
+  </sites>
 </example>
  */
 .directive('carousel', [function() {
@@ -660,7 +660,7 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
  *
  * @example
 <example module="ui.bootstrap">
-  <file name="index.html">
+  <sites name="index.html">
 <div ng-controller="CarouselDemoCtrl">
   <carousel>
     <slide ng-repeat="slide in slides" active="slide.active">
@@ -687,8 +687,8 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
     </div>
   </div>
 </div>
-  </file>
-  <file name="script.js">
+  </sites>
+  <sites name="script.js">
 function CarouselDemoCtrl($scope) {
   $scope.myInterval = 5000;
   var slides = $scope.slides = [];
@@ -702,13 +702,13 @@ function CarouselDemoCtrl($scope) {
   };
   for (var i=0; i<4; i++) $scope.addSlide();
 }
-  </file>
-  <file name="demo.css">
+  </sites>
+  <sites name="demo.css">
     .carousel-indicators {
       top: auto;
       bottom: 15px;
     }
-  </file>
+  </sites>
 </example>
 */
 
@@ -2613,7 +2613,7 @@ angular.module('ui.bootstrap.tabs', [])
  *
  * @example
 <example module="ui.bootstrap">
-  <file name="index.html">
+  <sites name="index.html">
     <tabset>
       <tab heading="Tab 1"><b>First</b> Content!</tab>
       <tab heading="Tab 2"><i>Second</i> Content!</tab>
@@ -2627,7 +2627,7 @@ angular.module('ui.bootstrap.tabs', [])
       <tab heading="Justified Tab 1"><b>First</b> Justified Content!</tab>
       <tab heading="Justified Tab 2"><i>Second</i> Justified Content!</tab>
     </tabset>
-  </file>
+  </sites>
 </example>
  */
 .directive('tabset', function() {
@@ -2661,7 +2661,7 @@ angular.module('ui.bootstrap.tabs', [])
  *
  * @example
 <example module="ui.bootstrap">
-  <file name="index.html">
+  <sites name="index.html">
     <div ng-controller="TabsDemoCtrl">
       <button class="btn btn-small" ng-click="items[0].active = true">
         Select item 1, using active binding
@@ -2684,8 +2684,8 @@ angular.module('ui.bootstrap.tabs', [])
         </tab>
       </tabset>
     </div>
-  </file>
-  <file name="script.js">
+  </sites>
+  <sites name="script.js">
     function TabsDemoCtrl($scope) {
       $scope.items = [
         { title:"Dynamic Title 1", content:"Dynamic Item 0" },
@@ -2698,7 +2698,7 @@ angular.module('ui.bootstrap.tabs', [])
         });
       };
     };
-  </file>
+  </sites>
 </example>
  */
 
@@ -2712,7 +2712,7 @@ angular.module('ui.bootstrap.tabs', [])
  *
  * @example
 <example module="ui.bootstrap">
-  <file name="index.html">
+  <sites name="index.html">
     <tabset>
       <tab>
         <tab-heading><b>HTML</b> in my titles?!</tab-heading>
@@ -2723,7 +2723,7 @@ angular.module('ui.bootstrap.tabs', [])
         That's right.
       </tab>
     </tabset>
-  </file>
+  </sites>
 </example>
  */
 .directive('tab', ['$parse', function($parse) {

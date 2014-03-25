@@ -5,7 +5,7 @@
 var cloudApp = angular.module('cloudApp', [
   'ngRoute',
   'cloudAppControllers',
-  'cloudAppFileControllers',
+  'cloudAppSitesControllers',
   'cloudAppDirectives',
   'cloudAppServices',
   'ui.bootstrap',
@@ -74,8 +74,12 @@ cloudApp.config(['$routeProvider',
             templateUrl: 'partials/setting.html',
             controller: 'settingCtrl'
         }).
-        when('/file/list', {
-            templateUrl: 'partials/file/file.html',
+        when('/sites/list', {
+            templateUrl: 'partials/sites/sites.html',
+            controller: 'sitesmanagerCtrl'
+        }).
+        when('/sites/manager/:currDir*', {
+            templateUrl: 'partials/sites/file.html',
             controller: 'FileCtrl'
         }).
       when('/logout', {

@@ -38,8 +38,14 @@ directive('navbar', function(){
   				<li><a href="#/sites/optimize">一键优化</a></li>\
 			</ul>\
 		</accordion-group>\
-		<accordion-group href="#/file/list"  imgsrc="../images/sites-nav.png" heading="文件列表" is-open="false">\
-		</accordion-group>\
+		<div class="panel panel-default" >\
+  			<div class="panel-heading text-center" style="background-color: #1375B2;">\
+    			<h4 class="panel-title">\
+    				<a href="#/sites/list" ><img style="padding-bottom:5px;heigth:30px;width:30px;" src="../images/sites-nav.png" class="image-response"></img><br />\
+     				站点管理</a>\
+    			</h4>\
+  			</div>\
+  		</div>\
 		<accordion-group href="#/OneKey"  imgsrc="../images/soft-nav.png" heading="软件管理" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\
   				<li><a href="#/sites/create">软件仓库</a></li>\
@@ -895,14 +901,14 @@ directive('srvfile', function(){
 						<td style="width:120px;">{{item.name}}</td>\
 						<td>\
 							<i class="icon-folder-open" ng-show="item.isdir"></i>\
-							<i class="icon-file" ng-show="item.isfile"></i>\
+							<i class="icon-sites" ng-show="item.isfile"></i>\
 							{{item.path}}\
 						</td>\
 						<td style="width:100px">\
-							<a class="btn btn-small" href="#/file?path={{item.path}}" ng-show="item.isdir">\
+							<a class="btn btn-small" href="#/sites?path={{item.path}}" ng-show="item.isdir">\
 								打开 <i class="icon-chevron-right"></i>\
 							</a>\
-							<a class="btn btn-small" href="#/file?file={{item.path}}" ng-show="item.isfile">\
+							<a class="btn btn-small" href="#/sites?sites={{item.path}}" ng-show="item.isfile">\
 								打开 <i class="icon-chevron-right"></i>\
 							</a>\
 						</td>\
@@ -929,14 +935,14 @@ directive('srvlog', function(){
 						<td style="width:120px;">{{item.name}}</td>\
 						<td>\
 							<i class="icon-folder-open" ng-show="item.isdir"></i>\
-							<i class="icon-file" ng-show="item.isfile"></i>\
+							<i class="icon-sites" ng-show="item.isfile"></i>\
 							{{item.path}}\
 						</td>\
 						<td style="width:100px">\
-							<a class="btn btn-small" href="#/file?path={{item.path}}" ng-show="item.isdir">\
+							<a class="btn btn-small" href="#/sites?path={{item.path}}" ng-show="item.isdir">\
 								打开 <i class="icon-chevron-right"></i>\
 							</a>\
-							<a class="btn btn-small" href="#/file?file={{item.path}}" ng-show="item.isfile">\
+							<a class="btn btn-small" href="#/sites?sites={{item.path}}" ng-show="item.isfile">\
 								打开 <i class="icon-chevron-right"></i>\
 							</a>\
 						</td>\
@@ -990,7 +996,7 @@ directive('selector', function(){
 				$scope.path = $scope.path.replace('//', '/');
 
 				var curpath = $scope.path;
-				Request.post('/operation/file', {
+				Request.post('/operation/sites', {
 					'action': 'listdir',
 					'path': curpath,
 					'showhidden': false,
@@ -1036,7 +1042,7 @@ directive('selector', function(){
 					<tr ng-repeat="item in items">\
 						<td>\
 							<i class="icon-folder-open" title="文件夹" ng-show="item.isdir"></i>\
-							<i class="icon-file" title="文件" ng-show="item.isreg"></i>\
+							<i class="icon-sites" title="文件" ng-show="item.isreg"></i>\
 							<i class="icon-asterisk" title="链接" ng-show="item.islnk&&(item.link_isdir||item.link_isreg)"></i>\
 							<i class="icon-ban-circle" title="未知" ng-show="!item.isdir&&!item.isreg&&(!item.islnk||(item.islnk&&!item.link_isdir&&!item.link_isreg))"></i>\
 							<a class="black" ng-click="listdir(curpath_pre+\'/\'+item.name)" ng-show="item.isdir||(item.islnk&&item.link_isdir)">{{item.name}}</a>\

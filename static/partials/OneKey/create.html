@@ -1,67 +1,60 @@
 <div class="row">
 	<div class="col-lg-5 col-lg-offset-3">
-		<input type="text" class="form-control" ng-model="domainName" placeholder="网站域名" required><br /><br />
+        <div class="input-group">
+            <span class="input-group-addon">网站域名</span>
+            <input type="text" class="form-control" ng-model="domainName" placeholder="www.example.com" required>
+        </div>
+        <div message></div><br /><br />
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-lg-4 col-sm-4">
- 		<table class="table">   
-      		<tbody>  
-       			<tr>  
-      		   	 <td style="text-align: center; vertical-align: middle; width:10px;"><input type="checkbox" ng-model="php"></td>  
-      		   	 <td ><img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive"></td> 
-     	    	</tr>
-        		<tr>
-        			<td >
-        				<select ng-model="php_version">
-                			<option value="0">--版本选择--</option>
-                      <option ng-repeat="version in php_versions" value="{{version}}">{{version}}</option>
-              			</select>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="col-lg-4 col-sm-4">
- 		<table class="table">   
-      		<tbody>  
-       			<tr>  
-      		   	 <td style="text-align: center; vertical-align: middle; width:10px;"><input type="checkbox" ng-model="http"></td>  
-      		   	 <td ><img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive"></td> 
-     	    	</tr>
-        		<tr>
-        			<td >
-        				<select ng-model="http_version">
-                    <option value="0">--版本选择--</option>
-                    <option ng-repeat="version in http_versions" value="{{version}}">{{version}} </option>
-              	</select>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
-	<div class="col-lg-4 col-sm-4">
- 		<table class="table">   
-      		<tbody>  
-       			<tr>  
-      		   	 <td style="text-align: center; vertical-align: middle; width:10px;"><input type="checkbox"  class="style2" ng-model="mysql" /></td>  
-      		   	 <td ><img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive"></td> 
-     	    	</tr>
-        		<tr>
-        			<td >
-                <select ng-model="mysql_version">
-                      <option value="0">---版本选择---</option>
-                      <option ng-repeat="version in mysql_versions" value="{{version}}">{{version}}</option>
-                </select>
-					    </td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
+    <div class="col-lg-3">
+        <div ><input type="radio" class="col-lg-6" style="margin: 20px;" ng-model="siteType" value="phpwind" />
+                <img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive">
+        </div>
+        <div><br />phpwind<br />
+            <select  ng-model="phpwind_version">
+                <option value="0">--版本选择--</option>
+                <option ng-repeat="version in phpwind_versions" value="{{version}}">{{version}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div ><input type="radio" class="col-lg-6" style="margin: 20px;" ng-model="siteType" value="Discuz" />
+            <img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive">
+        </div>
+        <div><br />Discuz<br />
+            <select  ng-model="discuz_version">
+                <option value="0">--版本选择--</option>
+                <option ng-repeat="version in discuz_versions" value="{{version}}">{{version}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div ><input type="radio" class="col-lg-6" style="margin: 20px;" ng-model="siteType" value="dedecms" />
+            <img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive">
+        </div>
+        <div><br />Dedecms<br />
+            <select  ng-model="dedecms_version">
+                <option value="0">--版本选择--</option>
+                <option ng-repeat="version in dedecms_versions" value="{{version}}">{{version}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div ><input type="radio" class="col-lg-6" style="margin: 20px;" ng-model="siteType" value="other" />
+            <img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive">
+        </div>
+        <!--<div><br />Discuz<br />
+            <select  ng-model="discuz_version">
+                <option value="0">--版本选择--</option>
+                <option ng-repeat="version in discuz_versions" value="{{version}}">{{version}}</option>
+            </select>
+        </div>-->
+    </div>
 </div><br/><br/>
+
   <div class="row">&nbsp;&nbsp;&nbsp;&nbsp;数据库编码:&nbsp;&nbsp;&nbsp;&nbsp;
   <label><input type="radio" ng-model="charsetOpt"  value="utf-8" />UTF-8</label>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

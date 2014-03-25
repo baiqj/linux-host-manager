@@ -5,7 +5,7 @@
 <button data-toggle="modal" data-target="#newfolder">新建文件夹</button>
 <button data-toggle="modal" data-target="#newfile">新建文件</button>
 <button data-toggle="modal" ng-click="uploadfile();">上传文件</button>
-<table ng-init="entryDir('');">
+<table ng-init="listdir(currentDir);">
     <thead>
     <th >名称</th><th>大小</th><th>操作</th>
     </thead>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newfolder();">确定</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -78,7 +78,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newfile();">确定</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

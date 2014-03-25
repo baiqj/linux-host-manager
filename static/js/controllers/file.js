@@ -1,10 +1,23 @@
-var cloudAppFileControllers = angular.module('cloudAppFileControllers', []);
+var cloudAppSitesControllers = angular.module('cloudAppSitesControllers', []);
 
-cloudAppFileControllers.controller('FileCtrl',['$scope','$http',
-    function($scope,$http){
+cloudAppSitesControllers.controller('sitesmanagerCtrl',['$scope','$rootScope',
+    function($scope,$rootScope){
+        $scope.sites = [
+            {domainName:'www.example1.com', siteDir:'/var/www/example1','state':'OK'},
+            {domainName:'www.example2.com', siteDir:'/var/www/example2','state':'OK'},
+        ];
 
-        //$('#_xsrf').val(getCookie('XSRF-TOKEN'));
+
+    }
+])
+
+cloudAppSitesControllers.controller('FileCtrl',['$scope','$http','$location','$routeParams',
+    function($scope,$http,$location,$routeParams){
         var hasChange = false;
+        var dirName = $location.path();
+        $scope.currentDir = $routeParams.currDir;
+        console.log(dirName);
+
         var editor = CodeMirror(document.getElementById('editor'), {
             value: '',
             lineNumbers: true,
@@ -30,7 +43,7 @@ cloudAppFileControllers.controller('FileCtrl',['$scope','$http',
             "filepath": "/root/1.java"
         };
 
-        $scope.currentDir = '/root/pythonPro';
+        //$scope.currentDir = '/root/pythonPro';
 
         $scope.entryDir = function(dirName){
             if(dirName == ''){
@@ -52,7 +65,7 @@ cloudAppFileControllers.controller('FileCtrl',['$scope','$http',
                     'remember': false}
             }).
             success(function(data, status, headers, config){
-                console.log('Get the data:' + data);
+                console.log(data);
                 if(data.code == 0){
                     $scope.items = data.data;
                     console.log("Get /root info success.");
@@ -220,7 +233,7 @@ cloudAppFileControllers.controller('FileCtrl',['$scope','$http',
                 }).
                 success(function(data,status,header,config){
                         console.log(data);
-
+                        $scope.listdir($scope.currentDir);
                 }).
                 error(function(data,status,header,config){
                         console.log('Rename failed!!!!!!');
