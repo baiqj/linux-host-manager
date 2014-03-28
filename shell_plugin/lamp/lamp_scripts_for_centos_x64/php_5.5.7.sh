@@ -46,7 +46,7 @@ make && make install
 cd ../
 
 
- cat  <<EOF>>  /etc/ld.so.conf
+ cat  >>  /etc/ld.so.conf << EOF
 [html]
 /usr/local/lib
 EOF
