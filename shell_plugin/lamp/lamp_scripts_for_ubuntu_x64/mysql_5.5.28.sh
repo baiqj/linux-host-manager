@@ -24,6 +24,7 @@ fi
 
 CONF_PATH=`find  ./   -name  "config.list"`
 mysqlrootpwd=`grep  -i  "mysqlrootpwd"  $CONF_PATH  |  awk  -F ":"  '{print  $2}'`
+#判断my.cnf文件是否存在，如果不存在就不执行，如果存在就备份
 mv /etc/my.cnf /etc/my.cnf.bak
 
 cd ./packages/
