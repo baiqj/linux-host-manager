@@ -8,5 +8,11 @@
 
 4、安装rkhunter
 
-5、
+5、安装falcon-web
+https://github.com/secrule/falcon
+
+
+6、安装PHP-Shell-Detector
+
+7、安装DDoS deflate 
 
