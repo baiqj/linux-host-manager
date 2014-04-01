@@ -29,6 +29,7 @@ then
 
 #替换aliyun为aliyuncs
 sed  -i  's/aliyun/aliyuncs/g'   /etc/yum.repos.d/CentOS-Base.repo
+sed  -i  's/aliyun/aliyuncs/g'   /etc/yum.repos.d/epel.repo
 else
 	if  [ $releasever == 6 ]
 	then
@@ -37,6 +38,7 @@ else
 
 #替换aliyun为aliyuncs
 		sed  -i 's/aliyun/aliyuncs/g'   /etc/yum.repos.d/CentOS-Base.repo
+		sed  -i 's/aliyun/aliyuncs/g'   /etc/yum.repos.d/epel.repo
 	else
 		exit 1
 	fi
