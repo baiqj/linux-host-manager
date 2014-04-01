@@ -1,13 +1,13 @@
 #!/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
+#检测执行的用户是否为root，不是root则提醒用户使用root用户操作
 
 #检测系统是不是CentOS，如果不是，提醒用户暂时不支持
 
 cat  /etc/issue  |  grep  -iw  "CENTOS"
 
 [ `echo  $?` != 0 ]  &&  exit  1
-
 
 
 #1、安装apache httpd.x86_64并启动
