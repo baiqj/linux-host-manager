@@ -1,0 +1,421 @@
+﻿阿里YUM源
+
+http://mirrors.aliyun.com/centos/
+
+Apache相关软件包
+
+apachetop.x86_64 : A top-like display of Apache logs
+mod_flvx.x86_64 : FLV progressive download streaming for the Apache HTTP Server
+mod_security.x86_64 : Security module for the Apache HTTP Server
+mod_xsendfile.x86_64 : Apache module to send files efficiently
+perl-Apache-Session-Wrapper.noarch : A simple wrapper around Apache::Session
+perl-Apache2-SOAP.noarch : A replacement for Apache::SOAP designed to work with
+                         : mod_perl 2
+ant-apache-bcel.x86_64 : Optional apache bcel tasks for ant
+ant-apache-bsf.x86_64 : Optional apache bsf tasks for ant
+ant-apache-log4j.x86_64 : Optional apache log4j tasks for ant
+ant-apache-oro.x86_64 : Optional apache oro tasks for ant
+ant-apache-regexp.x86_64 : Optional apache regexp tasks for ant
+ant-apache-resolver.x86_64 : Optional apache resolver tasks for ant
+apr.i686 : Apache Portable Runtime library
+apr-util.x86_64 : Apache Portable Runtime Utility library
+collectd-apache.x86_64 : Apache plugin for collectd
+cronolog.x86_64 : Web log rotation program for Apache
+httpd.x86_64 : Apache HTTP Server
+httpd-itk.x86_64 : MPM Itk for Apache HTTP Server
+mod_auth_cas.x86_64 : Apache 2.0/2.2 compliant module that supports the CASv1 and
+                    : CASv2 protocols
+mod_auth_openid.x86_64 : OpenID authentication for apache
+mod_auth_pam.x86_64 : PAM authentication module for Apache
+mod_auth_pgsql.x86_64 : Basic authentication for the Apache HTTP Server using a
+                      : PostgreSQL database
+mod_auth_shadow.x86_64 : An Apache module for authentication using /etc/shadow
+mod_auth_token.x86_64 : Token based URI access module for Apache
+mod_auth_xradius.x86_64 : Apache module that provides authentication against RADIUS
+                        : Servers
+mod_authnz_external.x86_64 : An Apache module used for authentication
+mod_authz_ldap.x86_64 : LDAP authorization module for the Apache HTTP Server
+mod_bw.x86_64 : Bandwidth Limiter For Apache
+mod_dnssd.x86_64 : An Apache HTTPD module which adds Zeroconf support
+mod_evasive.x86_64 : Denial of Service evasion module for Apache
+mod_fcgid.x86_64 : FastCGI interface module for Apache 2
+mod_form.x86_64 : Apache module that decodes data submitted from Web forms
+mod_geoip.x86_64 : GeoIP module for the Apache HTTP Server
+mod_limitipconn.x86_64 : Simultaneous connection limiting module for Apache
+mod_log_post.x86_64 : Module for the Apache web server to log all HTTP POST messages
+mod_nss.x86_64 : SSL/TLS module for the Apache HTTP server
+mod_perl.x86_64 : An embedded Perl interpreter for the Apache HTTP Server
+mod_proxy_html.x86_64 : Output filter to rewrite HTML links in a proxy situation
+mod_python.x86_64 : An embedded Python interpreter for the Apache HTTP Server
+mod_qos.x86_64 : Quality of service module for Apache
+mod_revocator.i686 : CRL retrieval module for the Apache HTTP server
+mod_wsgi.x86_64 : A WSGI interface for Python web applications in Apache
+perl-Apache-DBI.noarch : Persistent database connections with Apache/mod_perl
+perl-Apache-Htpasswd.noarch : Manage Unix crypt-style password file
+petit.noarch : Log analysis tool for syslog, Apache and raw log files
+php-pear-phing.noarch : A project build system based on Apache Ant
+php-pecl-solr.x86_64 : Object oriented API to Apache Solr
+ws-commons-util.noarch : Common utilities from the Apache Web Services Project
+apache-ivy.noarch : Java-based dependency manager
+apache-ivy-javadoc.noarch : API Documentation for ivy
+apache-jasper.noarch : Jasper OSGi Bundle
+apache-jasper-javadoc.noarch : Javadoc for Jasper
+apache-tomcat-apis.noarch : Tomcat Servlet and JSP APIs
+apr.x86_64 : Apache Portable Runtime library
+apr-util.i686 : Apache Portable Runtime Utility library
+axis.noarch : A SOAP implementation in Java
+goaccess.x86_64 : Apache Log Analyzer
+httpd-devel.i686 : Development interfaces for the Apache HTTP server
+httpd-devel.x86_64 : Development interfaces for the Apache HTTP server
+httpd-manual.noarch : Documentation for the Apache HTTP server
+httpd-tools.x86_64 : Tools for use with the Apache HTTP Server
+iipsrv-httpd-fcgi.noarch : Apache HTTPD files for iipsrv
+jakarta-commons-el.noarch : The Jakarta Commons Extension Language
+jglobus-axisg.noarch : Globus Java - Apache AXIS support
+libapreq2.i686 : Apache HTTP request library
+libapreq2.x86_64 : Apache HTTP request library
+lightsquid-apache.noarch : Web Controls for lightsquid
+mirmon-httpd.noarch : Apache configuration for mirmon
+mirrorbrain-doc.x86_64 : MirrorBrain redirector Apache module
+mod_auth_mysql.x86_64 : Basic authentication for the Apache web server using a MySQL
+                      : database
+mod_auth_ntlm_winbind.x86_64 : NTLM authentication for the Apache web server using
+                             : winbind daemon
+mod_autoindex_mb.x86_64 : Apache module generating directory indexes for MirrorBrain
+mod_cluster.x86_64 : Apache HTTP load balancer
+mod_dav_svn.x86_64 : Apache httpd module for Subversion server
+mod_form.i686 : Apache module that decodes data submitted from Web forms
+mod_form-devel.i686 : Apache module that decodes data submitted from Web forms
+mod_form-devel.x86_64 : Apache module that decodes data submitted from Web forms
+mod_mirrorbrain.x86_64 : MirrorBrain redirector Apache module
+mod_passenger.x86_64 : Apache Module for Phusion Passenger
+mod_revocator.x86_64 : CRL retrieval module for the Apache HTTP server
+mod_speedycgi.x86_64 : SpeedyCGI module for the Apache HTTP Server
+mod_ssl.x86_64 : SSL/TLS module for the Apache HTTP Server
+munin-cgi.noarch : Network-wide graphing framework (cgi files for apache)
+perl-Apache-DBI-Cache.noarch : Perl DBI connection cache
+perl-Apache-Session.noarch : Persistence framework for session data
+perl-libapreq2.x86_64 : Perl interface to the Apache HTTP request library
+php-ZendFramework-Search-Lucene.noarch : Apache Lucene engine PHP port
+php-zts.x86_64 : Thread-safe PHP interpreter for use with the Apache HTTP Server
+prototype-httpd.noarch : Apache configuration for prototype
+python-qpid-qmf.x86_64 : Python QMF library for Apache Qpid
+qpid-tests.noarch : Conformance tests for Apache Qpid
+qpid-tools.noarch : Management and diagnostic tools for Apache Qpid
+rubygem-passenger-devel.i686 : Apache Module for Phusion Passenger
+rubygem-passenger-devel.x86_64 : Apache Module for Phusion Passenger
+rubygem-passenger-doc.x86_64 : Apache Module for Phusion Passenger
+scriptaculous-httpd.noarch : Apache configuration for scriptaculous
+syntaxhighlighter-httpd.noarch : Apache configuration for syntaxhighlighter
+sysusage-httpd.noarch : Apache configuration for sysusage
+tomcat.noarch : Apache Servlet/JSP Engine, RI for Servlet 3.0/JSP 2.2 API
+tomcat-admin-webapps.noarch : The host-manager and manager web applications for Apache
+                            : Tomcat
+tomcat-docs-webapp.noarch : The docs web application for Apache Tomcat
+tomcat-javadoc.noarch : Javadoc generated documentation for Apache Tomcat
+tomcat-jsp-2.2-api.noarch : Apache Tomcat JSP API implementation classes
+tomcat-jsvc.noarch : Apache jsvc wrapper for Apache Tomcat as separate service
+tomcat-servlet-3.0-api.noarch : Apache Tomcat Servlet API implementation classes
+tomcat-webapps.noarch : The ROOT and examples web applications for Apache Tomcat
+tomcat6.noarch : Apache Servlet/JSP Engine, RI for Servlet 2.5/JSP 2.1 API
+tomcat6-admin-webapps.noarch : The host-manager and manager web applications for
+                             : Apache Tomcat
+tomcat6-docs-webapp.noarch : The docs web application for Apache Tomcat
+tomcat6-javadoc.noarch : Javadoc generated documentation for Apache Tomcat
+tomcat6-jsp-2.1-api.noarch : Apache Tomcat JSP API implementation classes
+tomcat6-servlet-2.5-api.noarch : Apache Tomcat Servlet API implementation classes
+tomcat6-webapps.noarch : The ROOT and examples web applications for Apache Tomcat
+trafficserver-devel.i686 : Apache Traffic Server development libraries and header
+                         : files
+trafficserver-devel.x86_64 : Apache Traffic Server development libraries and header
+                           : files
+viewvc-httpd.noarch : ViewVC configuration for Apache/mod_python
+x2goplugin-provider.x86_64 : Provide X2Go Plugin via Apache webserver
+xmlgraphics-commons.noarch : XML Graphics Commons
+
+
+包含mod关键字的行
+# yum  search  all  apache  |  grep  mod_
+                         : mod_perl 2
+mod_bw.x86_64 : Bandwidth Limiter For Apache
+mod_fcgid.x86_64 : FastCGI interface module for Apache 2
+mod_flvx.x86_64 : FLV progressive download streaming for the Apache HTTP Server
+mod_perl.x86_64 : An embedded Perl interpreter for the Apache HTTP Server
+mod_proxy_html.x86_64 : Output filter to rewrite HTML links in a proxy situation
+mod_xsendfile.x86_64 : Apache module to send files efficiently
+perl-Apache-DBI.noarch : Persistent database connections with Apache/mod_perl
+mod_auth_cas.x86_64 : Apache 2.0/2.2 compliant module that supports the CASv1
+mod_auth_openid.x86_64 : OpenID authentication for apache
+mod_auth_pgsql.x86_64 : Basic authentication for the Apache HTTP Server using a
+mod_auth_xradius.x86_64 : Apache module that provides authentication against
+mod_authz_ldap.x86_64 : LDAP authorization module for the Apache HTTP Server
+mod_dav_svn.x86_64 : Apache httpd module for Subversion server
+mod_dnssd.x86_64 : An Apache HTTPD module which adds Zeroconf support
+mod_evasive.x86_64 : Denial of Service evasion module for Apache
+mod_form.x86_64 : Apache module that decodes data submitted from Web forms
+mod_geoip.x86_64 : GeoIP module for the Apache HTTP Server
+mod_limitipconn.x86_64 : Simultaneous connection limiting module for Apache
+mod_log_post.x86_64 : Module for the Apache web server to log all HTTP POST
+mod_nss.x86_64 : SSL/TLS module for the Apache HTTP server
+mod_python.x86_64 : An embedded Python interpreter for the Apache HTTP Server
+mod_revocator.i686 : CRL retrieval module for the Apache HTTP server
+mod_security.x86_64 : Security module for the Apache HTTP Server
+mod_ssl.x86_64 : SSL/TLS module for the Apache HTTP Server
+mod_wsgi.x86_64 : A WSGI interface for Python web applications in Apache
+mod_auth_ntlm_winbind.x86_64 : NTLM authentication for the Apache web server
+mod_auth_pam.x86_64 : PAM authentication module for Apache
+mod_auth_shadow.x86_64 : An Apache module for authentication using /etc/shadow
+mod_auth_token.x86_64 : Token based URI access module for Apache
+mod_authnz_external.x86_64 : An Apache module used for authentication
+mod_autoindex_mb.x86_64 : Apache module generating directory indexes for
+mod_extract_forwarded.x86_64 : Extract real source IP for forwarded HTTP
+mod_form.i686 : Apache module that decodes data submitted from Web forms
+mod_form-devel.i686 : Apache module that decodes data submitted from Web forms
+mod_form-devel.x86_64 : Apache module that decodes data submitted from Web forms
+mod_mirrorbrain.x86_64 : MirrorBrain redirector Apache module
+mod_passenger.x86_64 : Apache Module for Phusion Passenger
+mod_qos.x86_64 : Quality of service module for Apache
+mod_revocator.x86_64 : CRL retrieval module for the Apache HTTP server
+mod_speedycgi.x86_64 : SpeedyCGI module for the Apache HTTP Server
+viewvc-httpd.noarch : ViewVC configuration for Apache/mod_python
+gridsite-libs.i686 : Run time libraries for mod_gridsite and gridsite-clients
+gridsite-libs.x86_64 : Run time libraries for mod_gridsite and gridsite-clients
+gridsite1.7-compat.i686 : Run time libraries for mod_gridsite and
+gridsite1.7-compat.x86_64 : Run time libraries for mod_gridsite and
+mod_auth_kerb.x86_64 : Kerberos authentication module for HTTP
+mod_auth_mysql.x86_64 : Basic authentication for the Apache web server using a
+mod_cluster.x86_64 : Apache HTTP load balancer
+mod_perl-devel.i686 : Files needed for building XS modules that use mod_perl
+mod_perl-devel.x86_64 : Files needed for building XS modules that use mod_perl
+mod_pubcookie.x86_64 : A solution for single sign-on authentication to websites
+moksha-server.noarch : mod_wsgi Moksha server
+pwauth.x86_64 : External plugin for mod_authnz_external authenticator
+
+apache安装命令
+#yum -y install httpd httpd-tools  mod_proxy_html  mod_ssl  mod_security
+apache默认加载模块
+#查看已加载模块"httpd    -t  -D   DUMP_MODULES"
+Loaded Modules:
+ core_module (static)
+ mpm_prefork_module (static)
+ http_module (static)
+ so_module (static)
+ auth_basic_module (shared)
+ auth_digest_module (shared)
+ authn_file_module (shared)
+ authn_alias_module (shared)
+ authn_anon_module (shared)
+ authn_dbm_module (shared)
+ authn_default_module (shared)
+ authz_host_module (shared)
+ authz_user_module (shared)
+ authz_owner_module (shared)
+ authz_groupfile_module (shared)
+ authz_dbm_module (shared)
+ authz_default_module (shared)
+ ldap_module (shared)
+ authnz_ldap_module (shared)
+ include_module (shared)
+ log_config_module (shared)
+ logio_module (shared)
+ env_module (shared)
+ ext_filter_module (shared)
+ mime_magic_module (shared)
+ expires_module (shared)
+ deflate_module (shared)
+ headers_module (shared)
+ usertrack_module (shared)
+ setenvif_module (shared)
+ mime_module (shared)
+ dav_module (shared)
+ status_module (shared)
+ autoindex_module (shared)
+ info_module (shared)
+ dav_fs_module (shared)
+ vhost_alias_module (shared)
+ negotiation_module (shared)
+ dir_module (shared)
+ actions_module (shared)
+ speling_module (shared)
+ userdir_module (shared)
+ alias_module (shared)
+ substitute_module (shared)
+ rewrite_module (shared)
+ proxy_module (shared)
+ proxy_balancer_module (shared)
+ proxy_ftp_module (shared)
+ proxy_http_module (shared)
+ proxy_ajp_module (shared)
+ proxy_connect_module (shared)
+ cache_module (shared)
+ suexec_module (shared)
+ disk_cache_module (shared)
+ cgi_module (shared)
+ version_module (shared)
+ mysql_auth_module (shared)
+ security2_module (shared)
+ unique_id_module (shared)
+ proxy_html_module (shared)
+ xml2enc_module (shared)
+ ssl_module (shared)
+
+
+ 
+
+Mysql相关软件包
+
+MySQL-python.x86_64 : An interface to MySQL
+apr-util-mysql.x86_64 : APR utility library MySQL DBD driver
+bacula-director-mysql.x86_64 : Bacula Director with MySQL database support
+bacula-storage-mysql.x86_64 : MySQL Bacula storage daemon files
+dovecot-mysql.x86_64 : MySQL back end for dovecot
+freeradius-mysql.x86_64 : MySQL support for freeradius
+libdbi-dbd-mysql.x86_64 : MySQL plugin for libdbi
+mod_auth_mysql.x86_64 : Basic authentication for the Apache web server using a MySQL
+                      : database
+mysql.x86_64 : MySQL client programs and shared libraries
+mysql-bench.x86_64 : MySQL benchmark scripts and data
+mysql-connector-java.noarch : Official JDBC driver for MySQL
+mysql-connector-odbc.x86_64 : ODBC driver for MySQL
+mysql-devel.i686 : Files for development of MySQL applications
+mysql-devel.x86_64 : Files for development of MySQL applications
+mysql-embedded.i686 : MySQL as an embeddable library
+mysql-embedded.x86_64 : MySQL as an embeddable library
+mysql-embedded-devel.i686 : Development files for MySQL as an embeddable library
+mysql-embedded-devel.x86_64 : Development files for MySQL as an embeddable library
+mysql-libs.x86_64 : The shared libraries required for MySQL clients
+mysql-libs.i686 : The shared libraries required for MySQL clients
+mysql-server.x86_64 : The MySQL server and related files
+mysql-test.x86_64 : The test suite distributed with MySQL
+perl-DBD-MySQL.x86_64 : A MySQL interface for perl
+php-mysql.x86_64 : A module for PHP applications that use MySQL databases
+qt-mysql.i686 : MySQL driver for Qt's SQL classes
+qt-mysql.x86_64 : MySQL driver for Qt's SQL classes
+qt3-MySQL.i686 : MySQL drivers for Qt 3's SQL classes
+qt3-MySQL.x86_64 : MySQL drivers for Qt 3's SQL classes
+rsyslog-mysql.x86_64 : MySQL support for rsyslog
+
+
+PHP相关软件包
+
+cups-php.x86_64 : Common Unix Printing System - php module
+graphviz-php.x86_64 : PHP extension for graphviz
+php.x86_64 : PHP scripting language for creating dynamic web sites
+php-bcmath.x86_64 : A module for PHP applications for using the bcmath library
+php-cli.x86_64 : Command-line interface for PHP
+php-common.x86_64 : Common files for PHP
+php-dba.x86_64 : A database abstraction layer module for PHP applications
+php-devel.x86_64 : Files needed for building PHP extensions
+php-embedded.x86_64 : PHP library for embedding in applications
+php-fpm.x86_64 : PHP FastCGI Process Manager
+php-gd.x86_64 : A module for PHP applications for using the gd graphics library
+php-imap.x86_64 : A module for PHP applications that use IMAP
+php-intl.x86_64 : Internationalization extension for PHP applications
+php-ldap.x86_64 : A module for PHP applications that use LDAP
+php-mbstring.x86_64 : A module for PHP applications which need multi-byte string
+                    : handling
+php-mysql.x86_64 : A module for PHP applications that use MySQL databases
+php-odbc.x86_64 : A module for PHP applications that use ODBC databases
+php-pdo.x86_64 : A database access abstraction module for PHP applications
+php-pear.noarch : PHP Extension and Application Repository framework
+php-pecl-apc.x86_64 : APC caches and optimizes PHP intermediate code
+php-pgsql.x86_64 : A PostgreSQL database module for PHP
+php-process.x86_64 : Modules for PHP script using system process interfaces
+php-pspell.x86_64 : A module for PHP applications for using pspell interfaces
+php-recode.x86_64 : A module for PHP applications for using the recode library
+php-snmp.x86_64 : A module for PHP applications that query SNMP-managed devices
+php-soap.x86_64 : A module for PHP applications that use the SOAP protocol
+php-tidy.x86_64 : Standard PHP module provides tidy library support
+php-xml.x86_64 : A module for PHP applications which use XML
+php-xmlrpc.x86_64 : A module for PHP applications which use the XML-RPC protocol
+php-zts.x86_64 : Thread-safe PHP interpreter for use with the Apache HTTP Server
+rrdtool-php.x86_64 : PHP RRDtool bindings
+uuid-php.x86_64 : PHP support for Universally Unique Identifier library
+php-enchant.x86_64 : Human Language and Character Encoding Support
+php-pecl-apc-devel.i686 : APC developer files (header)
+php-pecl-apc-devel.x86_64 : APC developer files (header)
+php-pecl-memcache.x86_64 : Extension to work with the Memcached caching daemon
+
+
+
+#yum -y install php php-mysql php-mbstring php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel 
+#php编译模块
+
+bz2
+calendar
+Core
+ctype
+curl
+date
+dom
+ereg
+exif
+fileinfo
+filter
+ftp
+gd
+gettext
+gmp
+hash
+iconv
+imap
+intl
+json
+libxml
+mbstring
+mysql
+mysqli
+openssl
+pcntl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+readline
+Reflection
+session
+shmop
+SimpleXML
+sockets
+SPL
+sqlite3
+standard
+tokenizer
+wddx
+xml
+xmlreader
+xmlrpc
+xmlwriter
+xsl
+zip
+zlib
+soap
+mcrypt 
+
+
+编译安装方式加载的模块
+
+mhash     安装 mhash-devel  mhash
+bcmath
+posix   
+sysvsem
+
+
+Nginx相关软件列表
+备注：Nginx的rpm安装需要添加EPEL  yum源
+
+collectd-nginx.x86_64 : Nginx plugin for collectd
+munin-nginx.noarch : Network-wide graphing framework (cgi files for nginx)
+nginx.x86_64 : A high performance web server and reverse proxy server
+owncloud-nginx.noarch : Nginx integration for ownCloud
+
+#nginx安装命令
+yum  install  -y  nginx
+#查看编译命令
+ nginx   -V
+ 
+ nginx version: nginx/1.0.15
+built by gcc 4.4.7 20120313 (Red Hat 4.4.7-3) (GCC) 
+TLS SNI support enabled
+configure arguments: --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --http-client-body-temp-path=/var/lib/nginx/tmp/client_body --http-proxy-temp-path=/var/lib/nginx/tmp/proxy --http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi --http-uwsgi-temp-path=/var/lib/nginx/tmp/uwsgi --http-scgi-temp-path=/var/lib/nginx/tmp/scgi --pid-path=/var/run/nginx.pid --lock-path=/var/lock/subsys/nginx --user=nginx --group=nginx --with-file-aio --with-ipv6 --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_image_filter_module --with-http_geoip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_stub_status_module --with-http_perl_module --with-mail --with-mail_ssl_module --with-debug --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic' --with-ld-opt=-Wl,-E

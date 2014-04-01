@@ -1,14 +1,71 @@
+#!/bin/bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
+#检测系统是不是CentOS，如果不是，提醒用户暂时不支持
+
+cat  /etc/issue  |  grep  -iw  "CENTOS"
+
+[ `echo  $?` != 0 ]  &&  exit  1
 
 
-���ϵͳ�ǲ���CentOS��������ǣ������û���ʱ��֧��
 
-centos 6.3
-1����װapache httpd.x86_64
-yum -y install httpd httpd-tools 
+#1、安装apache httpd.x86_64并启动
+yum -y install httpd httpd-tools   mod_proxy_html  mod_ssl  mod_security
 
+service  httpd   start
 
-2����װmysql
-yum -y install mysql mod_auth_mysql mysql-connector-odbc mysql-server 
+#2、安装mysql并启动
+yum -y install mysql mod_auth_mysql mysql-connector-odbc mysql-server  mysql-utilities
 
-3����װphp
-yum -y install php php-mysql php-mbstring php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel 
+service   mysqld    start
+
+#3、mysql初始化设置
+
+#3.1配置mysql的初始root登录密码
+
+#使用python程序生成config.list，用于存放mysql的root密码.
+#config.list的格式见样本
+yum   install  mlocate   -y  
+updatedb
+CONFIG=`locate  config.list`
+
+mysqlrootpwd=`grep  -i  "mysqlrootpwd"  $CONFIG |  awk  -F ":"  '{print  $2}'`
+mysqladmin -u root password $mysqlrootpwd
+
+#3.2生成mysql配置文件
+mv /etc/my.cnf /etc/my.cnf.bak
+\cp  /usr/share/mysql/my-medium.cnf   /etc/my.cnf
+sed -i 's/skip-locking/skip-external-locking/g' /etc/my.cnf
+
+#3.3对mysql进行安全初始化
+echo "正在对mysql进行安全初始化"
+cat > /tmp/mysql_sec_script<<EOF
+use mysql;
+delete from user where not (user='root') ;
+delete from user where user='root' and password=''; 
+drop database test;
+DROP USER ''@'%';
+flush privileges;
+EOF
+
+mysql -u root -p$mysqlrootpwd -h localhost < /tmp/mysql_sec_script
+
+rm -f /tmp/mysql_sec_script
+
+service  mysqld   restart
+
+#4、安装php
+#默认会自动安装加载apache的php模块
+yum -y install php php-mysql php-mcrypt php-soap  php-mbstring  mhash-devel mhash libmcrypt  libmcrypt-devel  php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel  php-ZendFramework-Db-Adapter-Pdo-Mysql 
+
+#查看已加载模块"httpd    -t  -D   DUMP_MODULES"
+#查看php编译的模块"php  -m "
+
+#5、重新启动服务
+
+service   httpd   restart
+service  mysqld   restart
+
+chkconfig   httpd   on
+chkconfig  mysqld   on
