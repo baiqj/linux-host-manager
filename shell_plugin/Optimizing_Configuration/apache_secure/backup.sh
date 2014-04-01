@@ -6,6 +6,7 @@
 #找不到了在执行全盘查找。
 #另外我们的目标不是备份httpd.conf这个文件，我们的目标是备份和用户网站域名配置有关的信息
 #建议将整个httpd的配置文件的目录进行打包备份
+
 CONF_PATH=`find / -name 'httpd.conf'  -a  -type f`
 
 [ -d  /usr/local/backup ] ||  mkdir  -p  /usr/local/backup

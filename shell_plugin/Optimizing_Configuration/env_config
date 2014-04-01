@@ -122,6 +122,11 @@
 'Passwd_Permissions':
 'Group_Permissions':
 'Ssh_Disable_Dns':
+'Check_LogWatch':
+'Check_Rkhunter':
+'Check_Chkrootkit':
+'Check_Logcheck':
+'Locked_User_List':
 		}
 
 }

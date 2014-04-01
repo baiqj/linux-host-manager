@@ -1,20 +1,30 @@
+######################
+#LA/NMP环境信息检测收集
+#此文件用于保存系统的配置信息，这些基本信息包括安装了哪些软件，软件的版本号，安装位置，配置文件的位置
+#使用了哪些模块，做了哪些配置。相当于是整个系统配置的一个信息列表。我们在开发其他的功能时，都将依据这个文件的信息来做判断。
+#这个文件的配置也将定期进行更新。
+######################
 脚本及目录说明：
+
+#脚本执行前使用 dos2unix 进行转换
+#使用apachectl验证配置文件的正确性
+#使用nginx命令查看nginx配置 (-t :验证配置文件的正确性)
+#使用php命令查看php配置
+备注：rpm安装方式，不需要要列出安装目录
+#PHP-CGI和PHP-FPM都是FastCGI管理器，只是PHP-FPM提供了更好的PHP进程管理方式，PHP5.3.3已经集成php-fpm了，不再是第三方的包了
+#yum  安装nginx  # rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 
 备注：必须首先执行system_info.sh脚本
 lnmp_info:存放用于检测LNMP环境的脚本
-	|-CONF_BACK:用于存放原有的LNMP环境中的配置文件的备份
-	|-LAMP_BASE:用于存放LNMP的基本检测
+	|-LAMP_BASE:目录用于存放LNMP的基本检测
+		|-|-CONF_BACK:目录用于存放原有的LNMP环境中的配置文件的备份
 				--是否安装Nginx、MySql、Apache
 				--安装方式
 				--将原有的LNMP环境的主配置文件进行备份
 				--将原有的LNMP环境设置开机不启动
 				--关闭当前的LNMP的相关服务
 				--更改原有的mysql端口，使可以同时运行多个mysql
-	
-nginx  -t   验证nginx配置文件的正确性
-	
-	
-
+		
 第一、系统版本信息及简单初始化	
 1、system_info.sh   正常执行
 第二、判断是否安装
@@ -43,51 +53,31 @@ nginx  -t   验证nginx配置文件的正确性
 19、LAMP_BASE/mysql_rpm_database_backup.sh	正常执行
 执行脚本完成后，手动启动源mysql的命令：/usr/bin/mysqld_safe   --defaults-file=/etc/my_3307.cnf  &
 
+	-system_config：目录用于存放系统优化配置信息脚本
 
-######################
-#LA/NMP环境信息检测收集
-#此文件用于保存系统的配置信息，这些基本信息包括安装了哪些软件，软件的版本号，安装位置，配置文件的位置
-#使用了哪些模块，做了哪些配置。相当于是整个系统配置的一个信息列表。我们在开发其他的功能时，都将依据这个文件的信息来做判断。
-#这个文件的配置也将定期进行更新。
-######################
+第一、关键配置文件的权限属性
 
-#脚本执行前使用 dos2unix 进行转换
+security_permissions_group.sh  
+security_permissions_passwd.sh
 
-#使用apachectl验证配置文件的正确性
-#使用nginx命令查看nginx配置
-#yum  安装nginx  # rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
-#使用php命令查看php配置
+第二、ssh禁用dns解析
 
+security_ssh_disable_dns.sh
 
-备注：rpm安装方式，不需要要列出安装目录
+第三、判断是否安装工具软件
 
+系统信息收集工具--logwatch
 
-#我们是通过判断httpd.conf是否存在及所在路径判断apache
+A host-based tool to scan for rootkits, backdoors and local exploits--rkhunter
 
+Tool to locally check for signs of a rootkit--chkrootkit
 
+Analyzes log files and sends noticeable events as email--logcheck
 
-PHP-CGI和PHP-FPM都是FastCGI管理器，只是PHP-FPM提供了更好的PHP进程管理方式，PHP5.3.3已经集成php-fpm了，不再是第三方的包了
-
-#检测apache的vhost的路径,多个文件之间使用":"隔开
-vhost_conf
-
-NameVirtualHost *:80
-#<VirtualHost *:80>
-#    ServerAdmin webmaster@dummy-host.example.com
-#    DocumentRoot /www/docs/dummy-host.example.com
-#    ServerName dummy-host.example.com
-#    ErrorLog logs/dummy-host.example.com-error_log
-#    CustomLog logs/dummy-host.example.com-access_log common
-#</VirtualHost>
 
 
 锁定的帐号的列表
-
-是否安装了chkrootkit
-是否安装了rkhunter？
 是否安装了防范DDoS攻击的软件？
-是否安装了logwatch?
-是否安装了logcheck?
 是否配置了磁盘空间检测报警
 
 
