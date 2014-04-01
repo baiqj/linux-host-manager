@@ -1,0 +1,14 @@
+
+
+检测系统是不是CentOS，如果不是，提醒用户暂时不支持
+
+centos 6.3
+1、安装apache httpd.x86_64
+yum -y install httpd httpd-tools 
+
+
+2、安装mysql
+yum -y install mysql mod_auth_mysql mysql-connector-odbc mysql-server 
+
+3、安装php
+yum -y install php php-mysql php-mbstring php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel 
