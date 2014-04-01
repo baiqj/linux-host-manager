@@ -16,3 +16,5 @@ https://github.com/secrule/falcon
 
 7、安装DDoS deflate 
 
+8、安装Suhosin
+
