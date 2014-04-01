@@ -12,10 +12,10 @@ cat  /etc/issue  |  grep  -iw  "CENTOS"
 [ `echo  $?` != 0 ]  &&  exit  1
 
 
-#1、安装apache httpd.x86_64并启动
-yum -y install httpd httpd-tools   mod_proxy_html  mod_ssl  mod_security
+#1、安装nginx并启动
+yum -y install nginx   
 
-service  httpd   start
+service  nginx   start
 
 #2、安装mysql并启动
 yum -y install mysql mod_auth_mysql mysql-connector-odbc mysql-server  mysql-utilities
@@ -61,13 +61,12 @@ service  mysqld   restart
 #默认会自动安装加载apache的php模块
 yum -y install php php-mysql  php-process php-pecl-memcache php-bcmath php-mcrypt php-soap  php-mbstring  mhash-devel mhash libmcrypt  libmcrypt-devel  php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel  php-ZendFramework-Db-Adapter-Pdo-Mysql 
 
-#查看已加载模块"httpd    -t  -D   DUMP_MODULES"
 #查看php编译的模块"php  -m "
 
 #5、重新启动服务
 
-service   httpd   restart
+service  nginx  restart
 service  mysqld   restart
 
-chkconfig   httpd   on
+chkconfig   nginx   on
 chkconfig  mysqld   on
