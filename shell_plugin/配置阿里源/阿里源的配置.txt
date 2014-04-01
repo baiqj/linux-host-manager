@@ -24,6 +24,7 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-
 mv /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.backup
 
 mv /etc/yum.repos.d/epel-testing.repo /etc/yum.repos.d/epel-testing.repo.backup
+
 2¡¢ÏÂÔØĞÂrepo µ½/etc/yum.repos.d/
 
 epel(RHEL 6)
