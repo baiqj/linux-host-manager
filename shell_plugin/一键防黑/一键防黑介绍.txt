@@ -1,20 +1,20 @@
-一键防黑主要对系统进行安全增强配置，另外安装相应的安全软件
+涓�閿槻榛戜富瑕佸绯荤粺杩涜瀹夊叏澧炲己閰嶇疆锛屽彟澶栧畨瑁呯浉搴旂殑瀹夊叏杞欢
 
-1、对linux系统进行安全增强
+1銆佸linux绯荤粺杩涜瀹夊叏澧炲己
 
-2、安装mod_security
+2銆佸畨瑁卪od_security
 
-3、安装denyhost
+3銆佸畨瑁卍enyhost
 
-4、安装rkhunter
+4銆佸畨瑁卹khunter
 
-5、安装falcon-web
+5銆佸畨瑁協alcon-web
 https://github.com/secrule/falcon
 
 
-6、安装PHP-Shell-Detector
+6銆佸畨瑁匬HP-Shell-Detector
 
-7、安装DDoS deflate 
+7銆佸畨瑁匘DoS deflate 
 
-8、安装Suhosin
+8銆佸畨瑁匰uhosin
 
