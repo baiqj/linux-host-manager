@@ -57,7 +57,7 @@ service  mysqld   restart
 
 #4、安装php
 #默认会自动安装加载apache的php模块
-yum -y install php php-mysql php-mcrypt php-soap  php-mbstring  mhash-devel mhash libmcrypt  libmcrypt-devel  php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel  php-ZendFramework-Db-Adapter-Pdo-Mysql 
+yum -y install php php-mysql  php-process php-pecl-memcache php-bcmath php-mcrypt php-soap  php-mbstring  mhash-devel mhash libmcrypt  libmcrypt-devel  php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel  php-ZendFramework-Db-Adapter-Pdo-Mysql 
 
 #查看已加载模块"httpd    -t  -D   DUMP_MODULES"
 #查看php编译的模块"php  -m "
