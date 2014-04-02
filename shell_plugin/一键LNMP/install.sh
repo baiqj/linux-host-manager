@@ -15,6 +15,10 @@ cat  /etc/issue  |  grep  -iw  "CENTOS"
 #1、安装nginx并启动
 yum -y install nginx   
 #将nginx的配置文件进行备份，并将nginx目录中的示例配置文件对原有的配置文件进行覆盖
+\cp   /etc/nginx/     /etc/nginx_backup/
+#将nginx的示例配置文件覆盖原有的配置文件
+\cp  -rpv   ./nginx/     /etc/nginx
+
 service  nginx   start
 
 #2、安装mysql并启动

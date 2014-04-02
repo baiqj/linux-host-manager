@@ -21,8 +21,9 @@ mv /etc/yum.repos.d/CentOS-Media.repo /etc/yum.repos.d/CentOS-Media.repo.backup
 mv /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.backup
 mv /etc/yum.repos.d/epel-testing.repo /etc/yum.repos.d/epel-testing.repo.backup
 else
-	yum  clean  all
-	yum  install  -y  wget
+	rpm  -ivh   ./make-3.81-20.el6.x86_64.rpm
+	rpm  -ivh   ./openssl-1.0.1e-16.el6_5.4.x86_64.rpm
+	rpm  -ivh   ./wget-1.12-1.11.el6_5.x86_64.rpm
 	mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 	mv /etc/yum.repos.d/CentOS-Debuginfo.repo /etc/yum.repos.d/CentOS-Debuginfo.repo.backup
 	mv /etc/yum.repos.d/CentOS-Vault.repo /etc/yum.repos.d/CentOS-Vault.repo.backup
