@@ -6,13 +6,13 @@
 			}
 	
 	'APACHE_BASE':{
-'Apache_Install':
-'Apache_Install_Way':
-'Apache_Rpm_Version':
-'Apache_Make_Version':
-'Apache_Make_Installation_Directory':
-'Apache_Rpm_Conf_Path':
-'Apache_Make_Conf_Path':
+'Apache_Install':apache是否安装，若安装则为on，若未安装，为off
+'Apache_Install_Way':apache安装方式，rpm和make两种安装方式
+'Apache_Rpm_Version': rpm安装的apachce的版本
+'Apache_Make_Version':make安装的apachce的版本
+'Apache_Make_Installation_Directory':make安装的apachce的安装路径
+'Apache_Rpm_Conf_Path':rpm安装的apachce的配置文件的位置
+'Apache_Make_Conf_Path':rpm安装的apachce的配置文件的位置
 			}
 			
 	'APACHE_OPTIONS':{
@@ -118,7 +118,7 @@
 'MySql_Make_Conf_Path':
 			}
 			
-	'SECURITY_OPTIONS':{
+	'OS_SECURITY_OPTIONS':{
 'Passwd_Permissions':
 'Group_Permissions':
 'Ssh_Disable_Dns':
