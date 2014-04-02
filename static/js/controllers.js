@@ -255,6 +255,24 @@ cloudAppControllers.controller('optimizeCtrl', ['$rootScope','$scope',
 
     }]);
 
+cloudAppControllers.controller('secureCtrl', ['$rootScope','$scope',
+    function($rootScope,$scope) {
+        /* custom code section */
+        $rootScope.htmlTitle = "一键通";
+
+        $("[name='secPack']").attr('checked',true);
+
+        $scope.select_all = function(){
+            console.log("select_all() has been called!");
+            $("[name='secPack']").attr('checked',true);
+        }
+
+        $scope.cancel_all = function(){
+            $("[name='secPack']").attr('checked',false);
+        }
+
+    }]);
+
 cloudAppControllers.controller('settingCtrl', ['$rootScope','$scope','$http','$location','Message',
     function($rootScope,$scope,$http,$location,Message) {
         /* custom code section */

@@ -277,7 +277,7 @@ function $RouteProvider(){
        to get it working on jsfiddle as well.
 
      <example module="ngViewExample" deps="angular-route.js">
-       <sites name="index.html">
+       <file name="index.html">
          <div ng-controller="MainCntl">
            Choose:
            <a href="Book/Moby">Moby</a> |
@@ -295,20 +295,20 @@ function $RouteProvider(){
            <pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
            <pre>$routeParams = {{$routeParams}}</pre>
          </div>
-       </sites>
+       </file>
 
-       <sites name="book.html">
+       <file name="book.html">
          controller: {{name}}<br />
          Book Id: {{params.bookId}}<br />
-       </sites>
+       </file>
 
-       <sites name="chapter.html">
+       <file name="chapter.html">
          controller: {{name}}<br />
          Book Id: {{params.bookId}}<br />
          Chapter Id: {{params.chapterId}}
-       </sites>
+       </file>
 
-       <sites name="script.js">
+       <file name="script.js">
          angular.module('ngViewExample', ['ngRoute'])
 
          .config(function($routeProvider, $locationProvider) {
@@ -348,9 +348,9 @@ function $RouteProvider(){
            $scope.name = "ChapterCntl";
            $scope.params = $routeParams;
          }
-       </sites>
+       </file>
 
-       <sites name="scenario.js">
+       <file name="scenario.js">
          it('should load and compile correct template', function() {
            element('a:contains("Moby: Ch1")').click();
            var content = element('.doc-example-live [ng-view]').text();
@@ -364,7 +364,7 @@ function $RouteProvider(){
            expect(content).toMatch(/controller\: BookCntl/);
            expect(content).toMatch(/Book Id\: Scarlet/);
          });
-       </sites>
+       </file>
      </example>
      */
 
@@ -655,7 +655,7 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
  * @description
  * # Overview
  * `ngView` is a directive that complements the {@link ngRoute.$route $route} service by
- * including the rendered template of the current route into the main layout (`index.html`) sites.
+ * including the rendered template of the current route into the main layout (`index.html`) file.
  * Every time the current route changes, the included view changes with it according to the
  * configuration of the `$route` service.
  *
@@ -680,7 +680,7 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
  *                    as an expression yields a truthy value.
  * @example
     <example module="ngViewExample" deps="angular-route.js" animations="true">
-      <sites name="index.html">
+      <file name="index.html">
         <div ng-controller="MainCntl as main">
           Choose:
           <a href="Book/Moby">Moby</a> |
@@ -700,24 +700,24 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
           <pre>$route.current.scope.name = {{main.$route.current.scope.name}}</pre>
           <pre>$routeParams = {{main.$routeParams}}</pre>
         </div>
-      </sites>
+      </file>
 
-      <sites name="book.html">
+      <file name="book.html">
         <div>
           controller: {{book.name}}<br />
           Book Id: {{book.params.bookId}}<br />
         </div>
-      </sites>
+      </file>
 
-      <sites name="chapter.html">
+      <file name="chapter.html">
         <div>
           controller: {{chapter.name}}<br />
           Book Id: {{chapter.params.bookId}}<br />
           Chapter Id: {{chapter.params.chapterId}}
         </div>
-      </sites>
+      </file>
 
-      <sites name="animations.css">
+      <file name="animations.css">
         .view-animate-container {
           position:relative;
           height:100px!important;
@@ -757,9 +757,9 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
         .view-animate.ng-leave.ng-leave-active {
           left:-100%;
         }
-      </sites>
+      </file>
 
-      <sites name="script.js">
+      <file name="script.js">
         angular.module('ngViewExample', ['ngRoute', 'ngAnimate'],
           function($routeProvider, $locationProvider) {
             $routeProvider.when('/Book/:bookId', {
@@ -792,9 +792,9 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
           this.name = "ChapterCntl";
           this.params = $routeParams;
         }
-      </sites>
+      </file>
 
-      <sites name="scenario.js">
+      <file name="scenario.js">
         it('should load and compile correct template', function() {
           element('a:contains("Moby: Ch1")').click();
           var content = element('.doc-example-live [ng-view]').text();
@@ -807,7 +807,7 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
           expect(content).toMatch(/controller\: BookCntl/);
           expect(content).toMatch(/Book Id\: Scarlet/);
         });
-      </sites>
+      </file>
     </example>
  */
 

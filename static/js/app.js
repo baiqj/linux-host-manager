@@ -70,6 +70,10 @@ cloudApp.config(['$routeProvider',
             templateUrl: 'partials/OneKey/optimize.html',
             controller: 'optimizeCtrl'
         }).
+        when('/sites/secure', {
+            templateUrl: 'partials/OneKey/secure.html',
+            controller: 'secureCtrl'
+        }).
         when('/setting/changePwd', {
             templateUrl: 'partials/setting.html',
             controller: 'settingCtrl'

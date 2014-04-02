@@ -1207,16 +1207,16 @@ function encodeUriQuery(val, pctEncodeSpaces) {
  * `ngApp` is the easiest, and most common, way to bootstrap an application.
  *
  <example module="ngAppDemo">
-   <sites name="index.html">
+   <file name="index.html">
    <div ng-controller="ngAppDemoController">
      I can add: {{a}} + {{b}} =  {{ a+b }}
-   </sites>
-   <sites name="script.js">
+   </file>
+   <file name="script.js">
    angular.module('ngAppDemo', []).controller('ngAppDemoController', function($scope) {
      $scope.a = 1;
      $scope.b = 2;
    });
-   </sites>
+   </file>
  </example>
  *
  */
@@ -3752,13 +3752,13 @@ function createInjector(modulesToLoad) {
  * 
  * @example
    <example>
-     <sites name="index.html">
+     <file name="index.html">
        <div id="scrollArea" ng-controller="ScrollCtrl">
          <a ng-click="gotoBottom()">Go to bottom</a>
          <a id="bottom"></a> You're at the bottom!
        </div>
-     </sites>
-     <sites name="script.js">
+     </file>
+     <file name="script.js">
        function ScrollCtrl($scope, $location, $anchorScroll) {
          $scope.gotoBottom = function (){
            // set the location.hash to the id of
@@ -3769,8 +3769,8 @@ function createInjector(modulesToLoad) {
            $anchorScroll();
          }
        }
-     </sites>
-     <sites name="style.css">
+     </file>
+     <file name="style.css">
        #scrollArea {
          height: 350px;
          overflow: auto;
@@ -3780,7 +3780,7 @@ function createInjector(modulesToLoad) {
          display: block;
          margin-top: 2000px;
        }
-     </sites>
+     </file>
    </example>
  */
 function $AnchorScrollProvider() {
@@ -7437,7 +7437,7 @@ function $HttpProvider() {
      *
      * @example
 <example>
-<sites name="index.html">
+<file name="index.html">
   <div ng-controller="FetchCtrl">
     <select ng-model="method">
       <option>GET</option>
@@ -7458,8 +7458,8 @@ function $HttpProvider() {
     <pre>http status code: {{status}}</pre>
     <pre>http response data: {{data}}</pre>
   </div>
-</sites>
-<sites name="script.js">
+</file>
+<file name="script.js">
   function FetchCtrl($scope, $http, $templateCache) {
     $scope.method = 'GET';
     $scope.url = 'http-hello.html';
@@ -7484,11 +7484,11 @@ function $HttpProvider() {
       $scope.url = url;
     };
   }
-</sites>
-<sites name="http-hello.html">
+</file>
+<file name="http-hello.html">
   Hello, $http!
-</sites>
-<sites name="scenario.js">
+</file>
+<file name="scenario.js">
   it('should make an xhr GET request', function() {
     element(':button:contains("Sample GET")').click();
     element(':button:contains("fetch")').click();
@@ -7510,7 +7510,7 @@ function $HttpProvider() {
     expect(binding('status')).toBe('0');
     expect(binding('data')).toBe('Request failed');
   });
-</sites>
+</file>
 </example>
      */
     function $http(requestConfig) {
@@ -8016,7 +8016,7 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
       jsonpDone = xhr = null;
 
       // fix status code when it is 0 (0 status is undocumented).
-      // Occurs when accessing sites resources.
+      // Occurs when accessing file resources.
       // On Android 4.1 stock browser it occurs while retrieving files from application cache.
       status = (status === 0) ? (response ? 200 : 404) : status;
 
@@ -8753,7 +8753,7 @@ function LocationHashbangUrl(appBase, hashPrefix) {
      */
     function removeWindowsDriveName (path, url, base) {
       /*
-      Matches paths for sites protocol on windows,
+      Matches paths for file protocol on windows,
       such as /C:/foo/bar, and captures only /foo/bar.
       */
       var windowsFilePathExp = /^\/?.*?:(\/.*)/;
@@ -9278,13 +9278,13 @@ function $LocationProvider(){
  *
  * @example
    <example>
-     <sites name="script.js">
+     <file name="script.js">
        function LogCtrl($scope, $log) {
          $scope.$log = $log;
          $scope.message = 'Hello World!';
        }
-     </sites>
-     <sites name="index.html">
+     </file>
+     <file name="index.html">
        <div ng-controller="LogCtrl">
          <p>Reload this page with open console, enter text and hit the log button...</p>
          Message:
@@ -9294,7 +9294,7 @@ function $LocationProvider(){
          <button ng-click="$log.info(message)">info</button>
          <button ng-click="$log.error(message)">error</button>
        </div>
-     </sites>
+     </file>
    </example>
  */
 
@@ -9830,7 +9830,7 @@ Parser.prototype = {
   parse: function (text, json) {
     this.text = text;
 
-    //TODO(i): strip all the obsolte json stuff from this sites
+    //TODO(i): strip all the obsolte json stuff from this file
     this.json = json;
 
     this.tokens = this.lexer.lex(text);
@@ -11305,7 +11305,7 @@ function $RootScopeProvider(){
      *
      * Here is a simple scope snippet to show how you can interact with the scope.
      * <pre>
-     * <sites src="./test/ng/rootScopeSpec.js" tag="docs1" />
+     * <file src="./test/ng/rootScopeSpec.js" tag="docs1" />
      * </pre>
      *
      * # Inheritance
@@ -12866,7 +12866,7 @@ function $SceDelegateProvider() {
  * Same Origin Policy} and {@link http://www.w3.org/TR/cors/ Cross-Origin Resource Sharing (CORS)}
  * policy apply in addition to this and may further restrict whether the template is successfully
  * loaded.  This means that without the right CORS policy, loading templates from a different domain
- * won't work on all browsers.  Also, loading templates from `sites://` URL does not work on some
+ * won't work on all browsers.  Also, loading templates from `file://` URL does not work on some
  * browsers.
  *
  * ## This feels like too much overhead for the developer?
@@ -12953,7 +12953,7 @@ function $SceDelegateProvider() {
  *
  * @example
 <example module="mySceApp">
-<sites name="index.html">
+<file name="index.html">
   <div ng-controller="myAppController as myCtrl">
     <i ng-bind-html="myCtrl.explicitlyTrustedHtml" id="explicitlyTrustedHtml"></i><br><br>
     <b>User comments</b><br>
@@ -12968,9 +12968,9 @@ function $SceDelegateProvider() {
       </div>
     </div>
   </div>
-</sites>
+</file>
 
-<sites name="script.js">
+<file name="script.js">
   var mySceApp = angular.module('mySceApp', ['ngSanitize']);
 
   mySceApp.controller("myAppController", function myAppController($http, $templateCache, $sce) {
@@ -12982,9 +12982,9 @@ function $SceDelegateProvider() {
         '<span onmouseover="this.textContent=&quot;Explicitly trusted HTML bypasses ' +
         'sanitization.&quot;">Hover over this text.</span>');
   });
-</sites>
+</file>
 
-<sites name="test_data.json">
+<file name="test_data.json">
 [
   { "name": "Alice",
     "htmlComment":
@@ -12994,9 +12994,9 @@ function $SceDelegateProvider() {
     "htmlComment": "<i>Yes!</i>  Am I the only other one?"
   }
 ]
-</sites>
+</file>
 
-<sites name="scenario.js">
+<file name="scenario.js">
   describe('SCE doc demo', function() {
     it('should sanitize untrusted values', function() {
       expect(element('.htmlComment').html()).toBe('<span>Is <i>anyone</i> reading this?</span>');
@@ -13007,7 +13007,7 @@ function $SceDelegateProvider() {
           'sanitization.&quot;">Hover over this text.</span>');
     });
   });
-</sites>
+</file>
 </example>
  *
  *
@@ -16462,7 +16462,7 @@ var VALID_CLASS = 'ng-valid',
  * contents be edited in place by the user.  This will not work on older browsers.
  *
  * <example module="customControl">
-    <sites name="style.css">
+    <file name="style.css">
       [contenteditable] {
         border: 1px solid black;
         background-color: white;
@@ -16473,8 +16473,8 @@ var VALID_CLASS = 'ng-valid',
         border: 1px solid red;
       }
 
-    </sites>
-    <sites name="script.js">
+    </file>
+    <file name="script.js">
       angular.module('customControl', []).
         directive('contenteditable', function() {
           return {
@@ -16507,8 +16507,8 @@ var VALID_CLASS = 'ng-valid',
             }
           };
         });
-    </sites>
-    <sites name="index.html">
+    </file>
+    <file name="index.html">
       <form name="myForm">
        <div contenteditable
             name="myWidget" ng-model="userContent"
@@ -16518,8 +16518,8 @@ var VALID_CLASS = 'ng-valid',
        <hr>
        <textarea ng-model="userContent"></textarea>
       </form>
-    </sites>
-    <sites name="scenario.js">
+    </file>
+    <file name="scenario.js">
       it('should data-bind and become invalid', function() {
         var contentEditable = element('[contenteditable]');
 
@@ -16528,7 +16528,7 @@ var VALID_CLASS = 'ng-valid',
         expect(contentEditable.text()).toEqual('');
         expect(contentEditable.prop('className')).toMatch(/ng-invalid-required/);
       });
-    </sites>
+    </file>
  * </example>
  *
  *
@@ -17186,29 +17186,29 @@ var ngBindTemplateDirective = ['$interpolate', function($interpolate) {
    Try it here: enter text in text box and watch the greeting change.
  
    <example module="ngBindHtmlExample" deps="angular-sanitize.js">
-     <sites name="index.html">
+     <file name="index.html">
        <div ng-controller="ngBindHtmlCtrl">
         <p ng-bind-html="myHTML"></p>
        </div>
-     </sites>
+     </file>
      
-     <sites name="script.js">
+     <file name="script.js">
        angular.module('ngBindHtmlExample', ['ngSanitize'])
 
        .controller('ngBindHtmlCtrl', ['$scope', function ngBindHtmlCtrl($scope) {
          $scope.myHTML =
             'I am an <code>HTML</code>string with <a href="#">links!</a> and other <em>stuff</em>';
        }]);
-     </sites>
+     </file>
 
-     <sites name="scenario.js">
+     <file name="scenario.js">
        it('should check ng-bind-html', function() {
          expect(using('.doc-example-live').binding('myHTML')).
            toBe(
            'I am an <code>HTML</code>string with <a href="#">links!</a> and other <em>stuff</em>'
            );
        });
-     </sites>
+     </file>
    </example>
  */
 var ngBindHtmlDirective = ['$sce', '$parse', function($sce, $parse) {
@@ -17313,7 +17313,7 @@ function classDirective(name, selector) {
  *
  * @example Example that demonstrates basic bindings via ngClass directive.
    <example>
-     <sites name="index.html">
+     <file name="index.html">
        <p ng-class="{strike: deleted, bold: important, red: error}">Map Syntax Example</p>
        <input type="checkbox" ng-model="deleted"> deleted (apply "strike" class)<br>
        <input type="checkbox" ng-model="important"> important (apply "bold" class)<br>
@@ -17326,8 +17326,8 @@ function classDirective(name, selector) {
        <input ng-model="style1" placeholder="Type: bold, strike or red"><br>
        <input ng-model="style2" placeholder="Type: bold, strike or red"><br>
        <input ng-model="style3" placeholder="Type: bold, strike or red"><br>
-     </sites>
-     <sites name="style.css">
+     </file>
+     <file name="style.css">
        .strike {
          text-decoration: line-through;
        }
@@ -17337,8 +17337,8 @@ function classDirective(name, selector) {
        .red {
            color: red;
        }
-     </sites>
-     <sites name="scenario.js">
+     </file>
+     <file name="scenario.js">
        it('should let you toggle the class', function() {
 
          expect(element('.doc-example-live p:first').prop('className')).not().toMatch(/bold/);
@@ -17364,7 +17364,7 @@ function classDirective(name, selector) {
          input('style3').enter('red');
          expect(element('.doc-example-live p:last').prop('className')).toBe('bold strike red');
        });
-     </sites>
+     </file>
    </example>
 
    ## Animations
@@ -17372,13 +17372,13 @@ function classDirective(name, selector) {
    The example below demonstrates how to perform animations using ngClass.
 
    <example animations="true">
-     <sites name="index.html">
+     <file name="index.html">
       <input type="button" value="set" ng-click="myVar='my-class'">
       <input type="button" value="clear" ng-click="myVar=''">
       <br>
       <span class="base-class" ng-class="myVar">Sample Text</span>
-     </sites>
-     <sites name="style.css">
+     </file>
+     <file name="style.css">
        .base-class {
          -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
          transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
@@ -17388,8 +17388,8 @@ function classDirective(name, selector) {
          color: red;
          font-size:3em;
        }
-     </sites>
-     <sites name="scenario.js">
+     </file>
+     <file name="scenario.js">
        it('should check ng-class', function() {
          expect(element('.doc-example-live span').prop('className')).not().
            toMatch(/my-class/);
@@ -17404,7 +17404,7 @@ function classDirective(name, selector) {
          expect(element('.doc-example-live span').prop('className')).not().
            toMatch(/my-class/);
        });
-     </sites>
+     </file>
    </example>
 
 
@@ -17436,7 +17436,7 @@ var ngClassDirective = classDirective('', true);
  *
  * @example
    <example>
-     <sites name="index.html">
+     <file name="index.html">
         <ol ng-init="names=['John', 'Mary', 'Cate', 'Suz']">
           <li ng-repeat="name in names">
            <span ng-class-odd="'odd'" ng-class-even="'even'">
@@ -17444,23 +17444,23 @@ var ngClassDirective = classDirective('', true);
            </span>
           </li>
         </ol>
-     </sites>
-     <sites name="style.css">
+     </file>
+     <file name="style.css">
        .odd {
          color: red;
        }
        .even {
          color: blue;
        }
-     </sites>
-     <sites name="scenario.js">
+     </file>
+     <file name="scenario.js">
        it('should check ng-class-odd and ng-class-even', function() {
          expect(element('.doc-example-live li:first span').prop('className')).
            toMatch(/odd/);
          expect(element('.doc-example-live li:last span').prop('className')).
            toMatch(/even/);
        });
-     </sites>
+     </file>
    </example>
  */
 var ngClassOddDirective = classDirective('Odd', 0);
@@ -17484,7 +17484,7 @@ var ngClassOddDirective = classDirective('Odd', 0);
  *
  * @example
    <example>
-     <sites name="index.html">
+     <file name="index.html">
         <ol ng-init="names=['John', 'Mary', 'Cate', 'Suz']">
           <li ng-repeat="name in names">
            <span ng-class-odd="'odd'" ng-class-even="'even'">
@@ -17492,23 +17492,23 @@ var ngClassOddDirective = classDirective('Odd', 0);
            </span>
           </li>
         </ol>
-     </sites>
-     <sites name="style.css">
+     </file>
+     <file name="style.css">
        .odd {
          color: red;
        }
        .even {
          color: blue;
        }
-     </sites>
-     <sites name="scenario.js">
+     </file>
+     <file name="scenario.js">
        it('should check ng-class-odd and ng-class-even', function() {
          expect(element('.doc-example-live li:first span').prop('className')).
            toMatch(/odd/);
          expect(element('.doc-example-live li:last span').prop('className')).
            toMatch(/even/);
        });
-     </sites>
+     </file>
    </example>
  */
 var ngClassEvenDirective = classDirective('Even', 1);
@@ -17529,7 +17529,7 @@ var ngClassEvenDirective = classDirective('Even', 1);
  *
  * `ngCloak` works in cooperation with the following css rule embedded within `angular.js` and
  * `angular.min.js`.
- * For CSP mode please add `angular-csp.css` to your html sites (see {@link ng.directive:ngCsp ngCsp}).
+ * For CSP mode please add `angular-csp.css` to your html file (see {@link ng.directive:ngCsp ngCsp}).
  *
  * <pre>
  * [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -18258,14 +18258,14 @@ forEach(
  *
  * @example
   <example animations="true">
-    <sites name="index.html">
+    <file name="index.html">
       Click me: <input type="checkbox" ng-model="checked" ng-init="checked=true" /><br/>
       Show when checked:
       <span ng-if="checked" class="animate-if">
         I'm removed when the checkbox is unchecked.
       </span>
-    </sites>
-    <sites name="animations.css">
+    </file>
+    <file name="animations.css">
       .animate-if {
         background:white;
         border:1px solid black;
@@ -18286,7 +18286,7 @@ forEach(
       .animate-if.ng-enter.ng-enter-active {
         opacity:1;
       }
-    </sites>
+    </file>
   </example>
  */
 var ngIfDirective = ['$animate', function($animate) {
@@ -18350,7 +18350,7 @@ var ngIfDirective = ['$animate', function($animate) {
  * {@link https://code.google.com/p/browsersec/wiki/Part2#Same-origin_policy_for_XMLHttpRequest
  * Same Origin Policy} and {@link http://www.w3.org/TR/cors/ Cross-Origin Resource Sharing
  * (CORS)} policy may further restrict whether the template is successfully loaded.
- * For example, `ngInclude` won't work for cross-domain requests on all browsers and for `sites://`
+ * For example, `ngInclude` won't work for cross-domain requests on all browsers and for `file://`
  * access on some browsers.
  *
  * @animations
@@ -18375,7 +18375,7 @@ var ngIfDirective = ['$animate', function($animate) {
  *
  * @example
   <example animations="true">
-    <sites name="index.html">
+    <file name="index.html">
      <div ng-controller="Ctrl">
        <select ng-model="template" ng-options="t.name for t in templates">
         <option value="">(blank)</option>
@@ -18386,22 +18386,22 @@ var ngIfDirective = ['$animate', function($animate) {
          <div class="slide-animate" ng-include="template.url"></div>
        </div>
      </div>
-    </sites>
-    <sites name="script.js">
+    </file>
+    <file name="script.js">
       function Ctrl($scope) {
         $scope.templates =
           [ { name: 'template1.html', url: 'template1.html'}
           , { name: 'template2.html', url: 'template2.html'} ];
         $scope.template = $scope.templates[0];
       }
-     </sites>
-    <sites name="template1.html">
+     </file>
+    <file name="template1.html">
       Content of template1.html
-    </sites>
-    <sites name="template2.html">
+    </file>
+    <file name="template2.html">
       Content of template2.html
-    </sites>
-    <sites name="animations.css">
+    </file>
+    <file name="animations.css">
       .slide-animate-container {
         position:relative;
         background:white;
@@ -18440,8 +18440,8 @@ var ngIfDirective = ['$animate', function($animate) {
       .slide-animate.ng-leave.ng-leave-active {
         top:50px;
       }
-    </sites>
-    <sites name="scenario.js">
+    </file>
+    <file name="scenario.js">
       it('should load template1.html', function() {
        expect(element('.doc-example-live [ng-include]').text()).
          toMatch(/Content of template1.html/);
@@ -18455,7 +18455,7 @@ var ngIfDirective = ['$animate', function($animate) {
        select('template').option('');
        expect(element('.doc-example-live [ng-include]')).toBe(undefined);
       });
-    </sites>
+    </file>
   </example>
  */
 
@@ -18989,7 +18989,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
  * This example initializes the scope to a list of names and
  * then uses `ngRepeat` to display every person:
   <example animations="true">
-    <sites name="index.html">
+    <file name="index.html">
       <div ng-init="friends = [
         {name:'John', age:25, gender:'boy'},
         {name:'Jessie', age:30, gender:'girl'},
@@ -19010,8 +19010,8 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
           </li>
         </ul>
       </div>
-    </sites>
-    <sites name="animations.css">
+    </file>
+    <file name="animations.css">
       .example-animate-container {
         background:white;
         border:1px solid black;
@@ -19046,8 +19046,8 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
         opacity:1;
         max-height:40px;
       }
-    </sites>
-    <sites name="scenario.js">
+    </file>
+    <file name="scenario.js">
        it('should render initial data set', function() {
          var r = using('.doc-example-live').repeater('ul li');
          expect(r.count()).toBe(10);
@@ -19067,7 +19067,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
          expect(r.row(0)).toEqual(["1","Mary","28"]);
          expect(r.row(1)).toEqual(["2","Samantha","60"]);
        });
-      </sites>
+      </file>
     </example>
  */
 var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
@@ -19276,7 +19276,7 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
  * provided to the ngShow attribute. The element is shown or hidden by removing or adding
  * the `ng-hide` CSS class onto the element. The `.ng-hide` CSS class is predefined
  * in AngularJS and sets the display style to none (using an !important flag).
- * For CSP mode please add `angular-csp.css` to your html sites (see {@link ng.directive:ngCsp ngCsp}).
+ * For CSP mode please add `angular-csp.css` to your html file (see {@link ng.directive:ngCsp ngCsp}).
  *
  * <pre>
  * <!-- when $scope.myValue is truthy (element is visible) -->
@@ -19351,7 +19351,7 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
  *
  * @example
   <example animations="true">
-    <sites name="index.html">
+    <file name="index.html">
       Click me: <input type="checkbox" ng-model="checked"><br/>
       <div>
         Show:
@@ -19365,8 +19365,8 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
           <span class="icon-thumbs-down"></span> I hide when your checkbox is checked.
         </div>
       </div>
-    </sites>
-    <sites name="animations.css">
+    </file>
+    <file name="animations.css">
       .animate-show {
         -webkit-transition:all linear 0.5s;
         transition:all linear 0.5s;
@@ -19393,8 +19393,8 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
         border:1px solid black;
         background:white;
       }
-    </sites>
-    <sites name="scenario.js">
+    </file>
+    <file name="scenario.js">
        it('should check ng-show / ng-hide', function() {
          expect(element('.doc-example-live span:first:hidden').count()).toEqual(1);
          expect(element('.doc-example-live span:last:visible').count()).toEqual(1);
@@ -19404,7 +19404,7 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
          expect(element('.doc-example-live span:first:visible').count()).toEqual(1);
          expect(element('.doc-example-live span:last:hidden').count()).toEqual(1);
        });
-    </sites>
+    </file>
   </example>
  */
 var ngShowDirective = ['$animate', function($animate) {
@@ -19425,7 +19425,7 @@ var ngShowDirective = ['$animate', function($animate) {
  * provided to the ngHide attribute. The element is shown or hidden by removing or adding
  * the `ng-hide` CSS class onto the element. The `.ng-hide` CSS class is predefined
  * in AngularJS and sets the display style to none (using an !important flag).
- * For CSP mode please add `angular-csp.css` to your html sites (see {@link ng.directive:ngCsp ngCsp}).
+ * For CSP mode please add `angular-csp.css` to your html file (see {@link ng.directive:ngCsp ngCsp}).
  *
  * <pre>
  * <!-- when $scope.myValue is truthy (element is hidden) -->
@@ -19500,7 +19500,7 @@ var ngShowDirective = ['$animate', function($animate) {
  *
  * @example
   <example animations="true">
-    <sites name="index.html">
+    <file name="index.html">
       Click me: <input type="checkbox" ng-model="checked"><br/>
       <div>
         Show:
@@ -19514,8 +19514,8 @@ var ngShowDirective = ['$animate', function($animate) {
           <span class="icon-thumbs-down"></span> I hide when your checkbox is checked.
         </div>
       </div>
-    </sites>
-    <sites name="animations.css">
+    </file>
+    <file name="animations.css">
       .animate-hide {
         -webkit-transition:all linear 0.5s;
         transition:all linear 0.5s;
@@ -19542,8 +19542,8 @@ var ngShowDirective = ['$animate', function($animate) {
         border:1px solid black;
         background:white;
       }
-    </sites>
-    <sites name="scenario.js">
+    </file>
+    <file name="scenario.js">
        it('should check ng-show / ng-hide', function() {
          expect(element('.doc-example-live .check-element:first:hidden').count()).toEqual(1);
          expect(element('.doc-example-live .check-element:last:visible').count()).toEqual(1);
@@ -19553,7 +19553,7 @@ var ngShowDirective = ['$animate', function($animate) {
          expect(element('.doc-example-live .check-element:first:visible').count()).toEqual(1);
          expect(element('.doc-example-live .check-element:last:hidden').count()).toEqual(1);
        });
-    </sites>
+    </file>
   </example>
  */
 var ngHideDirective = ['$animate', function($animate) {
@@ -19579,19 +19579,19 @@ var ngHideDirective = ['$animate', function($animate) {
  *
  * @example
    <example>
-     <sites name="index.html">
+     <file name="index.html">
         <input type="button" value="set" ng-click="myStyle={color:'red'}">
         <input type="button" value="clear" ng-click="myStyle={}">
         <br/>
         <span ng-style="myStyle">Sample Text</span>
         <pre>myStyle={{myStyle}}</pre>
-     </sites>
-     <sites name="style.css">
+     </file>
+     <file name="style.css">
        span {
          color: black;
        }
-     </sites>
-     <sites name="scenario.js">
+     </file>
+     <file name="scenario.js">
        it('should check ng-style', function() {
          expect(element('.doc-example-live span').css('color')).toBe('rgb(0, 0, 0)');
          element('.doc-example-live :button[value=set]').click();
@@ -19599,7 +19599,7 @@ var ngHideDirective = ['$animate', function($animate) {
          element('.doc-example-live :button[value=clear]').click();
          expect(element('.doc-example-live span').css('color')).toBe('rgb(0, 0, 0)');
        });
-     </sites>
+     </file>
    </example>
  */
 var ngStyleDirective = ngDirective(function(scope, element, attr) {
@@ -19665,7 +19665,7 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
  *
  * @example
   <example animations="true">
-    <sites name="index.html">
+    <file name="index.html">
       <div ng-controller="Ctrl">
         <select ng-model="selection" ng-options="item for item in items">
         </select>
@@ -19678,14 +19678,14 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
             <div class="animate-switch" ng-switch-default>default</div>
         </div>
       </div>
-    </sites>
-    <sites name="script.js">
+    </file>
+    <file name="script.js">
       function Ctrl($scope) {
         $scope.items = ['settings', 'home', 'other'];
         $scope.selection = $scope.items[0];
       }
-    </sites>
-    <sites name="animations.css">
+    </file>
+    <file name="animations.css">
       .animate-switch-container {
         position:relative;
         background:white;
@@ -19717,8 +19717,8 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
       .animate-switch.ng-enter.ng-enter-active {
         top:0;
       }
-    </sites>
-    <sites name="scenario.js">
+    </file>
+    <file name="scenario.js">
       it('should start in settings', function() {
         expect(element('.doc-example-live [ng-switch]').text()).toMatch(/Settings Div/);
       });
@@ -19730,7 +19730,7 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
         select('selection').option('other');
         expect(element('.doc-example-live [ng-switch]').text()).toMatch(/default/);
       });
-    </sites>
+    </file>
   </example>
  */
 var ngSwitchDirective = ['$animate', function($animate) {

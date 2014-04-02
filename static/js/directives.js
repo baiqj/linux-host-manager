@@ -36,6 +36,7 @@ directive('navbar', function(){
   				<li><a href="#/sites/backup">一键备份</a></li>\
   				<li><a href="#/sites/move">一键迁移</a></li>\
   				<li><a href="#/sites/optimize">一键优化</a></li>\
+  				<li><a href="#/sites/secure">一键防黑</a></li>\
 			</ul>\
 		</accordion-group>\
 		<div class="panel panel-default" >\
