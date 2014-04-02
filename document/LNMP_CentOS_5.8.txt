@@ -1,0 +1,551 @@
+测试一、LNMP CentOS5.8 x86_64测试结果
+
+备注：此处用时将近9分钟，真正的阿里云主机用时会更短，预计3分钟左右
+
+测试命令
+yum   install  dos2unix  -y 
+dos2unix  *.sh 
+dos2unix  ./nginx/*.conf
+
+date  >>  ./install_log  ;  echo  "###########"  >>  ./install_log  &&  bash  -x  initialize_disk.sh >>  install_log  ;  echo  "###########"  >>  ./install_log  &&  bash  -x  ./set_aliyuncs_source.sh  >>  install_log ;  echo  "###########"  >>  ./install_log  &&   bash  -x   install.sh  >>  install_log  ;  echo  "###########"  >>  ./install_log  &&  date  >>  ./install_log
+
+软件版本：
+nginx  			0.8.55
+mysql-server  	5.0.95
+php				5.3.3
+
+安装日志：
+Wed Apr  2 14:33:59 EDT 2014
+###########
+/dev/sda1 on /boot type ext3 (rw) [/boot]
+###########
+CentOS release 5.8 (Final)
+Loaded plugins: fastestmirror, security
+Loading mirror speeds from cached hostfile
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package wget.x86_64 0:1.11.4-3.el5_8.2 set to be updated
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package       Arch            Version                      Repository     Size
+================================================================================
+Updating:
+ wget          x86_64          1.11.4-3.el5_8.2             base          583 k
+
+Transaction Summary
+================================================================================
+Install       0 Package(s)
+Upgrade       1 Package(s)
+
+Total download size: 583 k
+Downloading Packages:
+Running rpm_check_debug
+Running Transaction Test
+Finished Transaction Test
+Transaction Test Succeeded
+Running Transaction
+
+  Updating       : wget                                                     1/2 
+
+  Cleanup        : wget                                                     2/2 
+
+Updated:
+  wget.x86_64 0:1.11.4-3.el5_8.2                                                
+
+Complete!
+Loaded plugins: fastestmirror, security
+Loading mirror speeds from cached hostfile
+repo id          repo name                                                status
+addons           CentOS-5 - Addons - mirrors.aliyun.com                       0
+base             CentOS-5 - Base - mirrors.aliyun.com                     3,662
+epel             Extra Packages for Enterprise Linux 5 - x86_64           7,684
+extras           CentOS-5 - Extras - mirrors.aliyun.com                     265
+updates          CentOS-5 - Updates - mirrors.aliyun.com                    416
+repolist: 12,027
+###########
+CentOS release 5.8 (Final)
+Loaded plugins: fastestmirror, security
+Loading mirror speeds from cached hostfile
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package nginx.x86_64 0:0.8.55-3.el5 set to be updated
+--> Processing Dependency: libGeoIP.so.1()(64bit) for package: nginx
+--> Running transaction check
+---> Package GeoIP.x86_64 0:1.4.8-1.el5 set to be updated
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package         Arch             Version                  Repository      Size
+================================================================================
+Installing:
+ nginx           x86_64           0.8.55-3.el5             epel           389 k
+Installing for dependencies:
+ GeoIP           x86_64           1.4.8-1.el5              epel           783 k
+
+Transaction Summary
+================================================================================
+Install       2 Package(s)
+Upgrade       0 Package(s)
+
+Total download size: 1.1 M
+Downloading Packages:
+--------------------------------------------------------------------------------
+Total                                            91 kB/s | 1.1 MB     00:12     
+Running rpm_check_debug
+Running Transaction Test
+Finished Transaction Test
+Transaction Test Succeeded
+Running Transaction
+
+  Installing     : GeoIP                                                    1/2 
+
+  Installing     : nginx                                                    2/2 
+
+Installed:
+  nginx.x86_64 0:0.8.55-3.el5                                                   
+
+Dependency Installed:
+  GeoIP.x86_64 0:1.4.8-1.el5                                                    
+
+Complete!
+`/etc/nginx/' -> `/etc/nginx_backup/'
+`/etc/nginx/nginx.conf.default' -> `/etc/nginx_backup/nginx.conf.default'
+`/etc/nginx/koi-win' -> `/etc/nginx_backup/koi-win'
+`/etc/nginx/fastcgi_params' -> `/etc/nginx_backup/fastcgi_params'
+`/etc/nginx/uwsgi_params.default' -> `/etc/nginx_backup/uwsgi_params.default'
+`/etc/nginx/koi-utf' -> `/etc/nginx_backup/koi-utf'
+`/etc/nginx/mime.types' -> `/etc/nginx_backup/mime.types'
+`/etc/nginx/scgi_params.default' -> `/etc/nginx_backup/scgi_params.default'
+`/etc/nginx/fastcgi.conf.default' -> `/etc/nginx_backup/fastcgi.conf.default'
+`/etc/nginx/fastcgi_params.default' -> `/etc/nginx_backup/fastcgi_params.default'
+`/etc/nginx/win-utf' -> `/etc/nginx_backup/win-utf'
+`/etc/nginx/mime.types.default' -> `/etc/nginx_backup/mime.types.default'
+`/etc/nginx/fastcgi.conf' -> `/etc/nginx_backup/fastcgi.conf'
+`/etc/nginx/conf.d' -> `/etc/nginx_backup/conf.d'
+`/etc/nginx/conf.d/virtual.conf' -> `/etc/nginx_backup/conf.d/virtual.conf'
+`/etc/nginx/conf.d/ssl.conf' -> `/etc/nginx_backup/conf.d/ssl.conf'
+`/etc/nginx/nginx.conf' -> `/etc/nginx_backup/nginx.conf'
+`/etc/nginx/scgi_params' -> `/etc/nginx_backup/scgi_params'
+`/etc/nginx/uwsgi_params' -> `/etc/nginx_backup/uwsgi_params'
+`./nginx/dabr.conf' -> `/etc/nginx/dabr.conf'
+`./nginx/dedecms.conf' -> `/etc/nginx/dedecms.conf'
+`./nginx/discuz.conf' -> `/etc/nginx/discuz.conf'
+`./nginx/discuzx.conf' -> `/etc/nginx/discuzx.conf'
+`./nginx/drupal.conf' -> `/etc/nginx/drupal.conf'
+`./nginx/ecshop.conf' -> `/etc/nginx/ecshop.conf'
+`./nginx/fastcgi.conf' -> `/etc/nginx/fastcgi.conf'
+`./nginx/fastcgi_params' -> `/etc/nginx/fastcgi_params'
+`./nginx/fcgi.conf' -> `/etc/nginx/fcgi.conf'
+`./nginx/koi-utf' -> `/etc/nginx/koi-utf'
+`./nginx/koi-win' -> `/etc/nginx/koi-win'
+`./nginx/mime.types' -> `/etc/nginx/mime.types'
+`./nginx/nginx.conf' -> `/etc/nginx/nginx.conf'
+`./nginx/none.conf' -> `/etc/nginx/none.conf'
+`./nginx/phpwind.conf' -> `/etc/nginx/phpwind.conf'
+`./nginx/sablog.conf' -> `/etc/nginx/sablog.conf'
+`./nginx/scgi_params' -> `/etc/nginx/scgi_params'
+`./nginx/shopex.conf' -> `/etc/nginx/shopex.conf'
+`./nginx/typecho.conf' -> `/etc/nginx/typecho.conf'
+`./nginx/uwsgi_params' -> `/etc/nginx/uwsgi_params'
+`./nginx/win-utf' -> `/etc/nginx/win-utf'
+`./nginx/wordpress.conf' -> `/etc/nginx/wordpress.conf'
+`./nginx/wp2.conf' -> `/etc/nginx/wp2.conf'
+Starting nginx: [60G[[0;32m  OK  [0;39m]
+Loaded plugins: fastestmirror, security
+Loading mirror speeds from cached hostfile
+Setting up Install Process
+No package mysql-utilities available.
+Resolving Dependencies
+--> Running transaction check
+---> Package mod_auth_mysql.x86_64 1:3.0.0-3.2.el5_3 set to be updated
+---> Package mysql.i386 0:5.0.95-5.el5_9 set to be updated
+--> Processing Dependency: perl(DBI) for package: mysql
+---> Package mysql.x86_64 0:5.0.95-5.el5_9 set to be updated
+---> Package mysql-connector-odbc.x86_64 0:3.51.26r1127-2.el5 set to be updated
+--> Processing Dependency: libodbcinst.so.1()(64bit) for package: mysql-connector-odbc
+---> Package mysql-server.x86_64 0:5.0.95-5.el5_9 set to be updated
+--> Processing Dependency: perl-DBD-MySQL for package: mysql-server
+--> Running transaction check
+---> Package perl-DBD-MySQL.x86_64 0:3.0007-2.el5 set to be updated
+---> Package perl-DBI.x86_64 0:1.52-2.el5 set to be updated
+---> Package unixODBC-libs.x86_64 0:2.2.11-10.el5 set to be updated
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                   Arch        Version                  Repository
+                                                                           Size
+================================================================================
+Installing:
+ mod_auth_mysql            x86_64      1:3.0.0-3.2.el5_3        base       22 k
+ mysql                     i386        5.0.95-5.el5_9           base      4.9 M
+ mysql                     x86_64      5.0.95-5.el5_9           base      4.9 M
+ mysql-connector-odbc      x86_64      3.51.26r1127-2.el5       base      158 k
+ mysql-server              x86_64      5.0.95-5.el5_9           base      9.9 M
+Installing for dependencies:
+ perl-DBD-MySQL            x86_64      3.0007-2.el5             base      148 k
+ perl-DBI                  x86_64      1.52-2.el5               base      600 k
+ unixODBC-libs             x86_64      2.2.11-10.el5            base      554 k
+
+Transaction Summary
+================================================================================
+Install       8 Package(s)
+Upgrade       0 Package(s)
+
+Total download size: 21 M
+Downloading Packages:
+--------------------------------------------------------------------------------
+Total                                            79 kB/s |  21 MB     04:33     
+Running rpm_check_debug
+Running Transaction Test
+Finished Transaction Test
+Transaction Test Succeeded
+Running Transaction
+
+  Installing     : perl-DBI                                                 1/8 
+
+  Installing     : mysql                                                    2/8 
+
+  Installing     : perl-DBD-MySQL                                           3/8 
+
+  Installing     : unixODBC-libs                                            4/8 
+
+  Installing     : mysql                                                    5/8 
+
+  Installing     : mod_auth_mysql                                           6/8 
+
+  Installing     : mysql-server                                             7/8 
+
+  Installing     : mysql-connector-odbc                                     8/8 
+
+Installed:
+  mod_auth_mysql.x86_64 1:3.0.0-3.2.el5_3                                       
+  mysql.i386 0:5.0.95-5.el5_9                                                   
+  mysql.x86_64 0:5.0.95-5.el5_9                                                 
+  mysql-connector-odbc.x86_64 0:3.51.26r1127-2.el5                              
+  mysql-server.x86_64 0:5.0.95-5.el5_9                                          
+
+Dependency Installed:
+  perl-DBD-MySQL.x86_64 0:3.0007-2.el5       perl-DBI.x86_64 0:1.52-2.el5      
+  unixODBC-libs.x86_64 0:2.2.11-10.el5      
+
+Complete!
+Initializing MySQL database:  Installing MySQL system tables...
+OK
+Filling help tables...
+OK
+
+To start mysqld at boot time you have to copy
+support-files/mysql.server to the right place for your system
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+/usr/bin/mysqladmin -u root password 'new-password'
+/usr/bin/mysqladmin -u root -h localhost.localdomain password 'new-password'
+
+Alternatively you can run:
+/usr/bin/mysql_secure_installation
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the manual for more instructions.
+
+You can start the MySQL daemon with:
+cd /usr ; /usr/bin/mysqld_safe &
+
+You can test the MySQL daemon with mysql-test-run.pl
+cd mysql-test ; perl mysql-test-run.pl
+
+Please report any problems with the /usr/bin/mysqlbug script!
+
+The latest information about MySQL is available on the web at
+http://www.mysql.com
+Support MySQL by buying support/licenses at http://shop.mysql.com
+[60G[[0;32m  OK  [0;39m]
+Starting mysqld:  [60G[[0;32m  OK  [0;39m]
+Loaded plugins: fastestmirror, security
+Loading mirror speeds from cached hostfile
+Setting up Install Process
+Package mlocate-0.15-1.el5.2.x86_64 already installed and latest version
+Nothing to do
+Stopping mysqld:  [60G[[0;32m  OK  [0;39m]
+Starting mysqld:  [60G[[0;32m  OK  [0;39m]
+datadir=/var/lib/mysql/
+Loaded plugins: fastestmirror, security
+Loading mirror speeds from cached hostfile
+Setting up Install Process
+No package php-fpm available.
+No package php-ZendFramework-Db-Adapter-Pdo-Mysql available.
+Resolving Dependencies
+--> Running transaction check
+---> Package libmcrypt.i386 0:2.5.7-5.el5 set to be updated
+---> Package libmcrypt.x86_64 0:2.5.8-4.el5.centos set to be updated
+---> Package libmcrypt-devel.i386 0:2.5.7-5.el5 set to be updated
+---> Package libmcrypt-devel.x86_64 0:2.5.8-4.el5.centos set to be updated
+---> Package mhash.i386 0:0.9.2-6.el5 set to be updated
+---> Package mhash.x86_64 0:0.9.9-1.el5.centos set to be updated
+---> Package mhash-devel.i386 0:0.9.2-6.el5 set to be updated
+---> Package mhash-devel.x86_64 0:0.9.9-1.el5.centos set to be updated
+---> Package php.x86_64 0:5.1.6-44.el5_10 set to be updated
+--> Processing Dependency: php-cli = 5.1.6-44.el5_10 for package: php
+--> Processing Dependency: php-common = 5.1.6-44.el5_10 for package: php
+---> Package php-bcmath.x86_64 0:5.1.6-44.el5_10 set to be updated
+---> Package php-devel.x86_64 0:5.1.6-44.el5_10 set to be updated
+--> Processing Dependency: autoconf for package: php-devel
+--> Processing Dependency: automake for package: php-devel
+---> Package php-gd.x86_64 0:5.1.6-44.el5_10 set to be updated
+---> Package php-imap.x86_64 0:5.1.6-44.el5_10 set to be updated
+--> Processing Dependency: libc-client.so.1()(64bit) for package: php-imap
+---> Package php-mbstring.x86_64 0:5.1.6-44.el5_10 set to be updated
+---> Package php-mcrypt.x86_64 0:5.1.6-15.el5.centos.1 set to be updated
+---> Package php-mysql.x86_64 0:5.1.6-44.el5_10 set to be updated
+--> Processing Dependency: php-pdo for package: php-mysql
+---> Package php-pecl-memcache.x86_64 0:2.2.6-1.el5 set to be updated
+---> Package php-soap.x86_64 0:5.1.6-44.el5_10 set to be updated
+---> Package php-xml.x86_64 0:5.1.6-44.el5_10 set to be updated
+---> Package php-xmlrpc.x86_64 0:5.1.6-44.el5_10 set to be updated
+---> Package php53-intl.x86_64 0:5.3.3-22.el5_10 set to be updated
+--> Processing Dependency: php53-common = 5.3.3-22.el5_10 for package: php53-intl
+---> Package php53-process.x86_64 0:5.3.3-22.el5_10 set to be updated
+--> Running transaction check
+---> Package autoconf.noarch 0:2.59-12 set to be updated
+--> Processing Dependency: imake for package: autoconf
+---> Package automake.noarch 0:1.9.6-2.3.el5 set to be updated
+---> Package libc-client.x86_64 0:2004g-2.2.1 set to be updated
+---> Package php-cli.x86_64 0:5.1.6-44.el5_10 set to be updated
+---> Package php-common.x86_64 0:5.1.6-44.el5_10 set to be updated
+---> Package php-pdo.x86_64 0:5.1.6-44.el5_10 set to be updated
+---> Package php53-common.x86_64 0:5.3.3-22.el5_10 set to be updated
+--> Running transaction check
+---> Package imake.x86_64 0:1.0.2-3 set to be updated
+--> Processing Conflict: php53-common conflicts php-common
+--> Finished Dependency Resolution
+php53-common-5.3.3-22.el5_10.x86_64 from updates has depsolving problems
+  --> php53-common conflicts with php-common
+ You could try using --skip-broken to work around the problem
+ You could try running: package-cleanup --problems
+                        package-cleanup --dupes
+                        rpm -Va --nofiles --nodigest
+The program package-cleanup is found in the yum-utils package.
+Loaded plugins: fastestmirror, security
+Loading mirror speeds from cached hostfile
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package libmcrypt.i386 0:2.5.7-5.el5 set to be updated
+---> Package libmcrypt.x86_64 0:2.5.8-4.el5.centos set to be updated
+---> Package libmcrypt-devel.i386 0:2.5.7-5.el5 set to be updated
+---> Package libmcrypt-devel.x86_64 0:2.5.8-4.el5.centos set to be updated
+---> Package mhash.i386 0:0.9.2-6.el5 set to be updated
+---> Package mhash.x86_64 0:0.9.9-1.el5.centos set to be updated
+---> Package mhash-devel.i386 0:0.9.2-6.el5 set to be updated
+---> Package mhash-devel.x86_64 0:0.9.9-1.el5.centos set to be updated
+---> Package php53.x86_64 0:5.3.3-22.el5_10 set to be updated
+--> Processing Dependency: php53-cli = 5.3.3-22.el5_10 for package: php53
+--> Processing Dependency: php53-common = 5.3.3-22.el5_10 for package: php53
+---> Package php53-bcmath.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-devel.x86_64 0:5.3.3-22.el5_10 set to be updated
+--> Processing Dependency: autoconf for package: php53-devel
+--> Processing Dependency: automake for package: php53-devel
+---> Package php53-enchant.x86_64 0:5.3.3-1.el5 set to be updated
+--> Processing Dependency: libenchant.so.1()(64bit) for package: php53-enchant
+---> Package php53-gd.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-imap.x86_64 0:5.3.3-22.el5_10 set to be updated
+--> Processing Dependency: libc-client.so.1()(64bit) for package: php53-imap
+---> Package php53-intl.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-mbstring.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-mcrypt.x86_64 0:5.3.3-1.el5 set to be updated
+---> Package php53-mssql.x86_64 0:5.3.3-1.el5 set to be updated
+--> Processing Dependency: libsybdb.so.5()(64bit) for package: php53-mssql
+---> Package php53-pdo.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-php-gettext.noarch 0:1.0.11-3.el5 set to be updated
+---> Package php53-process.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-pspell.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-soap.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-xml.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-xmlrpc.x86_64 0:5.3.3-22.el5_10 set to be updated
+--> Running transaction check
+---> Package autoconf.noarch 0:2.59-12 set to be updated
+--> Processing Dependency: imake for package: autoconf
+---> Package automake.noarch 0:1.9.6-2.3.el5 set to be updated
+---> Package enchant.x86_64 1:1.4.2-4.el5.1 set to be updated
+---> Package freetds.x86_64 0:0.91-2.el5 set to be updated
+---> Package libc-client.x86_64 0:2004g-2.2.1 set to be updated
+---> Package php53-cli.x86_64 0:5.3.3-22.el5_10 set to be updated
+---> Package php53-common.x86_64 0:5.3.3-22.el5_10 set to be updated
+--> Running transaction check
+---> Package imake.x86_64 0:1.0.2-3 set to be updated
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                Arch        Version                  Repository    Size
+================================================================================
+Installing:
+ libmcrypt              i386        2.5.7-5.el5              epel         124 k
+ libmcrypt              x86_64      2.5.8-4.el5.centos       extras       105 k
+ libmcrypt-devel        i386        2.5.7-5.el5              epel         103 k
+ libmcrypt-devel        x86_64      2.5.8-4.el5.centos       extras        10 k
+ mhash                  i386        0.9.2-6.el5              epel         141 k
+ mhash                  x86_64      0.9.9-1.el5.centos       extras       106 k
+ mhash-devel            i386        0.9.2-6.el5              epel          28 k
+ mhash-devel            x86_64      0.9.9-1.el5.centos       extras        23 k
+ php53                  x86_64      5.3.3-22.el5_10          updates      1.3 M
+ php53-bcmath           x86_64      5.3.3-22.el5_10          updates       45 k
+ php53-devel            x86_64      5.3.3-22.el5_10          updates      593 k
+ php53-enchant          x86_64      5.3.3-1.el5              epel          10 k
+ php53-gd               x86_64      5.3.3-22.el5_10          updates      112 k
+ php53-imap             x86_64      5.3.3-22.el5_10          updates       54 k
+ php53-intl             x86_64      5.3.3-22.el5_10          updates       78 k
+ php53-mbstring         x86_64      5.3.3-22.el5_10          updates      1.2 M
+ php53-mcrypt           x86_64      5.3.3-1.el5              epel          17 k
+ php53-mssql            x86_64      5.3.3-1.el5              epel          27 k
+ php53-pdo              x86_64      5.3.3-22.el5_10          updates       70 k
+ php53-php-gettext      noarch      1.0.11-3.el5             epel          20 k
+ php53-process          x86_64      5.3.3-22.el5_10          updates       41 k
+ php53-pspell           x86_64      5.3.3-22.el5_10          updates       28 k
+ php53-soap             x86_64      5.3.3-22.el5_10          updates      148 k
+ php53-xml              x86_64      5.3.3-22.el5_10          updates      122 k
+ php53-xmlrpc           x86_64      5.3.3-22.el5_10          updates       54 k
+Installing for dependencies:
+ autoconf               noarch      2.59-12                  base         647 k
+ automake               noarch      1.9.6-2.3.el5            base         476 k
+ enchant                x86_64      1:1.4.2-4.el5.1          epel         147 k
+ freetds                x86_64      0.91-2.el5               epel         995 k
+ imake                  x86_64      1.0.2-3                  base         319 k
+ libc-client            x86_64      2004g-2.2.1              base         515 k
+ php53-cli              x86_64      5.3.3-22.el5_10          updates      2.4 M
+ php53-common           x86_64      5.3.3-22.el5_10          updates      608 k
+
+Transaction Summary
+================================================================================
+Install      33 Package(s)
+Upgrade       0 Package(s)
+
+Total download size: 11 M
+Downloading Packages:
+--------------------------------------------------------------------------------
+Total                                           482 kB/s |  11 MB     00:22     
+Running rpm_check_debug
+Running Transaction Test
+Finished Transaction Test
+Transaction Test Succeeded
+Running Transaction
+
+  Installing     : php53-common                                            1/33 
+
+  Installing     : libmcrypt                                               2/33 
+
+  Installing     : php53-cli                                               3/33 
+
+  Installing     : php53                                                   4/33 
+
+  Installing     : php53-mbstring                                          5/33 
+
+  Installing     : php53-pdo                                               6/33 
+
+  Installing     : enchant                                                 7/33 
+
+  Installing     : imake                                                   8/33 
+
+  Installing     : freetds                                                 9/33 
+
+  Installing     : mhash                                                  10/33 
+
+  Installing     : libc-client                                            11/33 
+
+  Installing     : libmcrypt                                              12/33 
+
+  Installing     : mhash                                                  13/33 
+
+  Installing     : php53-imap                                             14/33 
+
+  Installing     : php53-mssql                                            15/33 
+
+  Installing     : php53-enchant                                          16/33 
+
+  Installing     : php53-mcrypt                                           17/33 
+
+  Installing     : php53-gd                                               18/33 
+
+  Installing     : php53-soap                                             19/33 
+
+  Installing     : php53-xml                                              20/33 
+
+  Installing     : php53-bcmath                                           21/33 
+
+  Installing     : php53-intl                                             22/33 
+
+  Installing     : php53-process                                          23/33 
+
+  Installing     : php53-pspell                                           24/33 
+
+  Installing     : php53-xmlrpc                                           25/33 
+
+  Installing     : autoconf                                               26/33 
+
+  Installing     : automake                                               27/33 
+
+  Installing     : php53-devel                                            28/33 
+
+  Installing     : mhash-devel                                            29/33 
+
+  Installing     : php53-php-gettext                                      30/33 
+
+  Installing     : libmcrypt-devel                                        31/33 
+
+  Installing     : mhash-devel                                            32/33 
+
+  Installing     : libmcrypt-devel                                        33/33 
+
+Installed:
+  libmcrypt.i386 0:2.5.7-5.el5                                                  
+  libmcrypt.x86_64 0:2.5.8-4.el5.centos                                         
+  libmcrypt-devel.i386 0:2.5.7-5.el5                                            
+  libmcrypt-devel.x86_64 0:2.5.8-4.el5.centos                                   
+  mhash.i386 0:0.9.2-6.el5                                                      
+  mhash.x86_64 0:0.9.9-1.el5.centos                                             
+  mhash-devel.i386 0:0.9.2-6.el5                                                
+  mhash-devel.x86_64 0:0.9.9-1.el5.centos                                       
+  php53.x86_64 0:5.3.3-22.el5_10                                                
+  php53-bcmath.x86_64 0:5.3.3-22.el5_10                                         
+  php53-devel.x86_64 0:5.3.3-22.el5_10                                          
+  php53-enchant.x86_64 0:5.3.3-1.el5                                            
+  php53-gd.x86_64 0:5.3.3-22.el5_10                                             
+  php53-imap.x86_64 0:5.3.3-22.el5_10                                           
+  php53-intl.x86_64 0:5.3.3-22.el5_10                                           
+  php53-mbstring.x86_64 0:5.3.3-22.el5_10                                       
+  php53-mcrypt.x86_64 0:5.3.3-1.el5                                             
+  php53-mssql.x86_64 0:5.3.3-1.el5                                              
+  php53-pdo.x86_64 0:5.3.3-22.el5_10                                            
+  php53-php-gettext.noarch 0:1.0.11-3.el5                                       
+  php53-process.x86_64 0:5.3.3-22.el5_10                                        
+  php53-pspell.x86_64 0:5.3.3-22.el5_10                                         
+  php53-soap.x86_64 0:5.3.3-22.el5_10                                           
+  php53-xml.x86_64 0:5.3.3-22.el5_10                                            
+  php53-xmlrpc.x86_64 0:5.3.3-22.el5_10                                         
+
+Dependency Installed:
+  autoconf.noarch 0:2.59-12             automake.noarch 0:1.9.6-2.3.el5         
+  enchant.x86_64 1:1.4.2-4.el5.1        freetds.x86_64 0:0.91-2.el5             
+  imake.x86_64 0:1.0.2-3                libc-client.x86_64 0:2004g-2.2.1        
+  php53-cli.x86_64 0:5.3.3-22.el5_10    php53-common.x86_64 0:5.3.3-22.el5_10   
+
+Complete!
+Stopping nginx: [60G[[0;32m  OK  [0;39m]
+Starting nginx: [60G[[0;32m  OK  [0;39m]
+Stopping mysqld:  [60G[[0;32m  OK  [0;39m]
+Starting mysqld:  [60G[[0;32m  OK  [0;39m]
+###########
+Wed Apr  2 14:42:43 EDT 2014

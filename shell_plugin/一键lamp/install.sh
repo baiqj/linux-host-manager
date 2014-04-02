@@ -107,8 +107,8 @@ fi
 
 #5、重新启动服务
 
-service  nginx  restart
+service  httpd restart
 service  mysqld   restart
 
-chkconfig   nginx   on
+chkconfig   httpd   on
 chkconfig  mysqld   on

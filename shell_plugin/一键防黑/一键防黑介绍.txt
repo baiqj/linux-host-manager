@@ -1,4 +1,4 @@
-一键防黑主要对系统进行安全增强配置，另外安装相应的安全软件
+﻿一键防黑主要对系统进行安全增强配置，另外安装相应的安全软件
 
 1、对linux系统进行安全增强
 
@@ -12,7 +12,8 @@
 https://github.com/secrule/falcon
 
 
-6、安装PHP-Shell-Detector
+6、安装PHP-Shell-Detector  python版
+
 
 7、安装DDoS deflate 
 
