@@ -12,20 +12,20 @@ cat  /etc/issue  |  grep  -iw  "CENTOS"
 [ `echo  $?` != 0 ]  &&  exit  1
 
 
-#1、安装apache httpd.x86_64并启动
-#前台提示正在安装apache
-yum -y install httpd httpd-tools   mod_proxy_html  
+#1、安装nginx并启动
+yum -y install nginx   
+#将nginx的配置文件进行备份，并将nginx目录中的示例配置文件对原有的配置文件进行覆盖
+\cp  -rpv /etc/nginx/     /etc/nginx_backup/
+#将nginx的示例配置文件覆盖原有的配置文件
+\cp  -rpv   ./nginx/*     /etc/nginx
 
-service  httpd   start
-#前台给出提示apache安装完成，进度条向前滚动
-#更新env_config中APACHE_BASE中的信息
+service  nginx   start
+
 #2、安装mysql并启动
-#前台提示正在安装mysql，进度条向前滚动
 yum -y install mysql mod_auth_mysql mysql-connector-odbc mysql-server  mysql-utilities
 
 service   mysqld    start
-#前台提示mysql安装完成，进度条向前滚动
-#更新env_config中MYSQL_BASE中的信息
+
 #3、mysql初始化设置
 
 #3.1配置mysql的初始root登录密码
@@ -45,7 +45,7 @@ mv /etc/my.cnf /etc/my.cnf.bak
 sed -i 's/skip-locking/skip-external-locking/g' /etc/my.cnf
 
 #3.3对mysql进行安全初始化
-echo "正在对mysql进行安全初始化"
+
 cat > /tmp/mysql_sec_script<<EOF
 use mysql;
 delete from user where not (user='root') ;
@@ -61,8 +61,7 @@ rm -f /tmp/mysql_sec_script
 
 service  mysqld   restart
 
-#3.4更该默认的data目录
-#判断用户主机是否存在数据盘，若不存在，则不更改mysql的data目录，若存在，则判断数据盘是否进行了格式化分区，若未进行分区，则进行分区，更改mysql的data目录，若已经进行分区，则不进行分区，直接更改mysql的data目录。
+#3.4更该默认的data数据目录
 #/tmp/.mount.list是由initialize_disk.sh脚本生成的
 
 if  [ -f  /tmp/.mount.list ]  
@@ -89,19 +88,31 @@ fi
 
 
 #4、安装php
-#前台提示正在安装php，更新进度条信息
 #默认会自动安装加载apache的php模块
 yum -y install php php-mysql  php-process php-pecl-memcache php-bcmath php-mcrypt php-soap  php-mbstring  mhash-devel mhash libmcrypt  libmcrypt-devel  php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel  php-ZendFramework-Db-Adapter-Pdo-Mysql 
 
-#前台提示php已经安装完成，更新进度条信息
-#更新env_config中PHP_BASE中的信息
-#查看已加载模块"httpd    -t  -D   DUMP_MODULES"
+#检测系统的版本，根据不同的版本执行不同的命令
+releasever=`cat  /etc/issue  |  grep  -iw  "CENTOS"  |  awk  '{print  $3}' |  awk  -F  '.'   '{print  $1}'`
+
+if  [ $releasever == 5 ]
+then
+	yum  -y install   php53   php53-bcmath  php53-mssql  php53-process  php53-mcrypt  php53-devel  php53-gd  php53-imap  php53-mbstring   php53-pdo  php53-soap   php53-xml  php53-xmlrpc   php53-intl  php53-enchant  php53-php-gettext  php53-pspell mhash-devel mhash  libmcrypt  libmcrypt-devel
+else
+	if  [ $releasever == 6 ]
+	then
+		yum -y install php   php-bcmath	 php-mysql  php-process    php-mcrypt   php-devel  php-gd       php-imap    php-mbstring     php-pdo   php-soap   php-xml php-xmlrpc   php-intl      php-enchant   php-php-gettext    php-pspell   mhash-devel mhash   libmcrypt  libmcrypt-devel  php-fpm    
+	else
+		exit 1
+	fi
+fi
+
 #查看php编译的模块"php  -m "
+
 
 #5、重新启动服务
 
-service   httpd   restart
+service  nginx  restart
 service  mysqld   restart
 
-chkconfig   httpd   on
+chkconfig   nginx   on
 chkconfig  mysqld   on
