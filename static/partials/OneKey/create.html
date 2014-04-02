@@ -10,10 +10,10 @@
 
 <div class="row">
     <div class="col-lg-3">
-        <div ><input type="radio" class="col-lg-6" style="margin: 20px;" ng-model="siteType" value="phpwind" />
-                <img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive">
+        <div ><input type="radio" class="col-lg-3" style="margin: 20px;" ng-model="siteType" value="phpwind" />
+                <img style="height: 80px;" src="../../images/phpwind.png" alt="PHPWind Image" class="img-rounded img-responsive">
         </div>
-        <div><br />phpwind<br />
+        <div><br>phpwind
             <select  ng-model="phpwind_version">
                 <option value="0">--版本选择--</option>
                 <option ng-repeat="version in phpwind_versions" value="{{version}}">{{version}}</option>
@@ -21,10 +21,10 @@
         </div>
     </div>
     <div class="col-lg-3">
-        <div ><input type="radio" class="col-lg-6" style="margin: 20px;" ng-model="siteType" value="Discuz" />
-            <img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive">
+        <div ><input type="radio" class="col-lg-3" style="margin: 20px;" ng-model="siteType" value="Discuz" />
+            <img style="height: 80px;" src="../../images/discuz.png" alt="Discuz Image" class="img-rounded img-responsive">
         </div>
-        <div><br />Discuz<br />
+        <div><br />Discuz
             <select  ng-model="discuz_version">
                 <option value="0">--版本选择--</option>
                 <option ng-repeat="version in discuz_versions" value="{{version}}">{{version}}</option>
@@ -32,10 +32,10 @@
         </div>
     </div>
     <div class="col-lg-3">
-        <div ><input type="radio" class="col-lg-6" style="margin: 20px;" ng-model="siteType" value="dedecms" />
-            <img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive">
+        <div ><input type="radio" class="col-lg-3" style="margin: 20px;" ng-model="siteType" value="dedecms" />
+            <img style="height: 80px;" src="../../images/dedecms.png" alt="DedeCMS Image" class="img-rounded img-responsive">
         </div>
-        <div><br />Dedecms<br />
+        <div><br />Dedecms
             <select  ng-model="dedecms_version">
                 <option value="0">--版本选择--</option>
                 <option ng-repeat="version in dedecms_versions" value="{{version}}">{{version}}</option>
@@ -43,15 +43,12 @@
         </div>
     </div>
     <div class="col-lg-3">
-        <div ><input type="radio" class="col-lg-6" style="margin: 20px;" ng-model="siteType" value="other" />
-            <img style="height: 50px;" src="../../images/PHP.png" alt="PHP Image" class="img-rounded img-responsive">
+        <div ><input type="radio" class="col-lg-3" style="margin: 20px;" ng-model="siteType" value="other" />
+            <img style="height: 80px;" src="../../images/custom.png" alt="PHP Image" class="img-rounded img-responsive">
         </div>
-        <!--<div><br />Discuz<br />
-            <select  ng-model="discuz_version">
-                <option value="0">--版本选择--</option>
-                <option ng-repeat="version in discuz_versions" value="{{version}}">{{version}}</option>
-            </select>
-        </div>-->
+        <div><br />自定义
+            <button data-toggle="modal" ng-click="uploadfile();">上传文件</button>
+        </div>
     </div>
 </div><br/><br/>
 
@@ -63,5 +60,34 @@
 <br/><br/><br/>
 <div class="row">
 	<button  type="submit" id="login" class="btn btn-primary btn-lg col-lg-2 col-lg-offset-5"  ng-click="submit()">开始建站</button>
+</div>
+<div class="row">
+    <div class="modal fade" id="uploadfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">新建文件</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="uploadform" class="pull-left" target="uploadframe" action="/fileupload" enctype="multipart/form-data" method="post" onsubmit="$('#_xsrf').val(getCookie('XSRF-TOKEN'));">
+                        <input type="hidden" name="_xsrf" value="" id="_xsrf">
+                        <div class="input-group">
+                            <span class="input-group-addon">上传位置：</span>
+                            <!--<input type="text" name="path" value="/root/Documents">-->
+                            <input type="text" class="form-control" name="path"  required>
+                        </div><br>
+                        <input name="ufile" type="file" ><br>
+                        <input type="submit" value="开始上传">
+                    </form>
+                    <iframe frameborder="0" name="uploadframe" width="100%" height="50"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-default" data-dismiss="modal" ng-click="listdir(currentDir);">确定</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
 

@@ -14,8 +14,8 @@
         <td>
         <i class="glyphicon glyphicon-folder-close" title="文件夹" ng-show="item.isdir"></i>
         <i class="glyphicon glyphicon-file" title="文件" ng-show="item.isreg"></i>
-        <a class="black" ng-click="entryDir(item.name);" ng-show="item.isdir||(item.islnk&&item.link_isdir)">{{item.name}}</a>
-        <a class="black" ng-click="readfile(item.name)" ng-show="item.isreg||(item.islnk&&!item.link_isdir)">{{item.name}}</a>
+        <a style="cursor:pointer" class="black" ng-click="entryDir(item.name);" ng-show="item.isdir||(item.islnk&&item.link_isdir)">{{item.name}}</a>
+        <a style="cursor:pointer" class="black" ng-click="readfile(item.name)" ng-show="item.isreg||(item.islnk&&!item.link_isdir)">{{item.name}}</a>
         <td>{{item.size}}</td>
         <td>
             <div class="btn-group">

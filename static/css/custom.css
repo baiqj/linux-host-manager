@@ -158,3 +158,6 @@ transform:rotate(300deg);
 transform:rotate(360deg);
 }
 
+.tolltip-inner {
+    max-width: 350px;
+}

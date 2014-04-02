@@ -1,0 +1,72 @@
+<div class="row">
+    <div id="lamp_install_image" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#lamp_install_image" data-slide-to="0" class="active"></li>
+            <li data-target="#lamp_install_image" data-slide-to="1"></li>
+            <li data-target="#lamp_install_image" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="http://placehold.it/1850x450" alt="image one" class="image-response">
+                <div class="carousel-caption">
+                    image one
+                </div>
+            </div>
+            <div class="item">
+                <img src="http://placehold.it/1850x450" alt="image two" class="image-response">
+                <div class="carousel-caption">
+                    image two
+                </div>
+            </div>
+            <div class="item">
+                <img src="http://placehold.it/1850x450" alt="image three" class="image-response">
+                <div class="carousel-caption">
+                    image three
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="progress progress-striped active">
+        <div class="progress-bar"  role="progressbar" aria-valuenow="{{install_process_value}}}" aria-valuemin="0" aria-valuemax="100" style="width: {{install_process_value}}%">
+        </div>
+    </div>
+    <span>{{install_process_value}}% Complete</span>
+</div>
+
+<div class="row">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        安装完成
+    </button>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">LAMP安装完成</h4>
+                </div>
+                <div class="modal-body">
+                    <div ng-show="isDNS">您的域名 www.kyyj.net 还未完成DNS解析，请到域名管理中心完成 解析，然后通过浏览器访问 www.kyyj.net</div>
+                    .安装完成,请访问<a href="http://www.baidu.com" target="_blank">www.baidu.com.</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="isDNS = !isDNS">Not available</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#lamp_install_image').carousel({
+            interval: 3000
+        });
+    })
+</script>

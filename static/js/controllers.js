@@ -141,6 +141,13 @@ cloudAppControllers.controller('siteCreateCtrl', ['$rootScope','$scope','$locati
   $scope.dedecms_version = '0';
   $scope.charsetOpt = "utf-8";
 
+      $scope.uploadfile = function(){
+          console.log('[uploadfile] Function uploadfile() has been called!!');
+          $('#uploadfile').modal();
+
+          console.log('[uploadfile] Function uploadfile() has been called!!');
+      }
+
   $scope.submit = function(){
       if ($scope.domainName == null){
           Message.setError("请填入域名");
@@ -260,16 +267,31 @@ cloudAppControllers.controller('secureCtrl', ['$rootScope','$scope',
         /* custom code section */
         $rootScope.htmlTitle = "一键通";
 
-        $("[name='secPack']").attr('checked',true);
-
         $scope.select_all = function(){
-            console.log("select_all() has been called!");
-            $("[name='secPack']").attr('checked',true);
+            $scope.var1 = true;
+            $scope.var2 = true;
+            $scope.var3 = true;
+            $scope.var4 = true;
+            $scope.var5 = true;
         }
 
         $scope.cancel_all = function(){
-            $("[name='secPack']").attr('checked',false);
+            $scope.var1 = false;
+            $scope.var2 = false;
+            $scope.var3 = false;
+            $scope.var4 = false;
+            $scope.var5 = false;
         }
+
+        $scope.select_all();
+
+    }]);
+
+cloudAppControllers.controller('secure-startCtrl', ['$rootScope','$scope',
+    function($rootScope,$scope) {
+        /* custom code section */
+        $rootScope.htmlTitle = "一键通";
+        $scope.install_process_value = 30;
 
     }]);
 

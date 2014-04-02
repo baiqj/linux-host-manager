@@ -1,44 +1,78 @@
+<script type="text/css">
+    div.tolltip-inner {
+        max-width: 250px;
+    }
+</script>
 <div class="row">
     <table id="sys_base_info" class="table table-striped">
         <thead><th></th><th>软件名称</th><th>简介</th><th>启用率</th><th>建议开启/关闭</th></thead>
         <tbody>
         <tr>
-            <td style="width:50px"><input type="checkbox" name="secPack" ng-model="var1"></td>
-            <td style="width:100px">mod_security</td>
-            <td >Introduction</td>
-            <td >Introduction</td>
-            <td >Introduction</td>
+            <td style="width:30px"><input type="checkbox" name="secPack" ng-model="var1"></td>
+            <td style="width:120px">mod_security</td>
+            <td id="tooltip1" style="width:180px">ModSecurity是一个入侵侦测与防护引擎，它主要是用于Web 应用程序，所以也被称为Web...
+                <a href="#" data-toggle="tooltip" container='tooltip1' title="ModSecurity是一个入侵侦测与防护引擎，它主要是用于Web 应用程序，所以也被称为Web应用程序防火墙。 它可以作为Apache Web服务器的模块或是单独的应用程序来运作。ModSecurity的功能是增强Web application的安全性和保护Web application以避免遭受来自已知与未知的攻击。">more</a></td>
+            <td style="width:50px">79%</td>
+            <td style="width:50px">安装</td>
         </tr>
         <tr>
             <td><input type="checkbox" name="secPack"  ng-model="var2"></td>
-            <td >MySQL</td>
+            <td >denyhost</td>
             <td >Introduction</td>
             <td >Introduction</td>
             <td >Introduction</td>
         </tr>
         <tr>
             <td><input type="checkbox"  name="secPack" ng-model="var3"></td>
-            <td >MySQL</td>
+            <td >rkhunter</td>
             <td >Introduction</td>
             <td >Introduction</td>
             <td >Introduction</td>
         </tr>
         <tr>
             <td><input type="checkbox"  name="secPack" ng-model="var4"></td>
-            <td >MySQL</td>
+            <td >falcon-web</td>
             <td >Introduction</td>
             <td >Introduction</td>
             <td >Introduction</td>
         </tr>
         <tr>
             <td><input type="checkbox"  name="secPack" ng-model="var5"></td>
-            <td >MySQL</td>
+            <td >PHP-Shell-Detector</td>
+            <td >Introduction
+            <td >Introduction</td>
+            <td >Introduction</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"  name="secPack" ng-model="var5"></td>
+            <td >DDoS deflate</td>
+            <td >Introduction
+            <td >Introduction</td>
+            <td >Introduction</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"  name="secPack" ng-model="var5"></td>
+            <td >Suhosin</td>
             <td >Introduction
             <td >Introduction</td>
             <td >Introduction</td>
         </tr>
         </tbody>
     </table>
+    <div>
     <button ng-click="select_all();">全选</button>/<button ng-click="cancel_all();">取消</button>
-    <button class="pull-right">开始安装</button>
+    <a class="btn btn-primary pull-right" href="#/sites/onekey/secure-start" >开始安装</a>
+    <!--<button class="pull-right">开始安装</button>-->
+        <a popover-placement="bottom" popover="On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!On the Bottom!" >Bottom</a>
+
+    <script type="javascript">
+        $(document).ready(function () {
+            $(".tooltip a").tooltip({
+                'selector': '',
+                'placement': 'top',
+                'container': 'body'
+            });
+        });
+    </script>
+    </div>
 </div>
