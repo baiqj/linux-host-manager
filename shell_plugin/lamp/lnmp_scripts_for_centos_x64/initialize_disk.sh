@@ -47,10 +47,9 @@ done
 
 #验证是否有新磁盘被分区，如果已经被挂载了则表示没有新的磁盘
 
-mount  -l  |  grep  $DISK_NAME\1 
+mount  -l  |  grep  $DISK_NAME\1   
 
-#格式化新的磁盘分区
+#格式化新的磁盘分区，当有新磁盘并分区的话生成/tmp/.moult.list文件保存挂载点。否则不生成该文件
 
-[ `echo  $?`  == 0 ]  || mkfs.ext4   $DISK_NAME\1  || echo  $DISK_NAME\1               /data                   ext4          defaults        1 2  >> /etc/fstab || mount -a 
+[ `echo  $?`  == 0 ]  || mkfs.ext4   $DISK_NAME\1  || echo  $DISK_NAME\1               /data                   ext4          defaults        1 2  >> /etc/fstab || mount -a || echo   "/data"   >    /tmp/.mount.list
 
-echo   "/data"   >    /tmp/.mount.list

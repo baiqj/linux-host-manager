@@ -14,7 +14,7 @@ cat  /etc/issue  |  grep  -iw  "CENTOS"
 
 #1、安装nginx并启动
 yum -y install nginx   
-
+#将nginx的配置文件进行备份，并将nginx目录中的示例配置文件对原有的配置文件进行覆盖
 service  nginx   start
 
 #2、安装mysql并启动
@@ -56,6 +56,32 @@ mysql -u root -p$mysqlrootpwd -h localhost < /tmp/mysql_sec_script
 rm -f /tmp/mysql_sec_script
 
 service  mysqld   restart
+
+#3.4更该默认的data数据目录
+#/tmp/.mount.list是由initialize_disk.sh脚本生成的
+
+if  [ -f  /tmp/.mount.list ]  
+then
+	DATA_DISK=`cat   /tmp/.mount.list`   
+#停止mysql服务
+	service  mysqld      stop
+#创建mysql的数据目录
+	echo "更改mysql的数据目录到`echo $DATA_DISK/mysqldata`"
+	mkdir   -p   $DATA_DISK/mysqldata
+#迁移mysql的数据目录
+	\cp  -rpv   /var/lib/mysql/*   $DATA_DISK/mysqldata
+	mv 		/var/lib/mysql/  	/var/lib/mysql/data_bak
+#创建默认数据目录的软连接
+	ln  -s   $DATA_DISK/mysqldata     /var/lib/mysql/
+#更改数据目录的属主和属组
+	chown   mysql.mysql     $DATA_DISK/mysqldata
+#重新启动mysql服务
+	service  mysqld      stop
+else
+#没有额外的磁盘，所以mysql的数据目录并没有迁移
+	echo  "datadir=/var/lib/mysql/"
+fi
+
 
 #4、安装php
 #默认会自动安装加载apache的php模块
