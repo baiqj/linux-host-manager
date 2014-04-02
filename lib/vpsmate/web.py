@@ -1999,7 +1999,7 @@ class BackendHandler(RequestHandler):
         # centos/redhat only job
         if jobname in ('yum_repolist', 'yum_installrepo', 'yum_info',
                        'yum_install', 'yum_uninstall', 'yum_ext_info'):
-            if self.settings['dist_name'] not in ('centos', 'redhat'):
+            if self.settings['dist_name'] not in ('centos', 'redhat','fedora'):
                 self.write({'code': -1, 'msg': u'不支持的系统类型！'})
                 return
 
@@ -2105,9 +2105,10 @@ class BackendHandler(RequestHandler):
                     self.write({'code': -1, 'msg': u'DEMO状态不允许此类操作！'})
                     return
 
-            if not yum.yum_pkg_relatives.has_key(pkg):
-                self.write({'code': -1, 'msg': u'软件包不存在！'})
-                return
+            #commented by xupf
+            #if not yum.yum_pkg_relatives.has_key(pkg):
+            #    self.write({'code': -1, 'msg': u'软件包不存在！'})
+            #    return
             if ext and not yum.yum_pkg_relatives[pkg].has_key(ext):
                 self.write({'code': -1, 'msg': u'扩展不存在！'})
                 return
@@ -2781,6 +2782,10 @@ class BackendHandler(RequestHandler):
         """
         jobname = 'yum_install_%s_%s_%s_%s_%s' % (repo, pkg, ext, version, release)
         jobname = jobname.strip('_').replace('__', '_')
+
+        #xupf
+        print jobname
+
         if not self._start_job(jobname): return
         if not self._lock_job('yum'):
             self._finish_job(jobname, -1, u'已有一个YUM进程在运行，安装失败。')
@@ -2808,8 +2813,11 @@ class BackendHandler(RequestHandler):
                     pkgs = ['%s-%s.%s' % (p, version, self.settings['arch'])
                         for p, pinfo in yum.yum_pkg_relatives[pkg].iteritems() if pinfo['default']]
             else:   # or judge by the system
-                pkgs = ['%s.%s' % (p, self.settings['arch'])
-                    for p, pinfo in yum.yum_pkg_relatives[pkg].iteritems() if pinfo['default']]
+                if pkg == 'LAMP':
+                    pkgs = ['httpd','mysql','mysql-server','php','php-mysql']
+                else:
+                    pkgs = ['%s.%s' % (p, self.settings['arch'])
+                        for p, pinfo in yum.yum_pkg_relatives[pkg].iteritems() if pinfo['default']]
         repos = [repo, ]
         if repo in ('CentALT', 'ius', 'atomic', '10gen'):
             repos.extend(['base', 'updates', 'epel'])
@@ -2819,8 +2827,8 @@ class BackendHandler(RequestHandler):
         hasconflict = False
         conflicts_backups = []
         while not endinstall:
-            cmd = 'yum install -y %s --disablerepo=%s' % (' '.join(pkgs), ','.join(exclude_repos))
-            #cmd = 'yum install -y %s' % (' '.join(pkgs), )
+            #cmd = 'yum install -y %s --disablerepo=%s' % (' '.join(pkgs), ','.join(exclude_repos))
+            cmd = 'yum install -y %s' % (' '.join(pkgs), )
             result, output = yield tornado.gen.Task(call_subprocess, self, cmd)
             pkgstr = version and '%s v%s-%s' % (ext and ext or pkg, version, release) or (ext and ext or pkg)
             if result == 0:
@@ -3205,7 +3213,6 @@ class BackendHandler(RequestHandler):
                 break
 
         self._finish_job(jobname, code, msg)
-
 
     @tornado.gen.engine
     def wget(self, url, path):
