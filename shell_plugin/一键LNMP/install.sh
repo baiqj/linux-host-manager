@@ -13,6 +13,7 @@ cat  /etc/issue  |  grep  -iw  "CENTOS"
 
 
 #1、安装nginx并启动
+#前台提示正在安装nginx
 yum -y install nginx   
 #将nginx的配置文件进行备份，并将nginx目录中的示例配置文件对原有的配置文件进行覆盖
 \cp   /etc/nginx/     /etc/nginx_backup/
@@ -20,14 +21,18 @@ yum -y install nginx
 \cp  -rpv   ./nginx/     /etc/nginx
 
 service  nginx   start
-
+#前台提示nginx安装完成，前台进度条发生变化
+#更新env_config中的nginx_base中的信息
 #2、安装mysql并启动
+#前台提示正在安装mysql，进度条发生变化
 yum -y install mysql mod_auth_mysql mysql-connector-odbc mysql-server  mysql-utilities
 
 service   mysqld    start
 
-#3、mysql初始化设置
+#前台提示mysql安装完成，进度条发生变化
 
+#3、mysql初始化设置
+#前台提示正在对mysql进行安全初始化
 #3.1配置mysql的初始root登录密码
 
 #使用python程序生成config.list，用于存放mysql的root密码.
@@ -44,6 +49,7 @@ mv /etc/my.cnf /etc/my.cnf.bak
 \cp  /usr/share/mysql/my-medium.cnf   /etc/my.cnf
 sed -i 's/skip-locking/skip-external-locking/g' /etc/my.cnf
 
+#更新env_config中mysql_base中的信息
 #3.3对mysql进行安全初始化
 echo "正在对mysql进行安全初始化"
 cat > /tmp/mysql_sec_script<<EOF
@@ -62,6 +68,7 @@ rm -f /tmp/mysql_sec_script
 service  mysqld   restart
 
 #3.4更该默认的data数据目录
+#判断用户主机是否存在数据盘，若不存在，则不更改mysql的data目录，若存在，则判断数据盘是否进行了格式化分区，若未进行分区，则进行分区，更改mysql的data目录，若已经进行分区，则不进行分区，直接更改mysql的data目录。
 #/tmp/.mount.list是由initialize_disk.sh脚本生成的
 
 if  [ -f  /tmp/.mount.list ]  
@@ -88,11 +95,13 @@ fi
 
 
 #4、安装php
+#前台提示安装php，更新进度条信息
 #默认会自动安装加载apache的php模块
 yum -y install php php-mysql  php-process php-pecl-memcache php-bcmath php-mcrypt php-soap  php-mbstring  mhash-devel mhash libmcrypt  libmcrypt-devel  php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel  php-ZendFramework-Db-Adapter-Pdo-Mysql 
 
 #查看php编译的模块"php  -m "
-
+#提示php安装完成，更新进度条进行
+#更新env_config中php_base中的信息
 #5、重新启动服务
 
 service  nginx  restart
