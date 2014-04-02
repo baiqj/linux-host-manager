@@ -14,7 +14,7 @@ cat  /etc/issue  |  grep  -iw  "CENTOS"
 
 #1、安装apache httpd.x86_64并启动
 #前台提示正在安装apache
-yum -y install httpd httpd-tools   mod_proxy_html  mod_ssl  mod_security
+yum -y install httpd httpd-tools   mod_proxy_html  
 
 service  httpd   start
 #前台给出提示apache安装完成，进度条向前滚动
