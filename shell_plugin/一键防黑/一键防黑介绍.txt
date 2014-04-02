@@ -1,10 +1,10 @@
 ﻿一键防黑主要对系统进行安全增强配置，另外安装相应的安全软件
 
-1、对linux系统进行安全增强
+1、对linux系统进行安全增强  
 
-2、安装mod_security
+2、安装mod_security      #使用yum   install  mod_security  -y  安装 
 
-3、安装denyhost
+3、安装denyhost   
 
 4、安装rkhunter
 

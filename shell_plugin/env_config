@@ -131,7 +131,21 @@
 
 }
 
+#安全软件的检测
+rkhunter
 
+是否安装
+安装版本
+配置文件路径
+
+
+denyhost 
+
+DDoS deflate
+
+Suhosin
+
+falcon-web
 
 
 

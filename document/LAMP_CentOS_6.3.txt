@@ -4,6 +4,7 @@
 apache		2.2.15
 mysql		5.1.73
 php			5.3.3
+mod_security        x86_64      2.7.3-2.el6 
 
 安装日志：
 
