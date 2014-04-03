@@ -4,8 +4,18 @@ export PATH
 
 ##########################
 #用于安装DenyHosts脚本
+#备注：Denyhosts是一个Linux系统下阻止暴力破解SSH密码的软件，需要设置不能或只能SSH登录的IP。这个是需要从用户处获取的
+#/etc/目录中存在hosts.allow和hosts.deny文件，两个文件是控制远程访问设置的，通过他可以允许或者拒绝某个ip或者ip段的客户访问linux的某项服务
+#/etc/hosts.allow控制可以访问本机的IP地址，
+#/etc/hosts.deny控制禁止访问本机的IP。如果两个文件的配置有冲突，以/etc/hosts.deny为准。
+#比如SSH服务，我们通常只对管理员开放，那我们就可以禁用不必要的IP，而只开放管理员可能使用到的IP段。
+#文件配置格式：
+#sshd:210.13.218.*    
+#all:218.24.129.110 
+#httpd:all
 ##########################
-#http://ncu.dl.sourceforge.net/sourceforge/denyhosts/DenyHosts-2.6.tar.gz
+
+
 
 # 验证当前的用户是否为root账号，不是的话退出当前脚本
 [ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
@@ -16,13 +26,17 @@ cat  /etc/issue  |  grep  -iw  "CENTOS"
 
 [ `echo  $?` != 0 ]  &&  exit  1
 
+#安装wget
+yum  install  -y   wget
 
-#判断是否安装了locate工具
-rpm  -q  mlocate
-
-[ `echo  $?` != 0 ]  &&  yum  install  -y  mlocate 
-
+#安装了locate
+yum  install  -y  mlocate 
 updatedb
+
+#下载DenyHosts脚本
+#是否需要将脚本下载到指定位置，此处我们不指定，安装完成后删除脚本
+#wget  http://ncu.dl.sourceforge.net/sourceforge/denyhosts/DenyHosts-2.6.tar.gz
+wget   -O   DenyHosts-2.6.tar.gz   http://bcs.duapp.com/linux2host2manager/%2Fpackages2%2Frkhunter-1.4.2.tar.gz?sign=MBO:E64167e555322cbfb5997582b43a551b:kd5c38%2FY2abjSwaWiXKiQVpfvFw%3D
 
 #判断是否安装了python，默认CentOS 6.3系统已经安装了2.6.6版本
 python  -V
@@ -50,7 +64,11 @@ else
 	cd    /usr/share/denyhosts/
 	grep -v "^#" denyhosts.cfg-dist > denyhosts.cfg
 	
-#将要阻止的IP放到 /etc/hosts.deny  文件中
+#设置SSH访问本机的规则,此处只是示例  需要客户提供ip地址
+echo  "sshd:all"     >>  /etc/hosts.deny
+
+
+
 
 #启动服务
 	service denyhostsd start

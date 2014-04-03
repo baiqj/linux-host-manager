@@ -13,6 +13,7 @@ https://github.com/secrule/falcon
 
 
 6、安装PHP-Shell-Detector  python版
+http://www.shelldetector.com/
 
 
 7、安装DDoS deflate 
