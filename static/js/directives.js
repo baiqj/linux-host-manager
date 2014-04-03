@@ -53,6 +53,15 @@ directive('navbar', function(){
   				<li><a href="#/sites/lamp">软件配置</a></li>\
 			</ul>\
 		</accordion-group>\
+		<div class="panel panel-default" >\
+  			<div class="panel-heading text-center" style="background-color: #1375B2;">\
+    			<h4 class="panel-title">\
+    				<a href="#/OneKey">\
+    				<div class="glyphicon glyphicon-log-out"></div><br />\
+     				技能树</a>\
+    			</h4>\
+  			</div>\
+  		</div>\
 		<accordion-group href="#/OneKey"  imgsrc="../images/system-nav.png" heading="系统管理" is-open="false">\
   			<ul class="nav nav-pills nav-stacked">\
   				<li><a href="#/sites/create">系统监控</a></li>\

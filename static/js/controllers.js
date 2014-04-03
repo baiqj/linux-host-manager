@@ -141,12 +141,12 @@ cloudAppControllers.controller('siteCreateCtrl', ['$rootScope','$scope','$locati
   $scope.dedecms_version = '0';
   $scope.charsetOpt = "utf-8";
 
-      $scope.uploadfile = function(){
-          console.log('[uploadfile] Function uploadfile() has been called!!');
-          $('#uploadfile').modal();
+  $scope.uploadfile = function(){
+      console.log('[uploadfile] Function uploadfile() has been called!!');
+      $('#uploadfile').modal();
 
-          console.log('[uploadfile] Function uploadfile() has been called!!');
-      }
+      console.log('[uploadfile] Function uploadfile() has been called!!');
+  }
 
   $scope.submit = function(){
       if ($scope.domainName == null){

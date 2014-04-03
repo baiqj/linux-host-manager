@@ -1,11 +1,12 @@
 <div class="row">
     <table class="table table-striped">
         <caption><h4>站点管理</h4></caption>
-        <thead><th>网站域名</th><th>网站目录</th><th>运行状态</th></thead>
+        <thead><th>网站域名</th><th>网站目录</th><th>管理</th><th>运行状态</th></thead>
         <tbody>
         <tr ng-repeat="site in sites">
             <td ><a href="#/sites/manager/{{site.siteDir}}">{{site.domainName}}</a></td>
-            <td >{{site.siteDir}}</td>
+            <td ><a href="#/sites/manager/{{site.siteDir}}">{{site.siteDir}}</a></td>
+            <td> <button type="button" >管理站点</button></td>
             <td >{{site.state}}</td>
         </tr>
         </tbody>

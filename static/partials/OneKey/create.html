@@ -72,11 +72,12 @@
                 <div class="modal-body">
                     <form id="uploadform" class="pull-left" target="uploadframe" action="/fileupload" enctype="multipart/form-data" method="post" onsubmit="$('#_xsrf').val(getCookie('XSRF-TOKEN'));">
                         <input type="hidden" name="_xsrf" value="" id="_xsrf">
-                        <div class="input-group">
+                        <input type="hidden" class="form-control" name="path" value="/root/Documents"  required>
+                        <!--<div class="input-group">
                             <span class="input-group-addon">上传位置：</span>
-                            <!--<input type="text" name="path" value="/root/Documents">-->
+                            &lt;!&ndash;<input type="text" name="path" value="/root/Documents">&ndash;&gt;
                             <input type="text" class="form-control" name="path"  required>
-                        </div><br>
+                        </div>--><br>
                         <input name="ufile" type="file" ><br>
                         <input type="submit" value="开始上传">
                     </form>
