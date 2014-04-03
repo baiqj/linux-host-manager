@@ -1,4 +1,4 @@
-Ê¹ÓÃwgetÏÂÔØÊ±£¬ĞèÒªÊ¹ÓÃ-OÖ¸¶¨Êä³öÎÄ¼şÃû
+ä½¿ç”¨wgetä¸‹è½½æ—¶ï¼Œéœ€è¦ä½¿ç”¨-OæŒ‡å®šè¾“å‡ºæ–‡ä»¶å
 
 rkhunter-1.4.2.tar.gz
 http://bcs.duapp.com/linux2host2manager/%2Fpackages2%2Frkhunter-1.4.2.tar.gz?sign=MBO:E64167e555322cbfb5997582b43a551b:kd5c38%2FY2abjSwaWiXKiQVpfvFw%3D
