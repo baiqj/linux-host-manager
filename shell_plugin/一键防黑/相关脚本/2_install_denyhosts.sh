@@ -62,6 +62,7 @@ else
 	tar  -zxvf   $PACKAGE_PATH
 	cd   ./DenyHosts-2.6
 	python   ./setup.py    install
+fi
 #程序默认的安装目录" /usr/share/denyhosts/"
 #创建服务启动脚本文件
 	 \cp  /usr/share/denyhosts/daemon-control-dist   /etc/rc.d/init.d/denyhostsd
@@ -80,7 +81,7 @@ else
 #echo  "sshd:ALL"     >>  /etc/hosts.deny
 #echo  "sshd:192.168.3.207"  >>   /etc/hosts.allow
 
-service   xinetd  on
+service   xinetd  restart
 
 #启动服务
 service denyhostsd start
