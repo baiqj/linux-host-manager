@@ -28,18 +28,11 @@ COMMAND_PATH=`locate  php  |  grep  "bin/php$"`
 CONF_PATH=`$COMMAND_PATH  --ini  |  grep  "^Loaded"  |  awk  -F  ':'  '{print  $2}'`
 
 
-SUM=`find  /  -name "phpize"  -a -type f  -a  -perm +111 | wc  -l`
+locate  phpize  |  grep    "bin/phpize$"
 
-if  [ $SUM  ==  0  ]
-then
-	yum clean all
+[ `echo  $?` != 0 ]  &&    yum install -y php-devel
 
-	yum repolist
-
-	`rpm -qa | grep "php-devel"`  ||  yum install -y php-devel
-else
-fi
-
+#安装编译器
 
 yum  install  -y  gcc
 
@@ -53,11 +46,11 @@ tar  -zxvf   suhosin-0.9.35.tgz  -C   /usr/local/
 cd   /usr/local/suhosin-0.9.35
 
 
-#running  phpize
+#运行  phpize命令
 
-`find  /  -name "phpize"  -a -type f  -a  -perm +111`
+`locate  phpize  |  grep    "bin/phpize$"`
 
-PHP_CONFIG=`find  /  -name "php-config"  -a -type f  -a  -perm +111`
+PHP_CONFIG=`locate   php-config  |  grep  "bin/php-config$"`
 
 ./configure   --with-php-config=$PHP_CONFIG
 
@@ -69,7 +62,7 @@ then
 	echo  'extension=suhosion.so'   >>  $CONF_PATH 
 	echo  'suhosin.executor.disable_eval = on'  >>  $CONF_PATH
 	
-	rm  -rf  /usr/local/resault/suhosin-0.9.35
+	rm  -rf  /usr/local/suhosin-0.9.35
 else
 	echo 'suhosin module is not exist!!!'
 fi
