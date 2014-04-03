@@ -20,6 +20,8 @@ yum -y install nginx
 \cp  -rpv   ./nginx/*     /etc/nginx
 
 service  nginx   start
+#前台提示nginx安装完成，前台进度条发生变化
+#更新env_config中的nginx_base中的信息
 
 #2、安装mysql并启动
 yum -y install mysql mod_auth_mysql mysql-connector-odbc mysql-server  mysql-utilities
@@ -44,6 +46,7 @@ mv /etc/my.cnf /etc/my.cnf.bak
 \cp  /usr/share/mysql/my-medium.cnf   /etc/my.cnf
 sed -i 's/skip-locking/skip-external-locking/g' /etc/my.cnf
 
+
 #3.3对mysql进行安全初始化
 
 cat > /tmp/mysql_sec_script<<EOF
@@ -60,8 +63,11 @@ mysql -u root -p$mysqlrootpwd -h localhost < /tmp/mysql_sec_script
 rm -f /tmp/mysql_sec_script
 
 service  mysqld   restart
+#更新env_config中mysql_base中的信息
+
 
 #3.4更该默认的data数据目录
+#判断用户主机是否存在数据盘，若不存在，则不更改mysql的data目录，若存在，则判断数据盘是否进行了格式化分区，若未进行分区，则进行分区，更改mysql的data目录，若已经进行分区，则不进行分区，直接更改mysql的data目录。
 #/tmp/.mount.list是由initialize_disk.sh脚本生成的
 
 if  [ -f  /tmp/.mount.list ]  
@@ -107,7 +113,7 @@ else
 fi
 
 #查看php编译的模块"php  -m "
-
+#更新env_config中php_base中的信息
 
 #5、重新启动服务
 
