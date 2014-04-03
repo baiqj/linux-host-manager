@@ -11,8 +11,11 @@ export PATH
 #比如SSH服务，我们通常只对管理员开放，那我们就可以禁用不必要的IP，而只开放管理员可能使用到的IP段。
 #文件配置格式：
 #sshd:210.13.218.*    
-#all:218.24.129.110 
-#httpd:all
+#ALL:218.24.129.110 
+#httpd:ALL
+#
+#优先级为先检查hosts.deny，再检查hosts.allow，
+#后者设定可越过前者限制
 ##########################
 
 
@@ -31,12 +34,19 @@ yum  install  -y   wget
 
 #安装了locate
 yum  install  -y  mlocate 
-updatedb
 
 #下载DenyHosts脚本
 #是否需要将脚本下载到指定位置，此处我们不指定，安装完成后删除脚本
 #wget  http://ncu.dl.sourceforge.net/sourceforge/denyhosts/DenyHosts-2.6.tar.gz
-wget   -O   DenyHosts-2.6.tar.gz   http://bcs.duapp.com/linux2host2manager/%2Fpackages2%2Frkhunter-1.4.2.tar.gz?sign=MBO:E64167e555322cbfb5997582b43a551b:kd5c38%2FY2abjSwaWiXKiQVpfvFw%3D
+wget   -O   DenyHosts-2.6.tar.gz   http://bcs.duapp.com/linux2host2manager/%2Fpackages2%2FDenyHosts-2.6.tar.gz?sign=MBO:E64167e555322cbfb5997582b43a551b:czvbovEwQ0lbNXze3%2FkzMmX%2BzWY%3D
+
+#判断是否安装了xinetd服务
+rpm  -q  xinetd
+
+[ `echo  $?` != 0 ] &&   yum  install  xinetd  -y
+
+ service  xinetd  start
+ chkconfig  xinetd  on
 
 #判断是否安装了python，默认CentOS 6.3系统已经安装了2.6.6版本
 python  -V
@@ -47,6 +57,7 @@ then
 	yum  install   -y  python
 #编译安装DenyHosts工具
 else
+	updatedb
 	PACKAGE_PATH=`locate  DenyHosts-2.6.tar.gz`
 	tar  -zxvf   $PACKAGE_PATH
 	cd   ./DenyHosts-2.6
@@ -65,12 +76,13 @@ else
 	grep -v "^#" denyhosts.cfg-dist > denyhosts.cfg
 	
 #设置SSH访问本机的规则,此处只是示例  需要客户提供ip地址
-echo  "sshd:all"     >>  /etc/hosts.deny
+#设置只允许IP 192.168.3.207 SSH访问本机，其它IP均不允许SSH访问本机
+echo  "sshd:ALL"     >>  /etc/hosts.deny
+echo  "sshd:192.168.3.207"  >>   /etc/hosts.allow
 
-
-
+service   xinetd  on
 
 #启动服务
-	service denyhostsd start
+service denyhostsd start
 
 	

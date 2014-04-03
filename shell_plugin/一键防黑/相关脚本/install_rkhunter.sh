@@ -15,24 +15,23 @@ cat  /etc/issue  |  grep  -iw  "CENTOS"
 
 [ `echo  $?` != 0 ]  &&  exit  1
 
-#判断是否安装了locate工具
-rpm  -q  mlocate
+#安装了locate工具
+yum  install  -y  mlocate 
 
-[ `echo  $?` != 0 ]  &&  yum  install  -y  mlocate 
+yum  install  wget   -y   
+
+#wget下载rkhunter安装包,如果需要请指定下载目录
+wget  -O  rkhunter-1.4.2.tar.gz  http://bcs.duapp.com/linux2host2manager/%2Fpackages2%2Frkhunter-1.4.2.tar.gz?sign=MBO:E64167e555322cbfb5997582b43a551b:kd5c38%2FY2abjSwaWiXKiQVpfvFw%3D
 
 updatedb
 
-
-yum  install  wget   -y   
-#wget下载rkhunter安装包
-
-#wget  -O   存放路径        下载路径
-
 #安装
-tar  -zxvf  rkhunter-1.4.2.tar.gz
-cd  rkhunter-1.4.2
+tar  -zxvf  `locate  rkhunter-1.4.2.tar.gz`
+cd  ./rkhunter-1.4.2
 ./installer.sh  --layout  default  --install
 
+#判断是否安装成功,不成功的话退出脚本  安装成功的话执行下面的操作
+[ `echo  $?` != 0 ]  &&  exit 1 
 
 #更新
 /usr/local/bin/rkhunter   --update
@@ -52,3 +51,7 @@ EOF
 
 #设置脚本可执行
 chmod 700 /etc/cron.daily/rkhunter.sh
+
+#启动crond服务
+chkconfig  crond  on
+service  crond   restart

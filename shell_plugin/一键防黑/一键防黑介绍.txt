@@ -4,7 +4,7 @@
 
 2、安装mod_security      #使用yum   install  mod_security  -y  安装 
 
-3、安装denyhost   
+3、安装denyhost   		OK	
 
 4、安装rkhunter
 

@@ -15,7 +15,5 @@
 
 测试命令
 yum   install  dos2unix  -y 
-dos2unix  aliyun_test/*.sh 
-dos2unix   aliyun_test/nginx/*.conf
-cd     aliyun_test/
+dos2unix   *.sh 
 date  >>  ./install_log  ;  echo  "###########"  >>  ./install_log  &&  bash  -x  initialize_disk.sh >>  install_log  ;  echo  "###########"  >>  ./install_log  &&  bash  -x  ./set_aliyuncs_source.sh  >>  install_log ;  echo  "###########"  >>  ./install_log  &&   bash  -x   install.sh  >>  install_log  ;  echo  "###########"  >>  ./install_log  &&  date  >>  ./install_log
