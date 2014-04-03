@@ -36,7 +36,7 @@ yum  install  -y   wget
 yum  install  -y  mlocate 
 
 #下载DenyHosts脚本
-#是否需要将脚本下载到指定位置，此处我们不指定，安装完成后删除脚本
+#是否需要将脚本下载到指定位置data/packages
 #wget  http://ncu.dl.sourceforge.net/sourceforge/denyhosts/DenyHosts-2.6.tar.gz
 wget   -O   DenyHosts-2.6.tar.gz   http://bcs.duapp.com/linux2host2manager/%2Fpackages2%2FDenyHosts-2.6.tar.gz?sign=MBO:E64167e555322cbfb5997582b43a551b:czvbovEwQ0lbNXze3%2FkzMmX%2BzWY%3D
 
@@ -77,8 +77,8 @@ else
 	
 #设置SSH访问本机的规则,此处只是示例  需要客户提供ip地址
 #设置只允许IP 192.168.3.207 SSH访问本机，其它IP均不允许SSH访问本机
-echo  "sshd:ALL"     >>  /etc/hosts.deny
-echo  "sshd:192.168.3.207"  >>   /etc/hosts.allow
+#echo  "sshd:ALL"     >>  /etc/hosts.deny
+#echo  "sshd:192.168.3.207"  >>   /etc/hosts.allow
 
 service   xinetd  on
 

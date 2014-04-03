@@ -14,7 +14,7 @@ export PATH
 ###############################################################
 
 # 验证当前的用户是否为root账号，不是的话退出当前脚本
-[ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
+[ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install DDoS deflate"  ||  exit  1
 
 #检测系统是不是CentOS，如果不是，提醒用户暂时不支持
 
@@ -30,7 +30,7 @@ yum  install  -y  mlocate
 
 #下载安装脚本
 #wget http://www.inetbase.com/scripts/ddos/install.sh
-
+#压缩包统一下载到data/packages目录下面
 wget  -O  DDoS.tar.gz        http://bcs.duapp.com/linux2host2manager/%2Fpackages2%2FDDoS.tar.gz?sign=MBO:E64167e555322cbfb5997582b43a551b:oNnBTPxuCz0BvPG8o7LnwNfyEL4%3D
 
 updatedb
