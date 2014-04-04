@@ -45,7 +45,7 @@ yum  install  -y  gcc
 
 #下载suhosin软件包
 
-wget  -O   suhosin-0.9.35.tgz   下载地址
+wget  -O   suhosin-0.9.35.tgz   http://bcs.duapp.com/linux2host2manager/%2Fpackages2%2Fsuhosin-0.9.35.tgz?sign=MBO:E64167e555322cbfb5997582b43a551b:00vdSngm9btjNSgAGBePRAwD0Og%3D
   
 
 tar  -zxvf   suhosin-0.9.35.tgz  -C   /usr/local/
