@@ -106,6 +106,25 @@
 'Php_Rpm_Conf_Path':
 'Php_Make_Conf_Path':
 			}
+	'PHP_MODS':{
+'Suhosin_Install':
+'Php_Install_Way':
+'Php_Rpm_Version':
+'Php_Make_Version':
+'Php_Make_Installation_Directory':
+'Php_Rpm_Conf_Path':
+'Php_Make_Conf_Path':
+			}			
+	'PHP_OPTIONS':{
+'Suhosin_Install':
+'Php_Install_Way':
+'Php_Rpm_Version':
+'Php_Make_Version':
+'Php_Make_Installation_Directory':
+'Php_Rpm_Conf_Path':
+'Php_Make_Conf_Path':
+			}
+
 			
 	'MYSQL_BASE':{
 'MySql_Install':
@@ -121,27 +140,31 @@
 'Passwd_Permissions':
 'Group_Permissions':
 'Ssh_Disable_Dns':
-'Check_LogWatch':
-'Check_Rkhunter':
-'Check_Chkrootkit':
 'Check_Logcheck':
 'Locked_User_List':
 		}
 
+			'OS_SECURITY_SOFTWARE':{
+'Check_LogWatch':
+'LogWatch_path':
+'LogWatch_conf_path':
+'Check_Rkhunter':
+'Rkhunter_path':
+'Check_Chkrootkit':
+'Chkrootkit_path':
+'Check_DDos_deflate':
+'DDos_deflate_path':
+'DDos_deflate_conf_path':
+'Check_Shell_detector':
+'Shell_detector_path':
+'Check_Logcheck':
+'Locked_User_List':
+		}
+
+		
 }
 
-#安全软件的检测
-rkhunter
-
-是否安装
-安装版本
-配置文件路径
 
 
-denyhost 
 
-DDoS deflate
 
-Suhosin
-
-falcon-web

@@ -1,0 +1,89 @@
+在线生成firewall脚本(iptables)--向导模式
+Bifrost - GUI firewall management interface to iptables
+http://bifrost.heimdalls.com
+
+LinWiz - Linux configuration file and scripting Wizards
+http://www.lowth.com/LinWiz/
+
+GIPTables Firewall - IPTABLES Rules Generator
+http://www.giptables.org/
+
+Easy Firewall Generator for IPTables(在线生成复杂的防火墙脚本*****)
+http://morizot.net/firewall/gen/
+
+PFG for IPTables 在线生成简单的防火墙脚本***
+http://www.thegate.nu/pfg/
+
+Firewall Builder - GUI Firewall Frontend（功能强大的防火墙构建工具*****）
+http://www.fwbuilder.org/index.html
+
+以下是类似的在线生成的其他推荐：
+______________________________________________________
+Dnsmasq - caching DNS forwarder
+http://thekelleys.org.uk/dnsmasq/doc.html
+
+FireHOL, the iptables stateful packet filtering firewall builder
+http://firehol.sourceforge.net/
+
+BullDog - A comprehensive and progressive firewall
+http://tanaya.net/BullDog/
+WallFire: wflogs - firewall log analysis tool
+http://www.wallfire.org/wflogs/
+
+Ulog-php - a php analyser for netfilter U-log
+http://home.regit.org/ulogd-php.html
+
+Firewall Tester
+http://ftester.sourceforge.net/
+
+YAFT's Another Firewall Tool
+http://sourceforge.net/projects/yaft
+
+Turtle Firewall Project
+http://turtlefirewall.sourceforge.net/
+
+TuxFrw - Firewall Automation Tool
+http://tuxfrw.sourceforge.net/index.html
+
+Shoreline Firewall
+http://www.shorewall.net/
+______________________________________
+perl firewall在线生成
+levy - Perl Firewall Generater
+http://muse.linuxmafia.org/levy/
+____________________________________
+gSshield - BASH Shell Script Configurator
+http://muse.linuxmafia.org/gshield.html
+_________________________________
+流量分析
+Mason - Builds from system traffic
+http://www.stearns.org/mason/
+________________________________________
+firewall log分析软件
+adcfw-log - firewall logs analyzer/summarizer
+http://adcfw-log.sourceforge.net/
+
+IPTables log analyzer
+http://www.gege.org/iptables/
+_______________________
+
+IPMENU - Curses Firewall Frontend
+http://users.pandora.be/stes/ipmenu.html
+________________________________
+Firelogd - Firewall Log Daemon
+http://www.speakeasy.org/~roux/dmn/
+firewall log分析软件主页(fireparse)
+Fireparse - Firewall Log Parser
+http://aaron.marasco.com/linux.html
+__________________________________________
+SAINT - Assess the Security of Computer Networks
+http://www.saintcorporation.com/saint/
+saint在linux著名的扫描软件下面那个是下载地址
+SATAN - Port Scanner with a Web Interface
+http://www.ibiblio.org/pub/packages...atan-for-Linux/
+_____________________________________
+Abacus - Intrusion Prevention System
+http://www.psionic.com/abacus/
+
+Firewall Generator（在线生成简单的防火墙脚本***）
+http://www.citadec.com/FirewallGenerator.html
