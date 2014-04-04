@@ -1,4 +1,3 @@
-
 	autoconf-2.13.tar.gz
 http://bcs.duapp.com/linux2host2manager/%2Fshell_packages%2Fautoconf-2.13.tar.gz?sign=MBO:E64167e555322cbfb5997582b43a551b:vr4ESFoBAT7%2FXLmPsL5HswTG4qE%3D
 
@@ -64,3 +63,12 @@ http://bcs.duapp.com/linux2host2manager/%2Fshell_packages%2FWordpress-3.6.tar.gz
 
 	ZendGuardLoader.so
 http://bcs.duapp.com/linux2host2manager/%2Fshell_packages%2FZendGuardLoader.so?sign=MBO:E64167e555322cbfb5997582b43a551b:chhntF5XaBi9jiAahkExe60Fht0%3D
+
+	phpwind_v8.7_GBK.zip
+http://bcs.duapp.com/linux2host2manager/%2Fshell_packages%2Fphpwind_v8.7_GBK.zip?sign=MBO:E64167e555322cbfb5997582b43a551b:o9mvrT4HDj7RHJnpiObApa1bGyE%3D
+
+	Discuz_X3.1_SC_GBK.zip
+http://bcs.duapp.com/linux2host2manager/%2Fshell_packages%2FDiscuz_X3.1_SC_GBK.zip?sign=MBO:E64167e555322cbfb5997582b43a551b:slsFpFE4TDOM1ERCapaqTbYpcKU%3D
+
+	DedeCMS-v5.7-20140313-GBK-SP1.zip
+http://bcs.duapp.com/linux2host2manager/%2Fshell_packages%2FDedeCMS-v5.7-20140313-GBK-SP1.zip?sign=MBO:E64167e555322cbfb5997582b43a551b:Ql%2ByZlS8fjJKP0eumWXKJVEKsuc%3D
