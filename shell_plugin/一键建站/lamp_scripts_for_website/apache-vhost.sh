@@ -3,13 +3,12 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
+#备注：当前的脚本近使用与rpm安装的LAMP环境，如果是编译安装的LAMP则需要对脚本进行修改
+
 # 验证当前的用户是否为root账号，不是的话退出当前脚本
 [ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
 
 cur_dir=$(pwd)
-
-
-rm  -rf  /home/wwwroot/default;
 
 ############################
 #启动mysql数据库
@@ -19,10 +18,10 @@ service mysqld   restart
 ############################
 #启动apache服务
 ############################
-service  apache   restart
+service  httpd   restart
 
-
-DATA_DISK=`cat   /tmp/.mount.list`
+#当没有额外的数据磁盘时，是不会有/tmp/.mount.list文件的   可以使用/var目录或另外指定目录
+[ -f  /tmp/.mount.list  ] &&  DATA_DISK=`cat   /tmp/.mount.list`  ||  DATA_DISK="/var" 
 
 updatedb
 CONFIG_PATH=`locate   config.list`
@@ -59,15 +58,22 @@ echo "set permissions of Virtual Host directory......"
 chmod -R 755 $VHOST_DIR
 chmod  644   $VHOST_DIR/error.log
 chmod  644   $VHOST_DIR/access.log
-chown -R     www:www   $VHOST_DIR
+chown -R     apache:apache   $VHOST_DIR
 
 
-#判断是否有vhost的配置文件存放目录
+#判断是否有vhost的配置文件存放目录    此处我们指定  /etc/httpd/conf/vhost目录为虚拟主机的配置文件的存放目录
 
-[ -d  /usr/local/apache/conf/vhost ]  ||  mkdir  /usr/local/apache/conf/vhost
+[ -d  /etc/httpd/conf/vhost ]  ||  mkdir  -p /etc/httpd/conf/vhost
+
+#修改httpd.conf配置文件
+
+sed  -i  's/#NameVirtualHost/NameVirtualHost/g'   /etc/httpd/conf/httpd.conf
+echo   "Include conf/vhost/*.conf"   >>   /etc/httpd/conf/httpd.conf
+
+#Include conf.d/*.conf
 
 #生成虚拟主机vhost的配置文件
-cd    /usr/local/apache/conf/vhost
+cd   /etc/httpd/conf/vhost
 cat  >$DOMAIN\.conf<<eof
 <VirtualHost *:80>
 ServerAdmin webmaster@example.com
@@ -98,7 +104,7 @@ grant all privileges on ${DB_NAME}.* to  ${DB_USER_NAME}@${HOSTNAME}  identified
 flush privileges;
 EOF
 
-/usr/local/mysql/bin/mysql -u root -p${MYSQL_PASSWORD} -h  ${HOSTNAME} < /tmp/mysql_user_script
+mysql -u root -p${MYSQL_PASSWORD} -h  ${HOSTNAME} < /tmp/mysql_user_script
 
 
 rm -f /tmp/mysql_sec_script
@@ -120,4 +126,4 @@ echo   "default-character-set = utf8"    >>   /etc/my.cnf
 echo  "Restart Mysql....."
 service  mysqld  restart
 echo "Restart Apache......"
-service  apache  restart
+service  httpd  restart

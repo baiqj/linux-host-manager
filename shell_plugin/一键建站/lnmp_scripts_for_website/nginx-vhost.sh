@@ -1,9 +1,11 @@
 #!/bin/bash
 
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
 # 验证当前的用户是否为root账号，不是的话退出当前脚本
 [ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
 
-rm  -rf  /home/wwwroot/default;
 
 ############################
 #msyql  starting....
@@ -13,7 +15,7 @@ service  mysqld   restart
 ############################
 #nginx  starting....
 ############################
-nginx
+service  nginx   restart
 
 ############################
 #php-fpm  starting....
@@ -21,9 +23,10 @@ nginx
 service  php-fpm   restart
 
 
-DATA_DISK=`cat   /tmp/.mount.list`
+#当没有额外的数据磁盘时，是不会有/tmp/.mount.list文件的   可以使用/usr/share/nginx/html目录或另外指定目录
+[ -f  /tmp/.mount.list  ] &&  DATA_DISK=`cat   /tmp/.mount.list`  ||  DATA_DISK="/usr/share/nginx/html" 
 
-update
+updatedb
 CONFIG_PATH=`locate   config.list`
 
 sed  -i   '/^ *$/d'    $CONFIG_PATH
@@ -34,6 +37,12 @@ MYSQL_ADMIN="root"
 MYSQL_PASSWORD=`grep  -i  "mysqlrootpwd"  $CONFIG_PATH | awk -F  ":" '{print  $2}'`
 HOSTNAME="localhost"
 MYSQL_PORT="3306"
+
+#更改/etc/php-fpm.d/www.conf 的user 和 group 为nginx，默认为apache
+
+sed  -i  's/user = apache/user = nginx/g'   /etc/php-fpm.d/www.conf 
+sed  -i  's/group = apache/group = nginx/g'   /etc/php-fpm.d/www.conf 
+
 
 for  ((i=1;i<=NUM;i++))
 do
@@ -68,42 +77,54 @@ touch $VHOST_DIR/$al_name.log
 echo "set permissions of Virtual Host directory......"
 chmod -R 755 $VHOST_DIR
 chmod  644   $VHOST_DIR/$al_name.log
-chown -R www:www $VHOST_DIR
+chown -R nginx:nginx $VHOST_DIR
 
 
-if [ ! -d /usr/local/nginx/conf/vhost ]; then
-	mkdir /usr/local/nginx/conf/vhost
+if [ ! -d /etc/nginx/vhost ]; then
+	mkdir  -p /etc/nginx/vhost
 fi
 
-cat >/usr/local/nginx/conf/vhost/$DOMAIN.conf<<eof
+#
+
+cat >/etc/nginx/vhost/$DOMAIN.conf<<eof
 $alf
-server
-	{
-		listen       80;
-		server_name $DOMAIN;
-		index index.html index.htm index.php default.html default.htm default.php;
-		root  $VHOST_DIR;
+server {
+    listen       80 ;
+    server_name  $DOMAIN;
+	index index.html index.htm index.php default.html default.htm default.php;
+	root  $VHOST_DIR;
+    
+	# redirect server error pages to the static page /404.html
+    error_page  404              /404.html;
+    location = /404.html {
+        root   /usr/share/nginx/html;
+    }
 
-		location ~ .*\.(php|php5)?$
-			{
-				try_files \$uri =404;
-				fastcgi_pass  unix:/tmp/php-cgi.sock;
-				fastcgi_index index.php;
-				include fcgi.conf;
-			}
-
-		location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    location ~ \.php$ {
+        root           $VHOST_DIR;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $VHOST_DIR\$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+	location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
 			{
 				expires      30d;
 			}
-
-		location ~ .*\.(js|css)?$
+	location ~ .*\.(js|css)?$
 			{
 				expires      12h;
 			}
-
-		access_log  $VHOST_DIR/$al_name.log  $al_name;
-	}
+   access_log  $VHOST_DIR/$al_name.log  $al_name;
+}
 eof
 
 
@@ -128,7 +149,7 @@ grant all privileges on ${DB_NAME}.* to  ${DB_USER_NAME}@${HOSTNAME}  identified
 flush privileges;
 EOF
 
-/usr/local/mysql/bin/mysql -u root -p${MYSQL_PASSWORD} -h  ${HOSTNAME} < /tmp/mysql_user_script
+mysql -u root -p${MYSQL_PASSWORD} -h  ${HOSTNAME} < /tmp/mysql_user_script
 
 
 rm -f /tmp/mysql_sec_script
@@ -145,13 +166,14 @@ rm -f /tmp/mysql_sec_script
 
 done
 
-chown   www.www   -R   $DATA_DISK/www
+chown   nginx.nginx   -R   $DATA_DISK/
 
 echo   "default-character-set = utf8"    >>   /etc/my.cnf
 
 echo  "Restart Mysql....."
-/etc/init.d/mysqld  restart
+service  mysqld  restart
 echo "Restart Nginx......"
-nginx  -s  reload
+sed   -i  '/HTTPS/s/^/#/'   /etc/nginx/fastcgi_params
+service   nginx  restart
 echo  "Restart php-fpm...."
 service  php-fpm  restart

@@ -2,6 +2,7 @@
 #!/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
+#备注：当前的脚本近使用与rpm安装的LAMP环境，如果是编译安装的LAMP则需要对脚本进行修改
 
 # 验证当前的用户是否为root账号，不是的话退出当前脚本
 [ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
@@ -10,7 +11,8 @@ cur_dir=$(pwd)
 
 HOSTNAME="localhost"
 
-DATA_DISK=`cat   /tmp/.mount.list`
+#当没有额外的数据磁盘时，是不会有/tmp/.mount.list文件的   可以使用/var目录或另外指定目录
+[ -f  /tmp/.mount.list  ] &&  DATA_DISK=`cat   /tmp/.mount.list`  ||  DATA_DISK="/var" 
 
 CONFIG_PATH=`locate  config.list`
 
@@ -35,11 +37,13 @@ if  [ "$PROGRAM_TYPE" == "discuz" ]
 then
 	if  [ "DB_CHARACTER" == "GBK" ]
 	then
-		unzip  packages/Discuz_X3.1_SC_GBK.zip
+		wget  -O  Discuz_X3.1_SC_GBK.zip    http://bcs.duapp.com/linux2host2manager/%2Fshell_packages%2FDiscuz_X3.1_SC_GBK.zip?sign=MBO:E64167e555322cbfb5997582b43a551b:slsFpFE4TDOM1ERCapaqTbYpcKU%3D
+		unzip  Discuz_X3.1_SC_GBK.zip
 		\cp  -rpv  upload/*  $VHOST_DIR
 		rm  -rf  upload/
 	else
-		unzip    packages/Discuz_X3.1_SC_UTF8.zip
+		wget  -O  Discuz_X3.1_SC_UTF8.zip  http://bcs.duapp.com/linux2host2manager/%2Fshell_packages%2FDiscuz_X3.1_SC_UTF8.zip?sign=MBO:E64167e555322cbfb5997582b43a551b:g1m3LRdze1jmH44i5sV3N7ek7mk%3D
+		unzip    Discuz_X3.1_SC_UTF8.zip
 		\cp  -rpv   upload/*    $VHOST_DIR
 		rm  -rf   upload/
 	fi
@@ -47,7 +51,7 @@ else
 	continue
 fi
 
-	chown -R www:www  $VHOST_DIR
+	chown -R apache:apache  $VHOST_DIR
 
 done
 	

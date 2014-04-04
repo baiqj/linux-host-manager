@@ -3,6 +3,7 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
+#备注：当前的脚本近使用与rpm安装的LAMP环境，如果是编译安装的LAMP则需要对脚本进行修改
 # 验证当前的用户是否为root账号，不是的话退出当前脚本
 [ `id  -u`  == 0 ]  ||  echo "Error: You must be root to run this script, please use root to install lnmp"  ||  exit  1
 
@@ -10,7 +11,8 @@ cur_dir=$(pwd)
 
 HOSTNAME="localhost"
 
-DATA_DISK=`cat   /tmp/.mount.list`
+#当没有额外的数据磁盘时，是不会有/tmp/.mount.list文件的   可以使用/usr/share/nginx/html目录或另外指定目录
+[ -f  /tmp/.mount.list  ] &&  DATA_DISK=`cat   /tmp/.mount.list`  ||  DATA_DISK="/usr/share/nginx/html" 
 
 updatedb
 CONFIG_PATH=`locate   config.list`
@@ -30,14 +32,13 @@ do
 	DB_CHARACTER=`grep  -i  "domain="  $CONFIG_PATH  | sed  -n  ''$i',1p'  | awk  -F  "DB_CHARACTER="   '{print  $2}'  |  awk   '{print  $1}'`
 	
 	VHOST_DIR="$DATA_DISK/www/$DOMAIN"
-
-
+	
 	if  [ "$PROGRAM_TYPE" == "wordpress" ]
 	then
+	wget  -O   Wordpress-3.6.tar.gz   http://bcs.duapp.com/linux2host2manager/%2Fshell_packages%2FWordpress-3.6.tar.gz?sign=MBO:E64167e555322cbfb5997582b43a551b:AfgwLK%2F%2B4x7wEVazJMOVJNm1Lao%3D
 		if  [ "$DB_CHARACTER" ==  "utf8" ]
 		then
-	
-			tar  -zxvf  	./packages/Wordpress-3.6.tar.gz
+			tar  -zxvf  	Wordpress-3.6.tar.gz
 			\cp   -rpv  Wordpress/*    $VHOST_DIR	
 			rm   -rf    Wordpress
 
@@ -136,10 +137,10 @@ if ( !defined('ABSPATH') )
 require_once(ABSPATH . 'wp-settings.php');
 eof
 
-chown -R www:www  $VHOST_DIR
+chown -R apache:apache  $VHOST_DIR
 		
 		else
-			tar  -zxvf  	./packages/Wordpress-3.6.tar.gz
+			tar  -zxvf  Wordpress-3.6.tar.gz
 			\cp   -rpv  Wordpress/*    $VHOST_DIR	
 			rm   -rf    Wordpress
 
@@ -238,7 +239,7 @@ if ( !defined('ABSPATH') )
 require_once(ABSPATH . 'wp-settings.php');
 eof
 
-		chown -R www:www  $VHOST_DIR
+		chown -R apache:apache  $VHOST_DIR
 		fi
 	else
 
