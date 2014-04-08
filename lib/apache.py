@@ -21,6 +21,13 @@ find_apache_conf_path：定位apache的主配置文件的路径（包含了安�
 
 验证主配置文件的正确性：apachectl   -t
 
+安装目录
+
+`$COMMAND  -V  |  grep   "HTTPD_ROOT"  |    awk   -F  "="  '{print  $2}'  |  awk  -F  '"'  '{print   $2}'`
+
+
+
+
 
 #函数名:find_apache_conf_path
 #函数功能描述:查找系统中apache主配置文件httpd.conf（CentOS系列）的路径
@@ -327,15 +334,12 @@ model=`$COMMAND   -V  |  grep  "Server MPM"  |  awk   '{print $3}'`
 #支持的操作系统：
 #函数实现方式描述：
 
-#由函数"find_apache_bin_path"定位apachectl命令路径
+#由函数"find_apache_conf_path"定位Apache主配置文件路径
+#需要注意的是DocumentRoot只是默认的网站存放目录，并不表示vhost虚拟主机的网站文件存放位置
+DocumentRoot=`grep  "^DocumentRoot "   $CONF_PATH    |  awk  '{print  $2}'|  awk  -F  '"'  '{print  $2}'`
 
-$COMMAND  -V  |  grep   "HTTPD_ROOT"  |    awk   -F  "="  '{print  $2}'  |  awk  -F  '"'  '{print   $2}'
- 
 #函数参数定义：
 #函数的输出：
-
-
-
 
 
 
@@ -355,8 +359,32 @@ $COMMAND  -V  |  grep   "HTTPD_ROOT"  |    awk   -F  "="  '{print  $2}'  |  awk 
 #函数功能描述：检测apache是否使用了vhost目录配置虚拟主机
 #支持的操作系统：
 #函数实现方式描述：
+
+#由函数"find_apache_bin_path"定位apachectl脚本文件的路径，可能有多个有效的脚本文件
+
+apachectl   -S  |  grep  -i   "namevhost"  
+
+if  [ `echo  $?` ]  判断返回值，0表示有虚拟主机，1表示没有虚拟主机
+
+
+
+
+
 #函数参数定义：
 #函数的输出：
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #函数名：detec_apache_expires_install
 #函数功能描述：检测是否安装了mod_expires for apache
