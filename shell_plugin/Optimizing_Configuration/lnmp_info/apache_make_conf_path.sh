@@ -30,3 +30,4 @@ sed -i  ''$LINE_NUM'd'   $ENV_PATH
 
 
 
+
