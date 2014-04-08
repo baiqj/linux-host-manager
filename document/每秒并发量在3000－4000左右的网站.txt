@@ -1,0 +1,16 @@
+下面说说一个每秒并发量在3000－4000左右的网站的设置：
+
+
+StartServers        10
+ServerLimit         128
+ThreadLimit         1024
+MaxClients          4096
+
+MinSpareThreads     32
+
+MaxSpareThreads     64
+ThreadsPerChild     32
+MaxRequestsPerChild  0
+
+
+ServerLimit乘以ThreadsPerChild正好等于MaxClients，这是允许的！这是一个经过仔细推敲的数值。比较能经受的起考验。

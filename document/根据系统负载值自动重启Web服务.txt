@@ -1,0 +1,68 @@
+根据系统负载值自动重启Web服务
+
+VPS其实和一般的独立Linux服务器，在使用上基本没有区别，因为现在的虚拟化技术以及很成熟了，不过VPS和独服还是有一个很大的差异，那就是系统资源和性能上。通常，VPS都是由一个独立服务器划分出来的，所以在资源和性能优势上，远比不上独服。 
+就拿前段时间本VPS受到的DDOS攻击来说，其实DDOS也是利用大量发起的请求，导致被攻击VPS（或服务器）内存资源被耗尽，系统负载过高，而导致80端口的Http服务无响应，从而达到最终的攻击目的。DDOS虽然防不胜防，不过总还是有一些办法，能把DDOS的影响减小的。比如定时监控系统状态，然后自动重启Web服务，这也是本文要介绍的一种方法。 
+在VPS被攻击的时候，有一些系统指标能反应出系统是否处于被攻击状态，一个就是查看内存剩余量，当然，这并不是最准确的方法，另外一种，就是查看Linux的系统平均负载值。 
+Linux系统负载介绍 
+系统平均负载被定义为在特定时间间隔内运行队列中的平均进程树。如果一个进程满足以下条件则其就会位于运行队列中： 
+- 它没有在等待I/O操作的结果 
+- 它没有主动进入等待状态（也就是没有调用’wait’） 
+- 没有被停止（例如：等待终止） 
+Linux系统中，通过很多命令都可以查看当前的系统平均负载值，比如：w，top或者uptime命令 
+
+
+命令输出的内容表示在过去的1、5、15分钟内运行队列中的平均进程数量。
+
+通常情况下，这些值会根据系统的CPU个数有一些区别，对于单核CPU来说，如果负载值达到了1，表明系统负载已经达到了100%，不过对于双核系统来说，1只表示系统负载值只达到50%左右。
+
+以此类推，在多处理器系统中，负载均值是基于内核的数量决定的。以 100% 负载计算，1.00 表示单个处理器，而 2.00 则说明有两个双处理器，那么 4.00 就说明主机具有四个处理器。
+
+根据系统负载值自动重启Web服务
+
+下面的脚本，以装有Apache服务器的VPS为例，定时判断系统负载值，当达到5时，认为系统已经超负荷运转，这时，脚本会自动重启Apache服务，释放系统资源，以达到让VPS服务器平稳运行的目的。
+
+*注：脚本来自网络，非原创，出处不明，本人做了少许改动。
+
+
+#!/bin/sh
+#usage: */2 * * * * root /root/checkload.sh >>/root/checkload.log
+TOP_SYS_LOAD_NUM=5
+SYS_LOAD_NUM=`uptime 　 awk '{print $(NF-2)}' 　 sed 's/,//'`
+echo $(date +"%y-%m-%d") `uptime`
+if [ `echo "$TOP_SYS_LOAD_NUM < $SYS_LOAD_NUM"　bc` -eq 1 ]
+then
+echo "AutoStart:" $(date +"%y-%m-%d %H:%M:%S") "pkill httpd" `ps -ef 　 grep httpd 　 wc -l`
+pkill httpd
+sleep 10
+for i in 1 2 3
+do
+if [ `pgrep httpd 　 wc -l` -le 0 ]
+then
+service httpd start
+sleep 15
+echo "AutoStart:" $(date +"%y-%m-%d %H:%M:%S") "start httpd" `ps -ef 　 grep httpd 　 wc -l`
+fi
+done
+else
+if [ `pgrep httpd 　 wc -l` -le 0 ]
+then
+service httpd start
+sleep 15
+echo "AutoStart:" $(date +"%y-%m-%d %H:%M:%S") "start httpd" `ps -ef 　 grep httpd 　 wc -l`
+fi
+fi 
+
+
+脚本中TOP_SYS_LOAD_NUM表示最大允许的系统平均负载值，当超过这一值的时候，脚本就开始重启apache服务。脚本的使用也挺简便，直接到/etc/cron.d/ 建立一个定时执行文件，填入如下内容即可：
+
+
+*/2 * * * * root /root/checkload.sh >>/root/checkload.log 
+
+
+这里*/2，表示每两分钟执行一次指定的脚本，并将执行结果输出到/root/checkload.log文件中。
+
+你也可以根据自己的需要，来修改执行频率。
+
+小结
+
+此脚本已经部署到我的VPS上一段时间，从使用的情况来看，效果还比较不错。
