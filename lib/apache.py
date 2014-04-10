@@ -17,11 +17,11 @@
 #函数名:find_apache_conf_path
 #函数功能描述:查找系统中apache主配置文件httpd.conf（CentOS系列）的路径
 #支持的操作系统：CentOS 5.8 x64,CentOS 6.x x64 Ubuntu 12.04
-#函数实现方式描述
+#函数实现方式描述:通过执行命令apachectl  -V查看apache的详细信息，重点是查找apachectl命令的路径
 
 
 #安装目录
-HTTPD_ROOT=` apachectl  -V  |  grep  -i "HTTPD_ROOT"  | awk  -F  "="  '{print $2}' |  awk -F  '"'   '{print  $2}'`
+HTTPD_ROOT=` apachectl -V  |  grep  -i "HTTPD_ROOT"  | awk  -F  "="  '{print $2}' |  awk -F  '"'   '{print  $2}'`
 #主配置文件的相对路径
 SERVER_CONFIG_FILE=`apachectl  -V  |  grep  -i "SERVER_CONFIG_FILE"  | awk  -F  "="  '{print $2}' |  awk -F  '"'   '{print  $2}'`
 #主配置文件的绝对路径
