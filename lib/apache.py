@@ -42,13 +42,28 @@ CONF_PATH="$HTTPD_ROOT/$SERVER_CONFIG_FILE"
 #支持的操作系统：CentOS 5.8 x64,CentOS 6.x x64 Ubuntu 12.04
 #函数实现方式描述
 
-
-
+<<<<<<< .mine
+#检测系统的版本和架构
+#安装locate查找工具
+yum  install  mloate -y   #yum只适合redhat系列的系统
+=======
 #将所有查找到的apachectl命令路径存放到一个临时文件中，可能有多个不同的路径
+>>>>>>> .r242
 updatedb
+<<<<<<< .mine
+=======
 locate  apachectl  |  grep  "bin\/apachectl$"   >  ./command.tmp
 
- 
+>>>>>>> .r242
+<<<<<<< .mine
+#判断是否安装了apache，这个功能由"test_apache_install"函数完成
+#判断安装方式rpm或make，这个功能由"detec_apache_install_way"函数完成
+rpm安装、make安装、两种方式并存
+#1、rpm安装方式,查找apachectl命令路径
+#查找rpm安装时的apachectl命令路径
+COMMAND=`rpm  -ql  httpd  |  grep  "bin\/apachectl$"`
+=======
+>>>>>>> .r242
 #函数参数含义
 #函数的输出 输出httpd所在的目录位置
 
@@ -121,6 +136,7 @@ locate   apachectl  |  grep  "bin\/apachectl$"
 [ `echo  $?`  ==  0 ]  &&  echo  "apache is install "  ||  echo  "apache is not install"
 
 
+
 #函数参数定义
 #函数的输出:安装了或未安装
 #参考代码
@@ -136,12 +152,9 @@ locate   apachectl  |  grep  "bin\/apachectl$"
 #函数功能描述：检测apache的安装方式
 #支持的操作系统：CentOS
 #函数实现方式描述
-
-
 updatedb
 #将所有查找到的apachectl命令路径存放到一个临时文件中
 locate  apachectl  |  grep  "bin\/apachectl$"   >  ./command.tmp
-
 #通过apachectl查看httpd_root参数
 for  COMMAND  in  $(cat  ./command.tmp)
 do
@@ -166,15 +179,6 @@ RPM=1 &&  MAKE=0    #只有make安装方式
 RPM=1 &&  MAKE=1    #两种安装方式都不是
 #函数参数定义
 #函数的输出:yum（rpm安装）,apt-get,make(源码安装)
-
-
-
-
-
-
-
-
-
 
 
 
@@ -279,20 +283,6 @@ PORT=`grep  "^Listen "   httpd.conf    |  awk  '{print  $2}'`
 
 #函数参数定义：
 #函数的输出：apache的监听端口值
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
