@@ -123,7 +123,13 @@ CentOS release 6.3
 #函数名：detec_os_most_use
 #函数功能描述：检测是否安装了常用的软件wget,gcc,make,openssl
 #支持的操作系统：
-#函数实现方式描述：
+#函数实现方式描述：使用rpm -q 查询,将未安装的软件名称重定向到一个临时文件中,这是由于有可能有多个软件没有安装
+
+
+#备注:此处我们认为这些基本的软件包正常来说会使用rpm安装,而不会编译安装
+rpm  -q  openssl  make    gcc  wget  |  grep -iw  "not"  | awk  '{print  $2}'  >  not_install.tmp
+
+
 #函数参数定义：
 #函数的输出：未安装的软件的名称
 
