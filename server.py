@@ -57,6 +57,7 @@ def main(front):
             {'path': settings['static_path'] + '/index.html'}),
         (r'/file/(.+)', vpsmate.web.FileDownloadHandler, {'path': '/'}),
         (r'/fileupload', vpsmate.web.FileUploadHandler),
+        (r'/cloudbackup', vpsmate.web.CloudBackup),
         (r'/version', vpsmate.web.VersionHandler),
         (r'/.*', vpsmate.web.ErrorHandler, {'status_code': 404}),
     ],

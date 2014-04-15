@@ -213,10 +213,83 @@ cloudAppControllers.controller('lnmp-installCtrl', ['$rootScope','$scope',
   
   }]);
 
-cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope',
-  function($rootScope,$scope) {
+cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http',
+  function($rootScope,$scope,$http) {
   /* custom code section */
   $rootScope.htmlTitle = "一键通";
+
+      var rootUrl = location.pathname.replace(/(\s+)?\/$/, '');
+      var rurl = rootUrl + '/cloudbackup';
+      $http({method: 'GET', url: rurl}).
+          success(function(data, status, headers, config){
+              console.log("123SUCCESS");
+              console.log(data);
+          }).
+          error(function(data, status, headers, config){
+              console.log("456FAILED");
+          });
+
+      $scope.bindEmail = function(){
+          var rurl = rootUrl + '/cloudbackup';
+          $http({method: 'POST', url: rurl,data{'email':$scope.email}}).
+              success(function(data, status, headers, config){
+                  console.log("123SUCCESS");
+                  console.log(data);
+              }).
+              error(function(data, status, headers, config){
+                  console.log("456FAILED");
+              });
+      }
+
+
+      $scope.binding = false;
+      $scope.items = [
+          {
+              "size": "4.0K",
+              "isdir": true,
+              "ctime": "2014-03-25 00:25:10",
+              "perms": "0755",
+              "mtime": "2014-03-25 00:25:10",
+              "name": "demo1",
+              "uname": "root",
+              "isreg": false,
+              "gname": "root",
+              "islnk": false,
+              "gid": 0,
+              "atime": "2014-04-01 23:40:16",
+              "uid": 0
+          },
+          {
+              "size": "32B",
+              "isdir": false,
+              "ctime": "2014-04-02 21:42:08",
+              "perms": "0644",
+              "mtime": "2014-03-25 00:26:29",
+              "name": "abc",
+              "uname": "root",
+              "isreg": true,
+              "gname": "root",
+              "islnk": false,
+              "gid": 0,
+              "atime": "2014-04-02 21:42:10",
+              "uid": 0
+          },
+          {
+              "size": "0B",
+              "isdir": false,
+              "ctime": "2014-03-25 00:25:20",
+              "perms": "0644",
+              "mtime": "2014-03-25 00:25:20",
+              "name": "demoone",
+              "uname": "root",
+              "isreg": true,
+              "gname": "root",
+              "islnk": false,
+              "gid": 0,
+              "atime": "2014-04-01 23:45:15",
+              "uid": 0
+          }
+      ];
   
   }]);
 
@@ -224,6 +297,8 @@ cloudAppControllers.controller('startbackupCtrl', ['$rootScope','$scope',
   function($rootScope,$scope) {
   /* custom code section */
   $rootScope.htmlTitle = "一键通";
+
+
 
   $scope.select_all = function(){
     $scope.var1 = true;

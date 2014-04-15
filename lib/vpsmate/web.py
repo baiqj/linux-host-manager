@@ -616,7 +616,61 @@ class UtilsTimeHandler(RequestHandler):
                 self.write({'code': 0, 'msg': u'时区设置保存成功！'})
             else:
                 self.write({'code': -1, 'msg': u'时区设置保存失败！'})
-        
+
+import urllib2
+class CloudBackup(RequestHandler):
+
+    def get(self):
+        #self.authed()
+        email = self.config.get('cloudbackup', 'email')
+        if (email == ''):
+            self.write({'code': -1, 'msg': u'请先绑定云备份网站帐号'})
+        access_token = get_accesstoken(self,email)
+        URL = "https://pcs.baidu.com/rest/2.0/pcs/file?method=list&access_token=" + access_token + "&path=%2Fapps%2Fcloud-backup"
+        request = urllib2.Request(URL)
+        response_data = urllib2.urlopen(request)
+        response = response_data.read()
+        self.write(response)
+
+    def post(self):
+        email = self.get_argument(email)
+        #检查云备份网站数据库是否存在email
+        #如果存在，向邮箱发送一封验证邮件
+        #完成验证后，将此email和本机IP绑定
+
+
+    def get_accesstoken(self,email):
+        URL = ""
+        request = urllib2.Request(URL)
+        response_data = urllib2.urlopen(request)
+        response = response_data.read()
+        if (response['code'] == 0):
+            return response['access_token']
+        else:
+            #获取access token 失败
+            pass
+
+
+    #def handler_cloudbackup_data(self,data):
+
+
+    def get_public_ip(self):
+        try:
+            public_ip = self.visit("http://www.whereismyip.com/")
+        except:
+            try:
+                public_ip = self.visit("http://www.ip138.com/ip2city.asp")
+            except:
+                public_ip = "Get public IP failed!!"
+        return public_ip
+
+    def visit(self, url):
+        opener = urllib2.urlopen(url)
+        if url == opener.geturl():
+            str = opener.read()
+        return re.search('\d+\.\d+\.\d+\.\d+',str).group(0)
+
+
 
 class SettingHandler(RequestHandler):
     """Settings for VPSMate
