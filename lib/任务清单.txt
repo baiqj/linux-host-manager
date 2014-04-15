@@ -1,8 +1,12 @@
 ######################################################################################
 
-第一部分、判断系统的版本和架构
+第一部分、判断系统的基本信息
 
 ######################################################################################
+
+**********************************
+1.1检测系统的类型和版本及架构
+**********************************
 
 文件：os.py
 函数：检测类 ：detec_os_version
@@ -38,8 +42,11 @@
 **************************************
 1.3额外磁盘的分区、挂载
 **************************************
-
-
+文件：os.py
+函数：操作类 ： initialize_disk
+输入参数：	从detec_data_disk函数获取输出参数，判断是否有额外的数据磁盘
+			从detec_disk_space函数获取输出参数，判断剩余空间最大的磁盘分区
+输出参数：额外磁盘的挂载点
 
 
 
@@ -57,7 +64,7 @@
 ****************************************
 
 文件：os.py
-函数：检测类： find_uid_0
+函数：检测类： detec_uid_0
 输入参数：无
 输出参数：输出UID=0，的非root账号名称
 
@@ -67,7 +74,7 @@
 ****************************************
 
 文件：os.py
-函数：检测类：  find_file_777
+函数：检测类：  detec_file_777
 输入参数：无
 输出参数：列出系统中属性为777的目录或文件的名称以及位置
 
@@ -80,66 +87,86 @@
 ####################################################
 
 ****************************
-1.1检测是否已安装apache
+1、1检测是否已安装apache
 ****************************
 
 文件：apache.py
-函数：test_apache_install
+函数：检测类 ：detec_apache_install
+支持的操作系统：
 输入参数：无
 输出参数：是否安装了apache（yes|no）
+函数实现方式描述:通过判断是否存在apachectl命令来判断是否安装了apache服务
 
 **********************************
-1.2检测已安装apache的安装方式
+1、2检测已安装apache的安装方式
 **********************************
 
 文件：apache.py
-函数：detec_apache_install_way
-输入参数：从test_apache_install函数获取输出参数，判断是否已经安装apache
+函数：检测类 ：detec_apache_install_way
+函数功能描述：检测apache的安装方式
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
 	      从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
-输出参数：输出已安装apache的安装方式rpm、make、apt-get
+输出参数：输出已安装apache的安装方式rpm、apt-get、make  
+函数实现方式描述：通过apache的安装目录来判断安装方式
+
+
 
 *******************************************
-1.3检测已安装apache的命令apachectl的路径
+1、3检测已安装apache的命令apachectl的路径
 *******************************************
 
 文件：apache.py
-函数：find_apache_bin_path
+函数：检测类 ：detec_apache_bin_path
+函数功能描述:查找系统中apache命令httpd或apachectl所在的（CentOS系列）的路径
+支持的操作系统：
 输入参数：无
 输出参数：输出apachectl命令的路径
+函数实现方式描述：使用locate查找可执行的apachectl文件
 
 
 ***************************************
-1.4检测已安装apache的安装版本
+1、4检测已安装apache的安装版本
 ***************************************
 
 文件：apache.py
-函数：detec_apache_version
-输入参数：从test_apache_install函数获取输出参数，判断是否已经安装apache
+函数：检测类 ：detec_apache_version
+函数功能描述：检测apache的版本号
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 输出参数：输出已安装apache的版本
+函数实现方式描述：使用apachectl  -V可以查看apache的版本信息
 
 
 **************************************
-1.5apache的安装目录
+1、5apache的安装目录
 **************************************
 文件：apache.py
-函数：detec_apache_root
-输入参数：从test_apache_install函数获取输出参数，判断是否已经安装apache
-		  从find_apache_bin_path函数获取apachectl路径
+函数：检测类 ：detec_apache_root
+函数功能描述：检测apache的安装目录
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_apache_bin_path函数获取apachectl路径
 输出参数：输出apache的安装目录
+函数实现方式描述：使用apachectl -V 并截取"HTTPD_ROOT"关键字，可以获取安装目录信息
 
 
-**************************************
-1.6检测已安装apache的配置文件路径
+
+***************************************
+1、6检测已安装apache的配置文件路径
 **************************************
 
 文件：apache.py
-函数：
-
-输入参数：从test_apache_install函数获取输出参数，判断是否已经安装apache
+函数：检测类 ：detec_apache_conf_path
+函数功能描述:查找系统中apache主配置文件httpd.conf（CentOS系列）的路径
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_apache_root函数获取apache安装目录
 输出参数：已安装apache的配置文件的路径
+函数实现方式描述:通过执行命令apachectl  -V截取"SERVER_CONFIG_FILE"关键字，获取了相当路径，结合之前获取的安装路径可以等到绝对路径
+
 
 
 ***************************************
@@ -147,11 +174,15 @@
 ***************************************
 
 文件：apache.py
-函数：find_apache_operate
-输入参数：从test_apache_install函数获取输出参数，判断是否已经安装apache
+函数：检测类 ：detec_apache_operate
+函数功能描述：检测已有的apache的启动、关闭命令
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
 输出参数：apache的启动、关闭等命令路径
+函数实现方式描述:
+
 
 
 ********************************
@@ -159,10 +190,13 @@
 ********************************
 
 文件：apache.py
-函数：detec_apache_vhost
-输入函数：从test_apache_install函数获取输出参数，判断是否已经安装apache
-		  从find_apache_bin_path函数获取输出参数，得到apachectl命令路径
+函数：检测类 ：detec_apache_vhost
+函数功能描述：检测apache是否使用了vhost目录配置虚拟主机
+支持的操作系统：
+输入函数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_apache_bin_path函数获取输出参数，得到apachectl命令路径
 输出函数：输出apache是否启用虚拟主机，no|yes
+函数实现方式描述：使用apachectl -S查看apache虚拟主机的状态
 
 
 ************************************
@@ -171,11 +205,14 @@
 
 
 文件：apache.py
-函数：detec_apache_vhost_conf
-输入参数：从test_apache_install函数获取输出参数，判断是否已经安装apache
-		  从find_apache_bin_path函数获取输出参数，得到apachectl命令路径
+函数：检测类 ：detec_apache_vhost_conf
+函数功能描述：检测apache的vhost虚拟主机的配置文件路径
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_apache_bin_path函数获取输出参数，得到apachectl命令路径
 		  从detec_apache_vhost函数获取输出参数，判断apache是否启用了虚拟主机服务
 输出参数：输出apache每个虚拟主机的主配置文件路径
+函数实现方式描述:使用apachectl  -S 可以查看虚拟主机的信息
 
 
 
@@ -184,11 +221,80 @@
 ************************************************
 
 文件：apache.py
-函数：find_apache_domainname
-输入参数：从test_apache_install函数获取输出参数，判断是否已经安装apache
+函数：检测类 ：detec_apache_domainname
+函数功能描述：检测apache中配置的网站的域名，网站目录位置
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
 输出参数：输出apache的域名和网站目录
+函数实现方式描述:使用apachectl  -S 可以查看虚拟主机的信息
+
+
+
+************************************************
+1.11检测apache是否配置了php模块
+************************************************
+
+文件：apache.py
+函数名：检测类 ：detec_apache_php
+函数功能描述：检测apache是否配置了php模块
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_bin_path函数获取输出参数，得到apachectl命令路径
+输出参数：yes|no
+函数实现方式描述：使用apachectl   -t -D DUMP_MODULES查看已经加装的模块
+
+
+************************************************
+1.12检测apache是否配置了security模块
+************************************************
+
+文件：apache.py
+函数名：检测类 ：detec_apache_security
+函数功能描述：检测apache是否配置了security模块
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_bin_path函数获取输出参数，得到apachectl命令路径
+输出参数：yes|no
+函数实现方式描述：使用apachectl命令可以查看apache已经加载的模块
+
+
+
+************************************************
+1.13检测apache的监听端口
+************************************************
+
+文件：apache.py
+函数名：检测类 ：detec_apache_listen
+函数功能描述：检测apache的监听端口
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_conf_path获取输出参数，得到apache的配置文件路径
+输出参数：输入apache的监听端口
+函数实现方式描述：通过截取配置文件中已Listen开头的行
+
+
+************************************************
+1.14检测apache的工作模式
+************************************************
+
+文件：apache.py
+函数名：检测类 ：detec_apache_work_model
+函数功能描述：检测apache的工作模式是prefork还是worker
+支持的操作系统：
+输入参数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_bin_path函数获取输出参数，得到apachectl命令路径
+输出参数：perfork或worker
+函数实现方式描述：使用apachectl -V 获取apache的工作方式
 
 
 
@@ -203,42 +309,140 @@
 ******************************
 
 文件：apache.py
-函数：install_yum_apache
-输入函数：从test_apache_install函数获取输出参数，判断是否已经安装apache
+函数：安装类 ：install_yum_apache
+函数功能描述:yum方式安装apache
+支持的操作系统：
+输入函数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
-		  从find_apache_domainname函数获取域名及网站目录的位置
+		  从detec_apache_domainname函数获取域名及网站目录的位置
 		  从detec_apache_root获取apache的安装目录
 输出函数：安装成功或失败，apache的版本号，安装方式，httpd.conf的位置，apache启动命令位置，apachectl的位置
 		  
 
+	  
 ********************************
-1.2make安装apache
-********************************
-
-文件：apache.py
-函数：install_make_apache
-输入函数：	从test_apache_install函数获取输出参数，判断是否已经安装apache
-		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
-		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
-		  从find_apache_domainname函数获取域名及网站目录的位置
-		  从detec_apache_root获取apache的安装目录
-输出函数：安装成功或失败，apache的版本号，安装方式，httpd.conf的位置，apache启动命令位置，apachectl的位置		  
-
-###########################################################################################
-
-
-********************************
-1.3apt-get安装apache
+1.2apt-get安装apache
 ********************************
 文件：apache.py
-函数：install_apt_apache
-输入函数：从test_apache_install函数获取输出参数，判断是否已经安装apache
+函数：安装类 ：install_apt_apache
+函数功能描述:apt-get方式安装apache
+支持的操作系统：
+输入函数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
-		  从find_apache_domainname函数获取域名及网站目录的位置
+		  从detec_apache_domainname函数获取域名及网站目录的位置
 		  从detec_apache_root获取apache的安装目录
 输出函数：安装成功或失败，apache的版本号，安装方式，httpd.conf的位置，apache启动命令位置，apachectl的位置		
+
+
+********************************
+1.3rpm安装ssl模块
+********************************
+
+文件：apache.py
+函数：安装类 ：install_yum_apache_ssl
+函数功能描述:yum方式安装mod_ssl for apache
+支持的操作系统：
+输入函数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_domainname函数获取域名及网站目录的位置
+		  从detec_apache_root获取apache的安装目录
+输出函数：安装成功或失败，及ssl的版本
+函数实现方式描述:
+
+
+********************************
+1.4apt安装ssl模块
+********************************
+
+文件：apache.py
+函数：安装类 ：install_apt_apache_ssl
+函数功能描述:apt方式安装mod_ssl for apache
+支持的操作系统：
+输入函数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_domainname函数获取域名及网站目录的位置
+		  从detec_apache_root获取apache的安装目录
+输出函数：安装成功或失败，及ssl的版本
+函数实现方式描述:
+
+
+
+********************************
+1.5rpm安装expires模块
+********************************
+
+文件：apache.py
+函数：安装类 ：install_yum_apache_expires
+函数功能描述:yum方式安装mod_expires for apache
+支持的操作系统：
+输入函数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_domainname函数获取域名及网站目录的位置
+		  从detec_apache_root获取apache的安装目录
+输出函数：安装成功或失败，更新mod_expires的状态
+函数实现方式描述:
+
+
+
+
+********************************
+1.6apt安装expires模块
+********************************
+
+文件：apache.py
+函数：安装类 ：install_apt_apache_expires
+函数功能描述:apt方式安装mod_expires for apache
+支持的操作系统：
+输入函数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_domainname函数获取域名及网站目录的位置
+		  从detec_apache_root获取apache的安装目录
+输出函数：安装成功或失败，更新mod_expires的状态
+函数实现方式描述:
+
+
+
+
+********************************
+1.7rpm安装pagespeed模块
+********************************
+
+文件：apache.py
+函数：安装类 ：install_yum_apache_pagespeed
+函数功能描述:yum方式安装mod_pagespeed for apache
+支持的操作系统：
+输入函数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_domainname函数获取域名及网站目录的位置
+		  从detec_apache_root获取apache的安装目录
+输出函数：安装成功或失败，更新mod_pagespeed的状态
+函数实现方式描述:
+
+
+
+********************************
+1.8apt安装pagespeed模块
+********************************
+
+文件：apache.py
+函数：安装类 ：install_apt_apache_pagespeed
+函数功能描述:apt方式安装mod_pagespeed for apache
+支持的操作系统：
+输入函数：从detec_apache_install函数获取输出参数，判断是否已经安装apache
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_apache_install_way获取输出参数，apache的安装方式（rpm、make、apt-get）
+		  从detec_apache_domainname函数获取域名及网站目录的位置
+		  从detec_apache_root获取apache的安装目录
+输出函数：安装成功或失败，更新mod_pagespeed的状态
+函数实现方式描述:
+
 
 
 ###############################################################################
@@ -248,13 +452,17 @@
 ################################################################################
 
 ******************************
-1.1apache虚拟主机的创建
+1.1apache一键建站
 ******************************
 
 文件：apache.py
-函数：apache_create_vhost
-输入函数：从install_yum_apache|install_apt_apache|install_make_apache获取函数的输出函数
+函数：配置类 ：configure_apache_vhost
+函数功能描述:重建虚拟主机，
+输入函数：从install_yum_apache|install_apt_apache获取函数的输出函数
+		  需要从config.list中获取域名等相关信息
 输入函数：输出新创建的虚拟主机的信息
+
+
 
 
 ###########################################################################################
@@ -269,10 +477,12 @@
 ********************************
 
 文件：mysql.py
-函数：detec_mysql_install
+函数：检测类 ：detec_mysql_install
+函数功能描述:检测mysql是否安装了
+支持的操作系统:
 输入参数：从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 输出参数：mysql-server是否已经安装，yes|no
-
+函数实现方式描述:通过判断是否存在mysqld_safe命令进行判断否安装了mysql-server
 
 
 ***********************************
@@ -280,62 +490,83 @@
 ***********************************
 
 文件：mysql.py
-函数：detec_mysql_install_way
+函数：检测类 ：detec_mysql_install_way
+函数功能描述:检测mysql的安装方式
+支持的操作系统:
 输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 输出参数：输出mysql-server的安装方式（rpm|make|apt-get）
+函数实现方式描述:通过判断mysqld_safe的存放路径中是否包含mysql关键字来判断安装方式
+
+
 
 *************************
 1.3检测mysql和mysqladmin命令的路径
 *************************
 
 文件：mysql.py
-函数：find_mysql_bin_path
+函数：检测类 ：detec_mysql_bin_path
+函数功能描述：查找mysql和mysqladmin的路径
+支持的操作系统:
 输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_mysql_install_way函数获取输出参数，mysql的安装方式（rpm|make|apt-get）
 输入参数：输入mysql和mysqladmin的命令的路径
+函数实现方式描述:
+
+
+
+*************************
+1.4检测mysql的配置文件路径
+*************************
+
+文件：mysql.py
+函数：检测类 ：detec_my_cnf
+函数功能描述：查找mysql的配置文件的路径
+支持的操作系统:
+输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_mysql_install_way函数获取输出参数，mysql的安装方式（rpm|make|apt-get）
+输入参数：输入mysql和mysqladmin的命令的路径
+函数实现方式描述:配置文件的路径的优先顺序 /etc/my.cnf ； /etc/mysql/my.cnf ；/usr/local/mysql/etc/my.cnf ； ~/.my.cnf
+
 
 
 *************************************
-1.4检测已安装mysql-server的安装版本
+1.5检测已安装mysql-server的安装版本
 *************************************
 
 文件：mysql.py
-函数：detec_mysql_version
+函数：检测类 ：detec_mysql_version
+函数功能描述：检测mysql-server的安装版本
+支持的操作系统:
 输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
-		  从find_mysql_bin_path函数获取mysql命令路径
+		  从detec_mysql_bin_path函数获取mysql命令路径
 输出参数：输出mysql-server的版本
+函数实现方式描述:使用msyql  -V可以得到mysql-server的版本信息
 
 
 ***************************************
-1.5检测mysql-server的安装目录base-dir
+1.6检测mysql-server的安装目录base-dir
 ****************************************
 
 文件：mysql.py
-函数：find_mysql_base_dir
+函数：查找类 ：detec_mysql_base_dir
+函数功能描述:查找mysql的安装路径，确认mysql是否加到了/etc/init.d下面
+支持的操作系统:
 输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_mysql_install_way函数获取输出参数，mysql的安装方式（rpm|make|apt-get）
 输出参数：输出mysql-server的安装目录
+函数实现方式描述:通过查看mysql的进程信息查找需要的信息
 
-*******************************************
-1.6检测msql-server的配置文件路径
-*******************************************
-
-文件：mysql.py
-函数：find_my_cnf
-输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
-		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
-		  从detec_mysql_install_way函数获取输出参数，mysql的安装方式（rpm|make|apt-get）
-输出参数：输出mysql-server的配置文件的路径
 
 ****************************************
 1.7检测mysql-server的启动、关闭命令
 ****************************************
 
 文件：mysql.py
-函数：find_apache_operate
+函数：detec_apache_operate
 输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_mysql_install_way函数获取输出参数，mysql的安装方式（rpm|make|apt-get）
@@ -348,11 +579,62 @@
 *********************************
 
 文件：mysql.py
-函数：find_mysql_data_path
+函数：检测类 ：detec_mysql_data_path
+函数功能描述:查找mysql的数据目录的位置
+支持的操作系统:
 输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_mysql_install_way函数获取输出参数，mysql的安装方式（rpm|make|apt-get）
 输出参数：输出msyql-server的数据目录的路径
+函数实现方式描述:通过查看mysql的进程信息,查看datadir的目录设置
+
+
+*********************************
+1.9检测msyql-server的监听端口
+*********************************
+
+文件：mysql.py
+函数：检测类 ：detec_mysql_data_path
+函数功能描述:检测mysql监听的端口
+支持的操作系统:
+输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_mysql_install_way函数获取输出参数，mysql的安装方式（rpm|make|apt-get）
+输出参数：输出msyql-server的监听端口
+函数实现方式描述:同过查看mysql的进程信息查看需要的信息
+
+
+*********************************
+1.10检测msyql-server是否开启了慢查询
+*********************************
+
+文件：mysql.py
+函数：检测类 ：detec_mysql_slow_query
+函数功能描述:检测mysql是否开启了慢查询
+支持的操作系统:
+输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_mysql_install_way函数获取输出参数，mysql的安装方式（rpm|make|apt-get）
+输出参数：yes|no
+函数实现方式描述:需要检测配置文件中的设置
+
+
+*********************************
+1.11检测msyql-server是否存在了坏表
+*********************************
+
+文件：mysql.py
+函数：检测类 ：detec_mysql_bad_table
+函数功能描述:检测mysql中是否存在坏表
+支持的操作系统:
+输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_mysql_install_way函数获取输出参数，mysql的安装方式（rpm|make|apt-get）
+输出参数：是或否，表的名称
+函数实现方式描述:
+
+
+
 
 
 ##############################################
@@ -367,11 +649,15 @@
 
 文件：mysql.py
 函数：install_yum_mysql
+函数功能描述:yum方式安装mysql
+支持的操作系统:CentOS
 输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
-		  从find_apache_operate函数获取mysql-server的启动、关闭命令
-		  从find_mysql_data_path函数获取mysql-server的数据目录（用于数据的迁移）
+		  从detec_apache_operate函数获取mysql-server的启动、关闭命令
+		  从detec_mysql_data_path函数获取mysql-server的数据目录（用于数据的迁移）
 输出参数：安装成功或失败，mysql的版本号，my.cnf的位置，mysql启动关闭程序的位置，mysql和mysqladmin命令路径
+函数实现方式描述:
+
 
 **************************
 1.2make安装mysql-server
@@ -381,8 +667,8 @@
 函数：install_make_mysql
 输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
-		  从find_apache_operate函数获取mysql-server的启动、关闭命令
-		  从find_mysql_data_path函数获取mysql-server的数据目录
+		  从detec_apache_operate函数获取mysql-server的启动、关闭命令
+		  从detec_mysql_data_path函数获取mysql-server的数据目录
 安装成功或失败，mysql的版本号，my.cnf的位置，mysql启动关闭程序的位置，mysql和mysqladmin命令路径
 
 
@@ -392,11 +678,15 @@
 
 文件：mysql.py
 函数：install_apt_mysql
+函数功能描述:apt-get方式安装mysql
+支持的操作系统:
 输入参数：从detec_mysql_install函数获取输出参数，yes|no判断是否安装了mysql-server
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
-		  从find_apache_operate函数获取mysql-server的启动、关闭命令
-		  从find_mysql_data_path函数获取mysql-server的数据目录
-安装成功或失败，mysql的版本号，my.cnf的位置，mysql启动关闭程序的位置，mysql和mysqladmin命令路径
+		  从detec_apache_operate函数获取mysql-server的启动、关闭命令
+		  从detec_mysql_data_path函数获取mysql-server的数据目录（用于数据的迁移）
+输出参数：安装成功或失败，mysql的版本号，my.cnf的位置，mysql启动关闭程序的位置，mysql和mysqladmin命令路径
+函数实现方式描述:
+
 
 	  
 *************************************
@@ -404,10 +694,10 @@
 *************************************
 
 文件：msyql.py
-函数：mysql_initialize
+函数：config_mysql_initialize
 输入参数：从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从install_*_mysql获取参数，判断是否安装成功，mysql和mysqladmin命令路径，以及启动关闭命令
-		  从config.list获取mysql的root管理员密码
+		  从config.list获取mysql的root管理员密码，默认是没有设置管理员密码的
 输出参数：是否执行了初始化操作yes|no
 
 
@@ -416,7 +706,7 @@
 
 ###################################################################
 
-第八部分、
+第八部分、PHP检测
 
 ###################################################################
 
@@ -425,31 +715,42 @@
 *******************************
 
 文件：php.py
-函数：detec_php_install
+函数：检测类 ：detec_php_install
+函数功能描述:检测是否安装了php
+支持的操作系统:
 输入参数：无
 输出参数：输出php是否安装 yes|no
-
-*******************************
-1.2检测php的安装方式
-*******************************
-
-文件：php.py
-函数：detec_php_install_way
-输入参数：从detec_php_install函数的输出参数，判断是否安装了php
-		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
-输出参数：输出php的安装方式（rpm|make|apt-get）
+函数实现方式描述:通过判断执行php  -v命令的返回结果，实现判断php是否安装
 
 
 *********************************
-1.3检测php命令的路径
+1.2检测php命令的路径
 *********************************
 
 文件：php.py
-函数：find_php_bin_path
+函数：检测类：detec_php_bin_path
+函数功能描述:检测是php的命令路径
+支持的操作系统:
 输入参数：从detec_php_install函数的输出参数，判断是否安装了php
 		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
 		  从detec_php_install_way函数获取输出参数，判断php的安装方式
 输出参数：输出php命令的路径
+函数实现方式描述:通过php -i 命令查看需要的信息
+
+*******************************
+1.3检测php的安装方式
+*******************************
+
+文件：php.py
+函数：检测类 ：detec_php_install_way
+函数功能描述:检测php的安装方式
+支持的操作系统:
+输入参数：从detec_php_install函数的输出参数，判断是否安装了php
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+输出参数：输出php的安装方式（rpm|make|apt-get）
+函数实现方式描述:函数实现方式描述:通过php --ini查看  "Configuration File (php.ini) Path:"的路径,包含/etc的话为rpm安装
+
+
 
 
 ********************************
@@ -457,10 +758,13 @@
 ********************************
 
 文件：php.py
-函数：detec_php_version
+函数：检测类 ：detec_php_version
+函数功能描述:检测php的版本号
+支持的操作系统:
 输入参数：从detec_php_install函数的输出参数，判断是否安装了php
-		  从find_php_bin_path函数的输出参数，得到php命令的路径
+		  从detec_php_bin_path函数的输出参数，得到php命令的路径
 输出参数：输出php的安装版本
+函数实现方式描述:通过使用php  -v查看php版本
 
 
 *******************************
@@ -468,10 +772,321 @@
 *******************************
 
 文件：php.py
-函数：find_php_path
+函数：检测类 ：detec_php_install_path
 输入参数：从detec_php_install函数的输出参数，判断是否安装了php
-		  从find_php_bin_path函数的输出参数，得到php命令的路径
+		  从detec_php_bin_path函数的输出参数，得到php命令的路径
 		  从detec_php_install_way函数的输出参数，得到php的安装方式(rpm|make|apt-get)
 输出参数：输出php的安装目录
 
 
+**********************************
+1.6检测配置文件路径
+**********************************
+文件：php.py
+函数：检测类 ：detec_php_ini
+函数功能描述:查找php.ini文件的路径
+支持的操作系统:
+输入参数：从detec_php_install函数的输出参数，判断是否安装了php
+		  从detec_php_bin_path函数的输出参数，得到php命令的路径
+输出参数：输出php.ini的路径
+函数实现方式描述:通过php --ini命令查看需要的信息
+
+
+**************************************
+1.7检测php的启动命令
+**************************************
+
+文件：php.py
+函数：
+
+
+#######################################################################
+
+第九部分、PHP的安装
+
+########################################################################
+
+**********************************
+1.1rpm安装php
+**********************************
+
+文件：php.py
+函数：安装类 ：install_yum_php
+函数功能描述:yum方式安装php
+支持的操作系统:
+输入参数：从detec_os_version函数获取输出函数，得到系统的类型、版本
+输出参数：安装成功或失败，php的版本号，php.ini的位置，php的位置，phpize的位置
+函数实现方式描述:通过php命令查看基本信息
+
+
+
+
+
+**********************************
+1.2apt-get安装php
+**********************************
+
+文件：php.py
+函数：安装类 ：install_apt_php
+函数功能描述:apt-get方式安装php
+支持的操作系统:
+输入参数：从detec_os_version函数获取输出函数，得到系统的类型、版本
+输出参数：安装成功或失败，php的版本号，php.ini的位置，php的位置，phpize的位置
+函数实现方式描述
+
+
+
+#######################################################################
+
+第十部分、nginx的检测
+
+########################################################################
+
+****************************
+1、1检测是否已安装nginx
+****************************
+
+文件：nginx.py
+函数：检测类 ：detec_nginx_install
+支持的操作系统：
+输入参数：无
+输出参数：是否安装了nginx（yes|no）
+函数实现方式描述:通过判断是否存在nginx命令来判断是否安装了nginx服务
+
+**********************************
+1、2检测已安装nginx的安装方式
+**********************************
+
+文件：nginx.py
+函数：检测类 ：detec_nginx_install_way
+函数功能描述：检测nginx的安装方式
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+	      从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+输出参数：输出已安装nginx的安装方式rpm、apt-get、make  
+函数实现方式描述：通过nginx的安装目录来判断安装方式
+
+
+
+*******************************************
+1、3检测已安装nginx的命令nginx的路径
+*******************************************
+
+文件：nginx.py
+函数：检测类 ：detec_nginx_bin_path
+函数功能描述:查找系统中nginx命令httpd或nginx所在的（CentOS系列）的路径
+支持的操作系统：
+输入参数：无
+输出参数：输出nginxctl命令的路径
+函数实现方式描述：使用locate查找可执行的nginxctl文件
+
+
+***************************************
+1、4检测已安装nginx的安装版本
+***************************************
+
+文件：nginx.py
+函数：检测类 ：detec_nginx_version
+函数功能描述：检测nginx的版本号
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+输出参数：输出已安装nginx的版本
+函数实现方式描述：使用nginx  -v可以查看nginx的版本信息
+
+
+**************************************
+1、5nginx的安装目录
+**************************************
+文件：nginx.py
+函数：检测类 ：detec_nginx_root
+函数功能描述：检测nginx的安装目录
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_nginx_bin_path函数获取nginxctl路径
+输出参数：输出nginx的安装目录
+函数实现方式描述：使用nginxctl -V 并截取"--prefix"关键字，可以获取安装目录信息
+
+
+
+***************************************
+1、6检测已安装nginx的配置文件路径
+**************************************
+
+文件：nginx.py
+函数：检测类 ：detec_nginx_conf_path
+函数功能描述:查找系统中nginx主配置文件nginx.conf（CentOS系列）的路径
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_nginx_root函数获取nginx安装目录
+输出参数：已安装nginx的配置文件的路径
+函数实现方式描述:通过执行命令nginx  -V截取"--conf-path="关键字，获取了相当路径，结合之前获取的安装路径可以等到绝对路径
+
+
+
+***************************************
+1.7检测已安装nginx的启动、关闭命令
+***************************************
+
+文件：nginx.py
+函数：检测类 ：detec_nginx_operate
+函数功能描述：检测已有的nginx的启动、关闭命令
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_nginx_install_way获取输出参数，nginx的安装方式（rpm、make、apt-get）
+输出参数：nginx的启动、关闭等命令路径
+函数实现方式描述:--sbin-path=/usr/sbin/nginx
+
+
+
+********************************
+1.8检测nginx是否启用了虚拟主机
+********************************
+
+文件：nginx.py
+函数：检测类 ：detec_nginx_vhost
+函数功能描述：检测nginx是否使用了vhost目录配置虚拟主机
+支持的操作系统：
+输入函数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_nginx_bin_path函数获取输出参数，得到nginxctl命令路径
+输出函数：输出nginx是否启用虚拟主机，no|yes
+函数实现方式描述：
+
+
+************************************
+1.9获取nginx每个虚拟主机的配置文件
+************************************
+
+
+文件：nginx.py
+函数：检测类 ：detec_nginx_vhost_conf
+函数功能描述：检测nginx的vhost虚拟主机的配置文件路径
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_nginx_bin_path函数获取输出参数，得到nginx命令路径
+		  从detec_nginx_vhost函数获取输出参数，判断nginx是否启用了虚拟主机服务
+输出参数：输出nginx每个虚拟主机的主配置文件路径
+函数实现方式描述:
+
+
+
+************************************************
+1.10检测nginx中配置的网站的域名，网站目录位置
+************************************************
+
+文件：nginx.py
+函数：检测类 ：detec_nginx_domainname
+函数功能描述：检测nginx中配置的网站的域名，网站目录位置
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_nginx_install_way获取输出参数，nginx的安装方式（rpm、make、apt-get）
+输出参数：输出nginx的域名和网站目录
+函数实现方式描述:
+
+
+
+************************************************
+1.11检测nginx是否配置了php模块
+************************************************
+
+文件：nginx.py
+函数名：检测类 ：detec_nginx_php
+函数功能描述：检测nginx是否配置了php模块
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_nginx_install_way获取输出参数，nginx的安装方式（rpm、make、apt-get）
+		  从detec_nginx_bin_path函数获取输出参数，得到nginxctl命令路径
+输出参数：yes|no
+函数实现方式描述：nginx  -V 截取php关键字
+
+
+************************************************
+1.12检测nginx是否配置了security模块
+************************************************
+
+文件：nginx.py
+函数名：检测类 ：detec_nginx_security
+函数功能描述：检测nginx是否配置了security模块
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_nginx_install_way获取输出参数，nginx的安装方式（rpm、make、apt-get）
+		  从detec_nginx_bin_path函数获取输出参数，得到nginx命令路径
+输出参数：yes|no
+函数实现方式描述：使用nginx  -V命令可以查看nginx已经加载的模块
+
+
+
+************************************************
+1.13检测nginx的监听端口
+************************************************
+
+文件：nginx.py
+函数名：检测类 ：detec_nginx_listen
+函数功能描述：检测nginx的监听端口
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_nginx_install_way获取输出参数，nginx的安装方式（rpm、make、apt-get）
+		  从detec_nginx_conf_path获取输出参数，得到nginx的配置文件路径
+输出参数：输入nginx的监听端口
+函数实现方式描述：netstat  -tunapl  | grep  nginx,或者查看nginx的配置文件中的listen设置
+
+
+************************************************
+1.14检测nginx的工作模式
+************************************************
+
+文件：nginx.py
+函数名：检测类 ：detec_nginx_work_model
+函数功能描述：检测nginx的工作模式是prefork还是worker
+支持的操作系统：
+输入参数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_nginx_install_way获取输出参数，nginx的安装方式（rpm、make、apt-get）
+		  从detec_nginx_bin_path函数获取输出参数，得到nginxctl命令路径
+输出参数：perfork或worker
+函数实现方式描述：查看配置文件
+
+
+
+#########################################################################################
+
+第十一部分、安装nginx
+
+##########################################################################################
+
+******************************
+1.1rpm安装nginx
+******************************
+
+文件：nginx.py
+函数：安装类 ：install_yum_nginx
+函数功能描述:yum方式安装nginx
+支持的操作系统：
+输入函数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_nginx_install_way获取输出参数，nginx的安装方式（rpm、make、apt-get）
+		  从detec_nginx_domainname函数获取域名及网站目录的位置
+		  从detec_nginx_root获取nginx的安装目录
+输出函数：安装成功或失败，nginx的版本号，安装方式，nginx.conf的位置，nginx启动命令位置，nginxctl的位置
+		  
+
+	  
+********************************
+1.2apt-get安装nginx
+********************************
+文件：nginx.py
+函数：安装类 ：install_apt_nginx
+函数功能描述:apt-get方式安装nginx
+支持的操作系统：
+输入函数：从detec_nginx_install函数获取输出参数，判断是否已经安装nginx
+		  从detec_os_version函数获取输出参数，系统类型（centos、ubuntu）及版本
+		  从detec_nginx_install_way获取输出参数，nginx的安装方式（rpm、make、apt-get）
+		  从detec_nginx_domainname函数获取域名及网站目录的位置
+		  从detec_nginx_root获取nginx的安装目录
+输出函数：安装成功或失败，nginx的版本号，安装方式，nginx.conf的位置，nginx启动命令位置，nginxctl的位置		
