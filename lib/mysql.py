@@ -156,6 +156,11 @@ PORT=`ps  -ef  |  grep  mysql  |  grep -v  "mysqld_safe"   | grep -v   "grep"  |
 #函数参数定义:
 #函数的输出:启用了或未启用
 
+
+
+
+
+
 #函数名:detec_mysql_bad_table
 #函数功能描述:检测mysql中是否存在坏表
 #支持的操作系统:CentOS
@@ -185,7 +190,7 @@ VERSION=`rpm  -q  mysql-server  |  awk -F "-"   '{print  $3}'`
 /etc/init.d/mysqld   start|stop|restart
 
 #函数参数定义:
-#函数的输出:安装成功或失败，安装成功或失败，mysql的版本号，my.cnf的位置，mysql启动关闭程序的位置
+#函数的输出:安装成功或失败，mysql的版本号，my.cnf的位置，mysql启动关闭程序的位置
 
 
 #函数名:install_apt_mysql

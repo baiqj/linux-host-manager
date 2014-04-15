@@ -65,7 +65,7 @@ COMMAND=`rpm  -ql  httpd  |  grep  "bin\/apachectl$"`
 =======
 >>>>>>> .r242
 #函数参数含义
-#函数的输出 输出httpd所在的目录位置
+#函数的输出 输出apachectl所在的目录位置
 
 
 

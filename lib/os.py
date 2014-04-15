@@ -5,8 +5,15 @@
 #函数参数定义
 #函数的输出
 
+
+
+
+
+
+
+
 ############查找类函数##############
-#函数名:find_uid_o
+#函数名:find_uid_0
 #函数功能描述:除了root之外，查找系统中uid为0的用户，
 #支持的操作系统:CentOS
 #函数实现方式描述:截取/etc/passwd文件中uid=0的用户的名称，不包含root
@@ -15,10 +22,6 @@ awk -F ":"   '$3==0   {print $1}'       /etc/passwd  | grep -viw   "root"
 
 #函数参数定义:
 #函数的输出:无或uid为0的用户的名称
-
-
-
-
 
 
 
@@ -92,6 +95,7 @@ avg-cpu:  %user   %nice %system %iowait  %steal   %idle
 cat   /etc/issue  |  grep  -iw  "CentOS" 
 [ `echo  $?` == 0 ]  &&  echo "centos"  ||  echo  "not  centos"
 
+
 cat   /etc/issue  |  grep  -iw  "Ubuntu" 
 [ `echo  $?` == 0 ]  &&  echo "ubuntu"  ||  echo  "not  ubuntu"
 
@@ -110,6 +114,11 @@ CentOS release 6.3
 
 
 
+
+#函数名：detec_data_disk
+#函数功能描述:检测系统是否有未分区的额外磁盘
+
+fdisk  -l  |  grep -iw "^Disk"  |  grep  "/dev/"  |  grep  -vi  "\/mapper\/"  |  awk  -F  ":"   '{print  $1}'  |   awk   '{print  $2}'  |  sort
 
 
 
