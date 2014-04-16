@@ -17,6 +17,7 @@ import time
 import datetime
 import platform
 import subprocess
+import urllib2
 import functools
 import tornado
 import tornado.web
@@ -617,23 +618,51 @@ class UtilsTimeHandler(RequestHandler):
             else:
                 self.write({'code': -1, 'msg': u'时区设置保存失败！'})
 
-import urllib2
+
 class CloudBackup(RequestHandler):
 
     def get(self):
         #self.authed()
         email = self.config.get('cloudbackup', 'email')
-        if (email == ''):
+        if email == '':
             self.write({'code': -1, 'msg': u'请先绑定云备份网站帐号'})
-        access_token = get_accesstoken(self,email)
-        URL = "https://pcs.baidu.com/rest/2.0/pcs/file?method=list&access_token=" + access_token + "&path=%2Fapps%2Fcloud-backup"
-        request = urllib2.Request(URL)
-        response_data = urllib2.urlopen(request)
-        response = response_data.read()
-        self.write(response)
+        else:
+            #access_token = get_accesstoken(self,email)
+            access_token = '21.6b686106f68fd369bec35af1f2b686e0.2592000.1400053203.1177683405-2265106'
+            URL = "https://pcs.baidu.com/rest/2.0/pcs/file?method=list&access_token=" + access_token + "&path=%2Fapps%2Fcloud-backup"
+            request = urllib2.Request(URL)
+            response_data = urllib2.urlopen(request)
+            response = response_data.read()
+            print "%r" % response
+            response = json.dumps(response)
+            print "%r" % response
+            #dirInfo = response.list
+            #print "%r" % dirInfo
+            self.write(response)
 
     def post(self):
-        email = self.get_argument(email)
+        action = self.get_argument('action')
+        if action == 'binding':
+            bind_email = self.get_argument('email')
+            URL = "http://cloud.kyyj.net/query.php?email=" + bind_email
+            request = urllib2.Request(URL)
+            response_data = urllib2.urlopen(request)
+            response = response_data.read()
+            if response == '\n0':
+                self.write({'code':0})
+            else:
+                self.write({'code':-1})
+
+        elif action == 'verifycode':
+            verifycode = self.get_argument('verifyCode')
+            bind_email = self.get_argument('email')
+            if verifycode == '123456':
+                self.write({'code':0,'msg':'binding success.'})
+                self.config.set('cloudbackup','email', bind_email)
+            else:
+                self.write({'code':-1,'msg':'binding failed.'})
+        else:
+            self.write('Please select right action!')
         #检查云备份网站数据库是否存在email
         #如果存在，向邮箱发送一封验证邮件
         #完成验证后，将此email和本机IP绑定

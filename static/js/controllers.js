@@ -213,8 +213,8 @@ cloudAppControllers.controller('lnmp-installCtrl', ['$rootScope','$scope',
   
   }]);
 
-cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http',
-  function($rootScope,$scope,$http) {
+cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http','Message',
+  function($rootScope,$scope,$http, Message) {
   /* custom code section */
   $rootScope.htmlTitle = "一键通";
 
@@ -224,25 +224,54 @@ cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http',
           success(function(data, status, headers, config){
               console.log("123SUCCESS");
               console.log(data);
+              if (data['code'] == -1){
+                  $scope.binding = true;
+              } else{
+                  $scope.listDir = true;
+              }
           }).
           error(function(data, status, headers, config){
               console.log("456FAILED");
           });
 
-      $scope.bindEmail = function(){
+      $scope.send_verify_code = function(){
           var rurl = rootUrl + '/cloudbackup';
-          $http({method: 'POST', url: rurl,data{'email':$scope.email}}).
+          $http({method: 'POST', url: rurl,data: {'action':'verifycode','verifyCode':$scope.verifyCode,'email':$scope.email}}).
               success(function(data, status, headers, config){
                   console.log("123SUCCESS");
-                  console.log(data);
+                  if (data['code'] == 0){
+                      $scope.verifyCode = false;
+                      $scope.binding = false;
+                      $scope.listDir = true;
+                  }
               }).
               error(function(data, status, headers, config){
                   console.log("456FAILED");
               });
       }
 
+          $scope.bind_email = function(){
+              console.log("bind_email() has been called");
+              var rurl = rootUrl + '/cloudbackup';
+              $http({
+                  method: 'POST',
+                  url: rurl,
+                  data: {
+                      'action':'binding',
+                      'email':$scope.email
+                  }}).
+                  success(function(data, status, headers, config){
+                      console.log("123SUCCESS");
+                      if (data['code'] == 0){
+                          $scope.verifyCode = true;
+                          $scope.binding = false;
+                      }
+                  }).
+                  error(function(data, status, headers, config){
+                      console.log("456FAILED");
+                  });
+          }
 
-      $scope.binding = false;
       $scope.items = [
           {
               "size": "4.0K",
