@@ -627,28 +627,67 @@ class CloudBackup(RequestHandler):
         if email == '':
             self.write({'code': -1, 'msg': u'请先绑定云备份网站帐号'})
         else:
-            #access_token = get_accesstoken(self,email)
-            access_token = '21.6b686106f68fd369bec35af1f2b686e0.2592000.1400053203.1177683405-2265106'
-            URL = "https://pcs.baidu.com/rest/2.0/pcs/file?method=list&access_token=" + access_token + "&path=%2Fapps%2Fcloud-backup"
-            request = urllib2.Request(URL)
-            response_data = urllib2.urlopen(request)
+            access_token = self.get_accesstoken(email)
+            #access_token = '21.6b686106f68fd369bec35af1f2b686e0.2592000.1400053203.1177683405-2265106'
+            URL = "https://pcs.baidu.com/rest/2.0/pcs/file?method=list&access_token=" + access_token + "&path=%2Fapps%2Fcloud-backup%2Fweb"
+            #request = urllib2.Request(URL)
+            response_data = urllib2.urlopen(URL)
             response = response_data.read()
-            print "%r" % response
-            response = json.dumps(response)
-            print "%r" % response
-            #dirInfo = response.list
-            #print "%r" % dirInfo
+            response = self.parse_listdir(response)
+            print '%r' % response
             self.write(response)
+
+    def parse_listdir(self,data):
+        data = eval(data)
+        listdirs = data['list']
+        #sorted(listdirs,key='mtime')
+        for listdir in listdirs:
+            if listdir['isdir'] == 1:
+                listdir['isdir'] = True
+                listdir.setdefault('isreg',False)
+                listdir['size'] = '--'
+            else:
+                listdir['isdir'] = False
+                listdir.setdefault('isreg',True)
+                listdir['size'] = self.get_file_size(listdir['size'])
+
+            filename = os.path.basename(listdir['path'])
+            listdir.setdefault('name',filename)
+
+            listdir.setdefault('islnk',False)
+
+            ctimeStamp = listdir['ctime']
+            ctime = time.localtime(ctimeStamp)
+            listdir['ctime'] = time.strftime('%Y-%m-%d %H:%M:%S', ctime)
+
+            mtimeStamp = listdir['mtime']
+            mtime = time.localtime(mtimeStamp)
+            listdir['mtime'] = time.strftime('%Y-%m-%d %H:%M:%S', mtime)
+        listdirs.sort(reverse=True)
+        listdirInfo = {'code':0,'msg':u'Get dir list information successfully.','data':listdirs}
+        return listdirInfo
+
+
+    def get_file_size(self,size):
+        size = int(size)
+        if size > 1024*1024*1024:
+            return str(size/(1024*1024*1024)) + 'G'
+        elif size > 1024*1024:
+            return str(size/(1024*1024)) + 'M'
+        elif size > 1024:
+            return str(size/1024) + 'K'
+        else:
+            return str(size) + 'B'
 
     def post(self):
         action = self.get_argument('action')
         if action == 'binding':
             bind_email = self.get_argument('email')
             URL = "http://cloud.kyyj.net/query.php?email=" + bind_email
-            request = urllib2.Request(URL)
-            response_data = urllib2.urlopen(request)
-            response = response_data.read()
-            if response == '\n0':
+            response_data = urllib2.urlopen(URL)
+            response = response_data.read().strip('\n')
+            if response != '-1':
+                self.config.set('cloudbackup','verifycode',response)
                 self.write({'code':0})
             else:
                 self.write({'code':-1})
@@ -656,7 +695,7 @@ class CloudBackup(RequestHandler):
         elif action == 'verifycode':
             verifycode = self.get_argument('verifyCode')
             bind_email = self.get_argument('email')
-            if verifycode == '123456':
+            if verifycode == self.config.get('cloudbackup','verifycode'):
                 self.write({'code':0,'msg':'binding success.'})
                 self.config.set('cloudbackup','email', bind_email)
             else:
@@ -669,12 +708,11 @@ class CloudBackup(RequestHandler):
 
 
     def get_accesstoken(self,email):
-        URL = ""
-        request = urllib2.Request(URL)
-        response_data = urllib2.urlopen(request)
-        response = response_data.read()
-        if (response['code'] == 0):
-            return response['access_token']
+        URL = "http://cloud.kyyj.net/query.php?action=accesstoken&email=" + email
+        response_data = urllib2.urlopen(URL)
+        response = response_data.read().strip()
+        if (response != -1):
+            return response
         else:
             #获取access token 失败
             pass

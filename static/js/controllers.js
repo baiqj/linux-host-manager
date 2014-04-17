@@ -228,7 +228,9 @@ cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http','Mes
                   $scope.binding = true;
               } else{
                   $scope.listDir = true;
+                  $scope.items = data['data'];
               }
+
           }).
           error(function(data, status, headers, config){
               console.log("456FAILED");
@@ -236,7 +238,7 @@ cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http','Mes
 
       $scope.send_verify_code = function(){
           var rurl = rootUrl + '/cloudbackup';
-          $http({method: 'POST', url: rurl,data: {'action':'verifycode','verifyCode':$scope.verifyCode,'email':$scope.email}}).
+          $http({method: 'POST', url: rurl,data: {'action':'verifycode','verifyCode':$scope.verifycode,'email':$scope.email}}).
               success(function(data, status, headers, config){
                   console.log("123SUCCESS");
                   if (data['code'] == 0){
@@ -271,55 +273,16 @@ cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http','Mes
                       console.log("456FAILED");
                   });
           }
+      /*$scope.totalItems = 64;
+      $scope.currentPage = 4;
+      $scope.maxSize = 5;
 
-      $scope.items = [
-          {
-              "size": "4.0K",
-              "isdir": true,
-              "ctime": "2014-03-25 00:25:10",
-              "perms": "0755",
-              "mtime": "2014-03-25 00:25:10",
-              "name": "demo1",
-              "uname": "root",
-              "isreg": false,
-              "gname": "root",
-              "islnk": false,
-              "gid": 0,
-              "atime": "2014-04-01 23:40:16",
-              "uid": 0
-          },
-          {
-              "size": "32B",
-              "isdir": false,
-              "ctime": "2014-04-02 21:42:08",
-              "perms": "0644",
-              "mtime": "2014-03-25 00:26:29",
-              "name": "abc",
-              "uname": "root",
-              "isreg": true,
-              "gname": "root",
-              "islnk": false,
-              "gid": 0,
-              "atime": "2014-04-02 21:42:10",
-              "uid": 0
-          },
-          {
-              "size": "0B",
-              "isdir": false,
-              "ctime": "2014-03-25 00:25:20",
-              "perms": "0644",
-              "mtime": "2014-03-25 00:25:20",
-              "name": "demoone",
-              "uname": "root",
-              "isreg": true,
-              "gname": "root",
-              "islnk": false,
-              "gid": 0,
-              "atime": "2014-04-01 23:45:15",
-              "uid": 0
-          }
-      ];
-  
+      $scope.setPage = function (pageNo) {
+          $scope.currentPage = pageNo;
+      };
+
+      $scope.bigTotalItems = 175;
+      $scope.bigCurrentPage = 1;*/
   }]);
 
 cloudAppControllers.controller('startbackupCtrl', ['$rootScope','$scope',

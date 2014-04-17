@@ -1,46 +1,55 @@
 <div id="dirlist" xmlns="http://www.w3.org/1999/html">
     <div>{{currentDir}}</div>
-<button ng-click="entryDir('');">list dir</button>
-<button ng-click="upandlist();">返回上一级</button>
-<button data-toggle="modal" data-target="#newfolder">新建文件夹</button>
-<button data-toggle="modal" data-target="#newfile">新建文件</button>
-<button data-toggle="modal" ng-click="uploadfile();">上传文件</button>
-<table ng-init="listdir(currentDir);">
-    <thead>
-    <th >名称</th><th>大小</th><th>操作</th>
-    </thead>
-    <tbody>
-    <tr ng-repeat="item in items">
-        <td>
-        <i class="glyphicon glyphicon-folder-close" title="文件夹" ng-show="item.isdir"></i>
-        <i class="glyphicon glyphicon-file" title="文件" ng-show="item.isreg"></i>
-        <a style="cursor:pointer" class="black" ng-click="entryDir(item.name);" ng-show="item.isdir||(item.islnk&&item.link_isdir)">{{item.name}}</a>
-        <a style="cursor:pointer" class="black" ng-click="readfile(item.name)" ng-show="item.isreg||(item.islnk&&!item.link_isdir)">{{item.name}}</a>
-        <td>{{item.size}}</td>
-        <td>
-            <div class="btn-group">
-                <button class="btn btn-mini" ng-click="rename(item.name)" title="改名">重命名</button>
-                <!--<button class="btn btn-mini" ng-class="'active'|iftrue:clipboard.srcpath==curpath&&clipboard.items[item.name]=='copy'" ng-click="togglecopy(item.name)" title="复制">复</button>
-                <button class="btn btn-mini" ng-class="'active'|iftrue:clipboard.srcpath==curpath&&clipboard.items[item.name]=='cut'" ng-click="togglecut(item.name)" title="剪切">剪</button>
-                <button class="btn btn-mini" ng-class="'active'|iftrue:clipboard.srcpath==curpath&&clipboard.items[item.name]=='link'" ng-click="togglelink(item.name)" title="链接">链</button>-->
-                <button class="btn btn-mini" ng-click="move2trash(item.name)" title="删除">删除</button>
-            </div>
-        </td>
-        <td>
-            <a class="btn btn-mini" href="/file{{currentDir+'/'+item.name}}" ng-show="item.isreg||(item.islnk&&item.link_isreg)" title="下载">下载<i class="icon-download-alt"></i></a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <button ng-click="entryDir('');">list dir</button>
+    <button ng-click="upandlist();">返回上一级</button>
+    <button data-toggle="modal" data-target="#newfolder">新建文件夹</button>
+    <button data-toggle="modal" data-target="#newfile">新建文件</button>
+    <button data-toggle="modal" ng-click="uploadfile();">上传文件</button>
+    <table ng-init="listdir(currentDir);">
+        <thead>
+        <th>名称</th>
+        <th>大小</th>
+        <th>操作</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in items">
+            <td>
+                <i class="glyphicon glyphicon-folder-close" title="文件夹" ng-show="item.isdir"></i>
+                <i class="glyphicon glyphicon-file" title="文件" ng-show="item.isreg"></i>
+                <a style="cursor:pointer" class="black" ng-click="entryDir(item.name);"
+                   ng-show="item.isdir||(item.islnk&&item.link_isdir)">{{item.name}}</a>
+                <a style="cursor:pointer" class="black" ng-click="readfile(item.name)"
+                   ng-show="item.isreg||(item.islnk&&!item.link_isdir)">{{item.name}}</a>
+            </td>
+            <td>{{item.size}}</td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-mini" ng-click="rename(item.name)" title="改名">重命名</button>
+                    <!--<button class="btn btn-mini" ng-class="'active'|iftrue:clipboard.srcpath==curpath&&clipboard.items[item.name]=='copy'" ng-click="togglecopy(item.name)" title="复制">复</button>
+                    <button class="btn btn-mini" ng-class="'active'|iftrue:clipboard.srcpath==curpath&&clipboard.items[item.name]=='cut'" ng-click="togglecut(item.name)" title="剪切">剪</button>
+                    <button class="btn btn-mini" ng-class="'active'|iftrue:clipboard.srcpath==curpath&&clipboard.items[item.name]=='link'" ng-click="togglelink(item.name)" title="链接">链</button>-->
+                    <button class="btn btn-mini" ng-click="move2trash(item.name)" title="删除">删除</button>
+                </div>
+            </td>
+            <td>
+                <a class="btn btn-mini" href="/file{{currentDir+'/'+item.name}}"
+                   ng-show="item.isreg||(item.islnk&&item.link_isreg)" title="下载">下载<i
+                        class="icon-download-alt"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+
 <div id="edit" style="display: none;">
- <button ng-click="back()">返回文件列表</button>
- <div id="editor"></div>
- <button ng-click="saveFile();">saveFile</button>
+    <button ng-click="back()">返回文件列表</button>
+    <div id="editor"></div>
+    <button ng-click="saveFile();">saveFile</button>
 </div>
 
 <div class="row">
-    <div class="modal fade" id="newfolder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="newfolder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -55,11 +64,15 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newfolder();">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newfolder();">确定
+                    </button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </div>
 
 <div class="row">
@@ -80,13 +93,17 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newfile();">确定</button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </div>
 
 <div class="row">
-    <div class="modal fade" id="uploadfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="uploadfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -94,7 +111,9 @@
                     <h4 class="modal-title" id="myModalLabel">新建文件</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="uploadform" class="pull-left" target="uploadframe" action="/fileupload" enctype="multipart/form-data" method="post" onsubmit="$('#_xsrf').val(getCookie('XSRF-TOKEN'));">
+                    <form id="uploadform" class="pull-left" target="uploadframe" action="/fileupload"
+                          enctype="multipart/form-data" method="post"
+                          onsubmit="$('#_xsrf').val(getCookie('XSRF-TOKEN'));">
                         <input type="hidden" name="_xsrf" value="" id="_xsrf">
                         <input type="hidden" name="path" value="{{currentDir}}">
                         <input name="ufile" type="file">
@@ -104,11 +123,16 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-default" data-dismiss="modal" ng-click="listdir(currentDir);">确定</button>
+                    <button type="submit" class="btn btn-default" data-dismiss="modal" ng-click="listdir(currentDir);">
+                        确定
+                    </button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </div>
 
 <div class="row">
@@ -129,7 +153,10 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newname();">确定</button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </div>
