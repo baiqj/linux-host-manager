@@ -217,10 +217,16 @@ cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http','Mes
   function($rootScope,$scope,$http, Message) {
   /* custom code section */
   $rootScope.htmlTitle = "一键通";
+  $scope.listDir = false;
+  $scope.listDir = false;
+  $scope.listDir = false;
+  $scope.currentDir = '/apps/cloud-backup';
 
+
+  $scope.get_listdir = function(){
       var rootUrl = location.pathname.replace(/(\s+)?\/$/, '');
       var rurl = rootUrl + '/cloudbackup';
-      $http({method: 'GET', url: rurl}).
+      $http({method: 'POST', url: rurl, data:{'action':'getlistdir','path':$scope.currentDir}}).
           success(function(data, status, headers, config){
               console.log("123SUCCESS");
               console.log(data);
@@ -235,6 +241,8 @@ cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http','Mes
           error(function(data, status, headers, config){
               console.log("456FAILED");
           });
+  }
+
 
       $scope.send_verify_code = function(){
           var rurl = rootUrl + '/cloudbackup';
@@ -273,6 +281,19 @@ cloudAppControllers.controller('backupCtrl', ['$rootScope','$scope','$http','Mes
                       console.log("456FAILED");
                   });
           }
+
+          $scope.entry_dir = function(name){
+            $scope.currentDir = $scope.currentDir + '/' + name;
+            $scope.get_listdir();
+          }
+          $scope.up_dir = function(){
+            var position = $scope.currentDir.lastIndexOf('/');
+            console.log('last / is ' + position);
+            $scope.currentDir = $scope.currentDir.substring(0,position);
+            $scope.get_listdir();
+          }
+
+      $scope.get_listdir();
       /*$scope.totalItems = 64;
       $scope.currentPage = 4;
       $scope.maxSize = 5;

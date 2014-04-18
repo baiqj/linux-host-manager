@@ -18,6 +18,7 @@ import datetime
 import platform
 import subprocess
 import urllib2
+import urllib
 import functools
 import tornado
 import tornado.web
@@ -618,12 +619,13 @@ class UtilsTimeHandler(RequestHandler):
             else:
                 self.write({'code': -1, 'msg': u'时区设置保存失败！'})
 
-
 class CloudBackup(RequestHandler):
 
     def get(self):
         #self.authed()
         email = self.config.get('cloudbackup', 'email')
+        path = self.get_argument('path')
+        print "%r" % path
         if email == '':
             self.write({'code': -1, 'msg': u'请先绑定云备份网站帐号'})
         else:
@@ -653,6 +655,7 @@ class CloudBackup(RequestHandler):
 
             filename = os.path.basename(listdir['path'])
             listdir.setdefault('name',filename)
+            listdir['path'] = os.path.dirname(listdir['path'])
 
             listdir.setdefault('islnk',False)
 
@@ -681,9 +684,27 @@ class CloudBackup(RequestHandler):
 
     def post(self):
         action = self.get_argument('action')
-        if action == 'binding':
+        if action == 'getlistdir':
+            email = self.config.get('cloudbackup', 'email')
+            path = self.get_argument('path')
+            path = urllib.quote(path,'')
+            print "%r" % path
+            if email == '':
+                self.write({'code': -1, 'msg': u'请先绑定云备份网站帐号'})
+            else:
+                access_token = self.get_accesstoken(email)
+                #access_token = '21.6b686106f68fd369bec35af1f2b686e0.2592000.1400053203.1177683405-2265106'
+                URL = "https://pcs.baidu.com/rest/2.0/pcs/file?method=list&access_token=" + access_token + "&path=" + path
+                #request = urllib2.Request(URL)
+                response_data = urllib2.urlopen(URL)
+                response = response_data.read()
+                response = self.parse_listdir(response)
+                print '%r' % response
+                self.write(response)
+
+        elif action == 'binding':
             bind_email = self.get_argument('email')
-            URL = "http://cloud.kyyj.net/query.php?email=" + bind_email
+            URL = "http://cloud.kyyj.net/query.php?action=binding&email=" + bind_email
             response_data = urllib2.urlopen(URL)
             response = response_data.read().strip('\n')
             if response != '-1':
@@ -698,6 +719,10 @@ class CloudBackup(RequestHandler):
             if verifycode == self.config.get('cloudbackup','verifycode'):
                 self.write({'code':0,'msg':'binding success.'})
                 self.config.set('cloudbackup','email', bind_email)
+                URL = "http://cloud.kyyj.net/query.php?action=bindIP&email=" + bind_email
+                response_data = urllib2.urlopen(URL)
+                response = response_data.read().strip()
+                #print "%r" % response
             else:
                 self.write({'code':-1,'msg':'binding failed.'})
         else:

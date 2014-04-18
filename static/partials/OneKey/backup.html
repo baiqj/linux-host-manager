@@ -25,6 +25,8 @@
     </div>
 </div>
 <div class="row" ng-show="listDir">
+    <a style="cursor:pointer" class="btn-sm btn-primary"
+       style="margin-top: 0px;" ng-click="up_dir();">updir</a>
     <table class="table table-striped">
         <thead>
         <th class="pull-left">名称</th>
@@ -37,7 +39,7 @@
             <td>
                 <i class="glyphicon glyphicon-folder-close pull-left" title="文件夹" ng-show="item.isdir"></i>
                 <i class="glyphicon glyphicon-file pull-left" title="文件" ng-show="item.isreg"></i>
-                <a style="cursor:pointer" class="black pull-left" ng-click="entryDir(item.name);"
+                <a style="cursor:pointer" class="black pull-left" ng-click="entry_dir(item.name);"
                    ng-show="item.isdir||(item.islnk&&item.link_isdir)">{{item.name}}</a>
                 <a style="cursor:pointer" class="black pull-left" ng-click="readfile(item.name)"
                    ng-show="item.isreg||(item.islnk&&!item.link_isdir)">{{item.name}}</a>
@@ -53,6 +55,10 @@
         </tr>
         </tbody>
     </table>
+    <br><br>
+    <a class="btn btn-primary col-lg-2  col-md-2 col-sm-2 col-lg-offset-4 col-md-offset-4 col-sm-offset-4"
+       style="margin-top: -40px;" href="#/sites/onekey/backup-start">一键备份</a>
+
     <!--<pagination boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm"
                 previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>-->
 </div>
