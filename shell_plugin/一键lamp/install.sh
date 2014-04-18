@@ -85,7 +85,6 @@ fi
 
 #4、安装php
 #默认会自动安装加载apache的php模块
-yum -y install php php-mysql  php-process php-pecl-memcache php-bcmath php-mcrypt php-soap  php-mbstring  mhash-devel mhash libmcrypt  libmcrypt-devel  php-imap php-gd php-fpm php-intl php-xml php-xmlrpc php-devel  php-ZendFramework-Db-Adapter-Pdo-Mysql 
 
 #检测系统的版本，根据不同的版本执行不同的命令
 releasever=`cat  /etc/issue  |  grep  -iw  "CENTOS"  |  awk  '{print  $3}' |  awk  -F  '.'   '{print  $1}'`

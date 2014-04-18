@@ -166,6 +166,22 @@ CONF_PATH=`php  --ini  |  grep  'Loaded Configuration File:'  |  awk  '{print  $
 输出参数：安装成功或失败，php的版本号，php.ini的位置，php的位置，phpize的位置
 函数实现方式描述:通过php命令查看基本信息
 
+
+#检测系统的版本，根据不同的版本执行不同的命令
+releasever=`cat  /etc/issue  |  grep  -iw  "CENTOS"  |  awk  '{print  $3}' |  awk  -F  '.'   '{print  $1}'`
+
+if  [ $releasever == 5 ]
+then
+	yum  -y install   php53   php53-bcmath  php53-mysql  php53-process  php53-mcrypt  php53-devel  php53-gd  php53-imap  php53-mbstring   php53-pdo  php53-soap   php53-xml  php53-xmlrpc   php53-intl  php53-enchant  php53-php-gettext  php53-pspell mhash-devel mhash  libmcrypt  libmcrypt-devel
+else
+	if  [ $releasever == 6 ]
+	then
+		yum -y install php   php-bcmath	 php-mysql  php-process    php-mcrypt   php-devel  php-gd       php-imap    php-mbstring     php-pdo   php-soap   php-xml php-xmlrpc   php-intl      php-enchant   php-php-gettext    php-pspell   mhash-devel mhash   libmcrypt  libmcrypt-devel  php-fpm    
+	else
+		exit 1
+	fi
+fi
+
 #判断是否yum安装php正常
 rpm  -q   php
 [ `echo  $?`  == 0  ]  &&  正常  ||  不正常，或为使用yum安装
