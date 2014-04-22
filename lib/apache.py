@@ -23,7 +23,7 @@ def detec_apache_install():
 		return -1	# -1 表示程序错误
 
 def detec_apache_bin_path():
-	osDist = detec_os_version()[0]
+	osDist = self_os.detec_os_version()[0]
 	if osDist == 'redhat' or osDist ==  'centos':
 		subprocess.call("yum install mlocate -y", shell = True)
 	elif osDist == 'debian' or osDist == 'ubuntu':
@@ -31,10 +31,46 @@ def detec_apache_bin_path():
 	else:
 		print "Not suppport the distribution"
 
+############## Check ####################
+
+def detec_apache_listen(confPath):
+	
 
 
+############### Install #####################
+
+def install_apache(osVersion):
+	if osVersion == 'centos' or osVersion == 'redhat':
+		subprocess.call('yum -y install httpd httpd-devel', shell = True)
+		# return install way = yum, httpd.conf, apache bin file,
+	else osVersion == 'debian' or osVersion == 'ubuntu':
+		subprocess.call('apt-get install apache -y', shell = True)
+		# return install way = yum, httpd.conf, apache bin file,
+	else:
+		print " %s is not the supported os types." % osVersion
+
+def install_apache_security(osVersion):
+	if osVersion == 'centos' or osVersion == 'redhat':
+		subprocess.call('yum -y install mod_security', shell = True)
+		# return install result
+	else osVersion == 'debian' or osVersion == 'ubuntu':
+		subprocess.call('apt-get install mod_security -y', shell = True)
+		# return install result
+	else:
+		print " %s is not the supported os types." % osVersion
+
+def install_apache_ssl(osVersion):
+	if osVersion == 'centos' or osVersion == 'redhat':
+		subprocess.call('yum -y install mod_ssl', shell = True)
+		# return install result
+	else osVersion == 'debian' or osVersion == 'ubuntu':
+		subprocess.call('apt-get install mod_ssl -y', shell = True)
+		# return install result
+	else:
+		print " %s is not the supported os types." % osVersion
+	
 
 if __name__ == '__main__':
 	#print detec_apache_install()
-	detec_apache_bin_path()
+	#detec_apache_bin_path()
 	
