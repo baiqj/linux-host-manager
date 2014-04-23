@@ -46,9 +46,18 @@ def detec_mysql_base_dir():
 	print "mysql's base dir is : %s " % baseDir
 	# /etc/init.d/
 
-def detec_mysql_operate():
-	# -------------------
-	print "MySQL opertation is "
+def detec_mysql_operate(installWay):
+	"""
+	检测mysql-server的启动，关闭命令
+	根据安装方式的不同，返回不同的结果
+	"""
+	if installWay == 'rpm':
+		return "service mysqld "
+	elif installWay == 'apt-get':
+		return "/etc/init.d/mysql "
+	else:
+		return {"stop":"killall -15 mysqld","restart":"killall -1 mysqld"}
+
 
 def detec_mysql_data_path():
 	# return MySQL data dir
@@ -70,9 +79,9 @@ def detec_mysql_slow_query():
 		print "excute shell cmds error"
 
 def detec_mysql_bad_table():
-	#---------------------------
-	print "mysql bad tables is "
-
+	"""
+	检查mysql中是否存在坏表
+	"""
 
 ################### install ###################
 
@@ -88,13 +97,16 @@ def install_mysql_server(osVersion):
 ##################### configuration #####################
 
 def config_mysql_initialize():
-	#----------------------------
-	print "finish mysql initialize"
+	"""
+	mysql-server安装完成后的初始化操作
+	"""
+	
 
 def config_mysql_datadir_migration():
-	#--------------------------
-	print "move mysql data dir"
-
+	"""
+	迁移MySQL的数据目录
+	"""
+	
 
 
 if __name__ == '__main__':
