@@ -17,8 +17,8 @@ def find_uid_0():
 
 def find_file_777():
 	"""
-  cha查找是否存在权限为 777 的文件
-  """
+	查找是否存在权限为 777 的文件
+	"""
 	fileLists = commands.getoutput("find / -perm -777")
 	fileLists = fileLists.split('\n')
 	return fileLists
@@ -26,7 +26,7 @@ def find_file_777():
 def find_cpu_over_use(osVersion):
 	# unfinished
 	if 'centos' in osVersion or 'redhat' in osVersion:
-    # 如果有另外一个yum进程正在执行，那么下面的这条语句会一直等待直到上一个yum程序执行完毕
+	# 如果有另外一个yum进程正在执行，那么下面的这条语句会一直等待直到上一个yum程序执行完毕
 		subprocess.call('yum install -y sysstat', shell = True)
 	elif 'debian' in osVersion or 'ubuntu' in osVersion:
 		subprocess.call('apt-get install -y sysstat', shell = True)
@@ -52,37 +52,38 @@ def detec_data_space():
 
 def detec_disk_space():
 	"""
-  检测空间最大分区
+	检测空间最大分区
 	输出剩余空间最大的磁盘分区
-  """
+	"""
 
 def detec_mem_use():
-  """
-  检测内存的使用率，包括物理内存和swap分区
-  """
-  results = commands.getoutput(""" free -m | grep 'Mem:\|Swap:' |  awk -F ' ' '{print $1 "/" $2 "/" $3}' """)
-  memUse = []
-  results = results.split('\n')
-  for result in results:
-  	result = result.split('/')
-  	totalsize = float(result[1])
-  	usedsize = float(result[2])
-  	userate = str(float("%.2f" % (usedsize / totalsize * 100))) + '%'
-  	memUse.append({result[0]:userate})
-   
-  return memUse # 返回物理内存和swap使用率[{'Mem:': '14.41%'}, {'Swap:': '0.0%'}]
+	"""
+	检测内存的使用率，包括物理内存和swap分区
+	"""
+	results = commands.getoutput(""" free -m | grep 'Mem:\|Swap:' |  awk -F ' ' '{print $1 "/" $2 "/" $3}' """)
+	memUse = []
+	results = results.split('\n')
+	for result in results:
+		result = result.split('/')
+		totalsize = float(result[1])
+		usedsize = float(result[2])
+		userate = str(float("%.2f" % (usedsize / totalsize * 100))) + '%'
+		memUse.append({result[0]:userate})
+ 
+	return memUse # 返回物理内存和swap使用率[{'Mem:': '14.41%'}, {'Swap:': '0.0%'}]
   
 def detec_disk_use():
-  """
-  检测磁盘使用率
-  """
+	"""
+	检测磁盘使用率
+	"""
 	results = commands.getoutput(""" df  -k  |  egrep "[0-9]{1,3}%" | awk '{print $6,"\t", $5}'""")
 	results = results.split('\n')
 	diskUse = []
 	for result in results:
 		diskuse_item = {}
 		result = result.split('\t')
-      continue
+		if result[0].strip() == '':
+			continue
       
 		diskuse_item['partition'] = result[0]
 		diskuse_item['userate'] = result[1]
@@ -91,25 +92,26 @@ def detec_disk_use():
 	return diskUse
 
 def detec_io_use():
-	""" check io use information
-	    use cmd iostat -d  to check disk IO
+	""" 
+	check io use information
+	use cmd iostat -d  to check disk IO
 	"""
 
 def detec_nopasswd_user():
-  """
-  检测是否存在无密码的账户
-  """
+	"""
+	检测是否存在无密码的账户
+	"""
 	userLists = commands.getoutput(""" awk  -F  ":"  '$2==null  {print  $1}'   /etc/shadow """)
 	userLists = userLists.split('\n')
 	return userLists
 
 def initialize_disk(diskName,isExist):
 	"""
-  额外磁盘端分区和挂载
+	额外磁盘端分区和挂载
 	diskName 是表示剩余空间最大的磁盘，由detec_disk_space()获得
 	isExist  表示是否存在额外磁盘，由detec_data_disk()获得
 	返回额外磁盘挂载点
-   """
+	"""
 	
 
 
