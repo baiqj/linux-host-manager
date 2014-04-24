@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # 这个是源代码文件，原apache.py已经重命名为apache.py.txt
 
+import os
 import sys
 import subprocess
 import commands
@@ -64,6 +65,7 @@ def detec_apache_install_way(binPath):
         else:
                 isMake = True
 
+	commands.getstatus('rm -f .tmpfile')
         return [{'RPM':isRPM}, {'Make':isMake}]
 
 def detec_apache_config(binPath):
@@ -87,17 +89,18 @@ def detec_apache_version(binPath):
 def detec_apache_root(binPath):
 	"""
 	根据apachectl -V 获得apache的安装路径
-	如果采用rpm 或者 deb 安装apache, 那么apache安装路径为空
 	"""
 	result = commands.getoutput(binPath + """ -V |  grep  -i "HTTPD_ROOT"  | awk  -F  '[="]'  '{print $3}'""")
 	return result
 
 def detec_apache_conf_path(binPath):
 	"""
-	根据apachectl -V 获得
-	如果采用make方式安装apache, 那么配置文件在apache的安装目录下的conf文件夹中，
-	如果采用yum or apt-get 安装，那么配置文件一般在/etc下的httpd或apache2下的文件夹下
+	根据apachectl -V 获得ROOT路径和CONF路径即可得到CONF的相对路径
 	"""
+	apacheRootPath = detec_apache_root(binPath)
+	confPath = commands.getoutput(binPaht + """ -V | grep -i "SERVER_CONFIG_FILE" | awk -F "=" '{print $2}'""")
+	return os.path.join(apacheRootPath, confPath.strip('"'))
+	
 
 def detec_apache_operate(installWay):
 	"""
