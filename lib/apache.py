@@ -43,24 +43,28 @@ def detec_apache_bin_path(osVersion, installWay):
 	else:
 		print "Not suppport the distribution"
 
-	if 'rpm' == installWay:
-		result = commands.getoutput('locate httpd | grep "bin\/httpd$" ')
-		if result.find('bin\/httpd'):
-			return result
-	elif 'make' == installWay:
-		result = commands.getoutput('locate apachectl | grep "bin\/apachectl$"')
-		if result.find('bin\/apachectl'):
-			return result
-	else:
-		print "未知的安装方式"
-		return -1
-	
+	result = commands.getoutput('locate apachectl | grep "bin\/apachectl$"')
+	return result
 
-def detec_apache_install_way():
+def detec_apache_install_way(binPath):
 	"""
 	检测apache的安装方式	
 	"""
-	
+	commands.getoutput(binPath + """ -V  |   grep  "HTTPD_ROOT"  |  awk  -F "="  '{print $2}'  |  awk  -F  '"'   '{print  $2}' > .tmpfile""")
+
+        isRPM = commands.getoutput("""grep "/etc/httpd" .tmpfile""")
+        if isRPM.strip() == '':
+                isRPM = False
+        else:
+                isRPM = True
+
+        isMake = commands.getoutput(""" grep -v '/etc/httpd' .tmpfile""")
+        if isMake.strip() == '':
+                isMake = False
+        else:
+                isMake = True
+
+        return [{'RPM':isRPM}, {'Make':isMake}]
 
 def detec_apache_config(binPath):
 	"""
@@ -177,6 +181,6 @@ if __name__ == '__main__':
 	#print detec_apache_install()
 	#detec_apache_bin_path()
 	binPath = detec_apache_bin_path('centos','rpm')
-	#print "%r" % binPath
+	print "%r" % binPath
 	#detec_apache_config(binPath)
-	detec_apache_root(binPath)
+	print detec_apache_install_way(binPath)
