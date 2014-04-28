@@ -18,7 +18,9 @@ def detec_apache_install():
 	通过检测apachectl来判断是否安装了apache服务
 	0 表示已安装，1 表示未按装，-1 表示其他错误
 	"""
-	result = subprocess.Popen('updatedb && locate apachectl | grep "bin\/apachectl$"', shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+	result = subprocess.Popen('updatedb && locate apachectl | 
+				grep "bin\/apachectl$"', shell = True, 
+				stdout = subprocess.PIPE, stderr = subprocess.PIPE)
 	try:
 		code = sys.getfilesystemencoding()
 		result = result.communicate()[0].decode(code)
@@ -51,7 +53,9 @@ def detec_apache_install_way(binPath):
 	"""
 	检测apache的安装方式	
 	"""
-	commands.getoutput(binPath + """ -V  |   grep  "HTTPD_ROOT"  |  awk  -F "="  '{print $2}'  |  awk  -F  '"'   '{print  $2}' > .tmpfile""")
+	commands.getoutput(binPath + """ -V  |   grep  "HTTPD_ROOT"  |
+			awk  -F "="  '{print $2}'  |  awk  -F  '"'   
+			'{print  $2}' > .tmpfile""")
 
         isRPM = commands.getoutput("""grep "/etc/httpd" .tmpfile""")
         if isRPM.strip() == '':
@@ -83,14 +87,16 @@ def detec_apache_version(binPath):
 	"""
 	通过apache bin 文件（httpd或apachectl）检测apache的版本号 example: 2.2.22
 	"""
-	result = commands.getoutput(binPath + """ -V | grep "Server version" | awk -F '[ /]' '{print $4}'""")
+	result = commands.getoutput(binPath + """ -V | grep "Server version" | 
+					awk -F '[ /]' '{print $4}'""")
 	return result 
 
 def detec_apache_root(binPath):
 	"""
 	根据apachectl -V 获得apache的安装路径
 	"""
-	result = commands.getoutput(binPath + """ -V |  grep  -i "HTTPD_ROOT"  | awk  -F  '[="]'  '{print $3}'""")
+	result = commands.getoutput(binPath + """ -V |  grep  -i "HTTPD_ROOT"  
+					| awk  -F  '[="]'  '{print $3}'""")
 	return result
 
 def detec_apache_conf_path(binPath):

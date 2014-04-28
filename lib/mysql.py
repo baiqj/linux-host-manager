@@ -10,7 +10,8 @@ import commands
 
 def detec_mysql_install():
         try:
-                returncode = commands.getoutput('updatedb && locate mysqld_safe | grep "bin\/mysqld_safe$"')
+                returncode = commands.getoutput('updatedb && 
+						locate mysqld_safe | grep "bin\/mysqld_safe$"')
                 if returncode < 0:
                         print >>sys.stderr, "Shell cmd has been cancel", -returncode
         except OSError as e:
@@ -45,7 +46,10 @@ def detec_mysql_bin_path(installWay):
 		mysqlPath = commands.getoutput('which mysql')
 		mysqladminPath = commands.getoutput('which mysql')
 	elif installWay == 'make':
-		mysqlPath = commands.getoutput("""ps  -ef  | grep  mysqld  |  grep  -v  "grep"   |  grep  "bin\/mysqld_safe"  |  awk  -F  '/bin/sh'  '{print  $2}'  |  awk  '{print  $1}' """)
+		mysqlPath = commands.getoutput("""ps  -ef  | grep  mysqld  
+						|  grep  -v  "grep"   |  grep  "bin\/mysqld_safe"  
+						|  awk  -F  '/bin/sh'  '{print  $2}'  
+						|  awk  '{print  $1}' """)
 		return os.path.dirname(mysqlPath)
 
 
@@ -61,7 +65,9 @@ def detec_mysql_base_dir():
 	"""
 	通过mysqld进程查找mysql的base dir文件路径
 	"""
-	baseDir = commands.getoutput(""" ps  -ef  |  grep  mysql  |  grep -v  "mysqld_safe"   | grep -v   "grep"   |  awk  -F  '--basedir='   '{print  $2}'  |  awk  '{print $1}' """)
+	baseDir = commands.getoutput(""" ps  -ef  |  grep  mysql  |  grep -v  "mysqld_safe"   
+					| grep -v   "grep"   |  awk  -F  '--basedir='   '{print  $2}'  
+					|  awk  '{print $1}' """)
 	print "mysql's base dir is : %s " % baseDir
 	# /etc/init.d/
 
@@ -82,7 +88,9 @@ def detec_mysql_data_path():
 	"""
 	通过mysqld进程查找mysql的base dir文件路径
 	"""
-	dataDir = commands.getoutput(""" ps  -ef  |  grep  mysql  |  grep -v  "mysqld_safe"   | grep -v   "grep"  |  awk  -F  '--datadir='  '{print $2}'   |  awk  '{print  $1}' """)
+	dataDir = commands.getoutput(""" ps  -ef  |  grep  mysql  |  grep -v  "mysqld_safe"   
+					| grep -v   "grep"  |  awk  -F  '--datadir='  '{print $2}'   
+					|  awk  '{print  $1}' """)
 	print "MySQL data dir is :%s" % dataDir
 
 
@@ -90,7 +98,9 @@ def detec_mysql_port():
 	"""
 	通过mysqld进程查找mysql的base dir文件路径
 	"""
-	port = commands.getoutput(""" ps  -ef  |  grep  mysql  |  grep -v  "mysqld_safe"   | grep -v   "grep"  |  awk  -F  '--port='  '{print  $2}'  |  awk   '{print  $1}' """)
+	port = commands.getoutput(""" ps  -ef  |  grep  mysql  |  grep -v  "mysqld_safe"   
+					| grep -v   "grep"  |  awk  -F  '--port='  '{print  $2}'  
+					|  awk   '{print  $1}' """)
 	print "MySQL listen port : %s" % port
 
 def detec_mysql_slow_query():

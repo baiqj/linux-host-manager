@@ -56,7 +56,8 @@ def detec_php_ini(phpBinPath):
 	"""
 	检测PHP配置文件的路径
 	"""
-	phpConfPath = commands.getoutput(phpBinPath + """ --ini | grep 'Loaded Configuration File:' | awk '{print $4}' """)
+	phpConfPath = commands.getoutput(phpBinPath + """ --ini | grep 'Loaded Configuration File:' 
+					| awk '{print $4}' """)
 	return phpConfPath
 
 ####################安装类 functions #######################
@@ -67,12 +68,21 @@ def install_php(osVersion):
 	"""
 	if osVersion[0] == 'centos' or osVersion[0] == 'redhat':
 		if osVersion[1].startswith('5'):
-			subprocess.call("""  yum  -y install   php53   php53-bcmath  php53-mysql  php53-process  php53-mcrypt  php53-devel  php53-gd  php53-imap  php53-mbstring   php53-pdo  php53-soap   php53-xml  php53-xmlrpc   php53-intl  php53-enchant  php53-php-gettext  php53-pspell mhash-devel mhash  libmcrypt  libmcrypt-devel  """, shell = True)
+			subprocess.call("""  yum  -y install   php53   php53-bcmath  
+					php53-mysql  php53-process  php53-mcrypt  php53-devel  
+					php53-gd  php53-imap  php53-mbstring   php53-pdo  
+					php53-soap   php53-xml  php53-xmlrpc   php53-intl  
+					php53-enchant  php53-php-gettext  php53-pspell mhash-devel 
+					mhash  libmcrypt  libmcrypt-devel  """, shell = True)
 		elif osVersion[1].startswith('6'):
-			subprocess.call(""" yum -y install php   php-bcmath  php-mysql  php-process    php-mcrypt   php-devel  php-gd       php-imap    php-mbstring     php-pdo   php-soap   php-xml php-xmlrpc   php-intl      php-enchant   php-php-gettext    php-pspell   mhash-devel mhash   libmcrypt  libmcrypt-devel  php-fpm  """, shell = True)
+			subprocess.call(""" yum -y install php   php-bcmath  php-mysql  php-process    
+					php-mcrypt   php-devel  php-gd       php-imap    php-mbstring
+					php-pdo   php-soap   php-xml php-xmlrpc   php-intl      
+					php-enchant   php-php-gettext    php-pspell   mhash-devel 
+					mhash   libmcrypt  libmcrypt-devel  php-fpm  """, shell = True)
 		else:
 			print "系统版本号错误"
-	elif osVersion[0] == 'debian' or osVersion[0] = 'ubuntu':
+	elif osVersion[0] == 'debian' or osVersion[0] == 'ubuntu':
 		print "Please use apt-get to install php"
 	else:
 		print >>sys.stdout, "Not supported OS type"
@@ -89,4 +99,4 @@ def detec_php_bin_path(osVersion, installWay):
 
 if __name__ == '__main__':
 	#detec_php_install()
-	#detec_php_install_way(True, ['centos','6.5','x86_64'])
+	detec_php_install_way(True, ['centos','6.5','x86_64'])

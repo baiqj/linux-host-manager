@@ -11,7 +11,8 @@ import subprocess
 
 def find_uid_0():
 	"""查找UID==0 ，但不是root的用户"""
-	userLists = commands.getoutput("""awk -F ":"   '$3==0   {print $1}'       /etc/passwd  | grep -viw   "root"  """)
+	userLists = commands.getoutput("""awk -F ":"   '$3==0   {print $1}'    
+					   /etc/passwd  | grep -viw   "root"  """)
 	userLists = userLists.split('\n')
 	return userLists # return user lists
 
@@ -46,7 +47,10 @@ def detec_os_version():
 
 def detec_data_space():
 	"""判断是否有free分区磁盘"""
-	diskLists = commands.getoutput(""" fdisk  -l  |  grep -iw "^Disk"  |  grep  "/dev/"  |  grep  -vi  "\/mapper\/"  |  awk  -F  ":"   '{print  $1}'  |   awk   '{print  $2}'  |  sort  """)
+	diskLists = commands.getoutput(""" fdisk  -l  |  grep -iw "^Disk"  
+					|  grep  "/dev/"  |  grep  -vi  "\/mapper\/"  
+					|  awk  -F  ":"   '{print  $1}'  |   
+					awk   '{print  $2}'  |  sort  """)
 	diskLists = diskLists.split('\n')
 	return diskLists
 
@@ -60,7 +64,8 @@ def detec_mem_use():
 	"""
 	检测内存的使用率，包括物理内存和swap分区
 	"""
-	results = commands.getoutput(""" free -m | grep 'Mem:\|Swap:' |  awk -F ' ' '{print $1 "/" $2 "/" $3}' """)
+	results = commands.getoutput(""" free -m | grep 'Mem:\|Swap:' 
+					|  awk -F ' ' '{print $1 "/" $2 "/" $3}' """)
 	memUse = []
 	results = results.split('\n')
 	for result in results:
@@ -76,7 +81,8 @@ def detec_disk_use():
 	"""
 	检测磁盘使用率
 	"""
-	results = commands.getoutput(""" df  -k  |  egrep "[0-9]{1,3}%" | awk '{print $6,"\t", $5}'""")
+	results = commands.getoutput(""" df  -k  |  egrep "[0-9]{1,3}%" 
+					| awk '{print $6,"\t", $5}'""")
 	results = results.split('\n')
 	diskUse = []
 	for result in results:
